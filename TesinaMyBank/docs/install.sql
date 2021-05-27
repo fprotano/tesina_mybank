@@ -110,7 +110,7 @@ id int(11) not null auto_increment primary key
 ,foreign key (from_account_id) references account(id)
 ,foreign key (to_account_id) references account(id)
 ,foreign key (transaction_id) references transaction_unique_id(transaction_id)
-,unique (from_account_id,custom_code)
+,unique (to_account_id,custom_code)
 )engine=innodb;
 
 
@@ -133,7 +133,7 @@ id int(11) not null auto_increment primary key
 ,foreign key (transaction_status_id) references transaction_status(id)
 ,foreign key (verify_assigned_to) references staff(id)
 ,foreign key (transaction_id) references transaction_unique_id(transaction_id)
-,unique (from_account_id,custom_code)
+,unique (to_account_id,custom_code)
 )engine=innodb;
 
 
