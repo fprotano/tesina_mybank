@@ -28,6 +28,7 @@ public class ExternalTransaction {
 	@Column(name="to_account_id")
 	private Integer toAccountId;
 	
+	
 	private Account account;
 	
 	@Column(name="transaction_status_id")
