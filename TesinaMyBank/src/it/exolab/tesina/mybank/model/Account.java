@@ -10,7 +10,9 @@ import javax.persistence.Table;
 @Table(name="account")
 public class Account {
 	private Integer id;
+	@Column(name="created_at")
 	private Timestamp createdAt;
+	@Column(name="updated_at")
 	private Timestamp updatedAt;
 	private String iban;
 	private Double balance;
