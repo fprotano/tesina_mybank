@@ -24,11 +24,25 @@ public class HelpCenter {
 	private Timestamp closedAt;
 	@Column(name="from_account_id")
 	private Integer fromAccountId;
+	private Account account;
 	private String question;
 	@Column(name="assigned_to_id")
 	private Integer assignedToId;
+	private Staff staff;
 	
 	
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	public Staff getStaff() {
+		return staff;
+	}
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -72,16 +86,19 @@ public class HelpCenter {
 		this.assignedToId = assignedToId;
 	}
 	
+	
 	public HelpCenter(Integer id, Timestamp createdAt, Timestamp updatedAt, Timestamp closedAt, Integer fromAccountId,
-			String question, Integer assignedToId) {
+			Account account, String question, Integer assignedToId, Staff staff) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.closedAt = closedAt;
 		this.fromAccountId = fromAccountId;
+		this.account = account;
 		this.question = question;
 		this.assignedToId = assignedToId;
+		this.staff = staff;
 	}
 	
 	public HelpCenter() {
@@ -91,9 +108,10 @@ public class HelpCenter {
 	@Override
 	public String toString() {
 		return "HelpCenter [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", closedAt="
-				+ closedAt + ", fromAccountId=" + fromAccountId + ", question=" + question + ", assignedToId="
-				+ assignedToId + "]";
+				+ closedAt + ", fromAccountId=" + fromAccountId + ", account=" + account + ", question=" + question
+				+ ", assignedToId=" + assignedToId + ", staff=" + staff + "]";
 	}
+	
 	
 	
 	
