@@ -4,10 +4,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name="external_transaction")
 public class ExternalTransaction {
@@ -21,26 +27,30 @@ public class ExternalTransaction {
 	private String customCode;
 	@Column(name="transaction_id")
 	private String transactionId;
-	
+	@Fetch(value=FetchMode.JOIN)
+	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
 	private TransactionUniqueId transactionUniqueId;
 	
 	private double amount;
 	@Column(name="to_account_id")
 	private Integer toAccountId;
 	
-	
+	@Fetch(value=FetchMode.JOIN)
+	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
 	private Account account;
 	
 	@Column(name="transaction_status_id")
 	private Integer transactionStatusId;
-	
+	@Fetch(value=FetchMode.JOIN)
+	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
 	private TransactionStatus transactionStatus;
 	
 	@Column(name="transaction_error_reason")
 	private String transactionErrorReason;
 	@Column(name="verify_assigned_to")
 	private Integer verifyAssignedTo;
-	
+	@Fetch(value=FetchMode.JOIN)
+	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
 	private Staff staff;
 	
 	@Column(name="customer_name")
