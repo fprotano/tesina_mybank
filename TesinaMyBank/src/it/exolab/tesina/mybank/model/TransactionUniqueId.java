@@ -19,10 +19,10 @@ public class TransactionUniqueId {
 		}
 
 		public void setTransactionId(String transactionId) {
-			this.transactionId = transactionId;
+			this.transactionId = transactionId; 
 		}
 
-		@Override
+		@Override 
 		public String toString() {
 			return "InternalTransaction [transactionId=" + transactionId + "]";
 		}
