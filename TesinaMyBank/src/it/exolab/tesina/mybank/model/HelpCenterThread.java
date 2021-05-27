@@ -2,6 +2,7 @@ package it.exolab.tesina.mybank.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,8 +21,10 @@ public class HelpCenterThread {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Timestamp created_at;
-	private Integer help_center_id;
+	@Column(name="created_at")
+	private Timestamp createdAt;
+	@Column(name="help_center_id")
+	private Integer helpCenterId;
 	private String question;
 	private String answer;
 
@@ -29,48 +32,90 @@ public class HelpCenterThread {
 //	@Fetch(value=FetchMode.JOIN)
 //    @ManyToOne(fetch=FetchType.EAGER,optional=false)
 //    @JoinColumn(name="help_center_id",nullable=false,insertable=false,updatable=false)
-//	private HelpCenter help_center;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Timestamp getCreated_at() {
-		return created_at;
-	}
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
-	}
-	public Integer getHelp_center_id() {
-		return help_center_id;
-	}
-	public void setHelp_center_id(Integer help_center_id) {
-		this.help_center_id = help_center_id;
-	}
-	public String getQuestion() {
-		return question;
-	}
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-	public HelpCenterThread(Integer id, Timestamp created_at, Integer help_center_id, String question,
-			String answer) {
-		this.id = id;
-		this.created_at = created_at;
-		this.help_center_id = help_center_id;
-		this.question = question;
-		this.answer = answer;
-	}
+	private HelpCenter helpCenter;
+	
 	
 	public HelpCenterThread() {
 		
+	}
+
+	
+	
+
+
+	public HelpCenter getHelpCenter() {
+		return helpCenter;
+	}
+
+
+
+
+
+	public void setHelpCenter(HelpCenter helpCenter) {
+		this.helpCenter = helpCenter;
+	}
+
+
+
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public Integer getHelpCenterId() {
+		return helpCenterId;
+	}
+
+
+	public void setHelpCenterId(Integer helpCenterId) {
+		this.helpCenterId = helpCenterId;
+	}
+
+
+	public String getQuestion() {
+		return question;
+	}
+
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+
+	public String getAnswer() {
+		return answer;
+	}
+
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+
+	public HelpCenterThread(Integer id, Timestamp createdAt, Integer helpCenterId, String question, String answer) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.helpCenterId = helpCenterId;
+		this.question = question;
+		this.answer = answer;
 	}
 	
 	
