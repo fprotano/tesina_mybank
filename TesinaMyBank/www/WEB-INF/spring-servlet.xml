@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd 
+        http://www.springframework.org/schema/mvc 
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+
+<bean id="contentNegotiationManager" 
+  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <property name="favorPathExtension" value="true" />
+    <property name="favorParameter" value="false"/>
+    <property name="parameterName" value="mediaType"/>
+    <property name="ignoreAcceptHeader" value="false" />
+    <property name="defaultContentType" value="application/json" />
+    <property name="useJaf" value="false" />
+
+    <property name="mediaTypes">
+        <map>
+            <entry key="json" value="application/json" />
+            <entry key="xml" value="application/xml" />
+        </map>
+    </property>
+</bean>
+
+<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+
+<mvc:cors>
+
+	<mvc:mapping path="*"
+		allowed-origins="*"
+		allowed-methods="POST, GET"
+		allowed-headers="Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers"
+		exposed-headers="Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers" allow-credentials="false"
+		max-age="5000" />
+
+	
+
+</mvc:cors>
+
+
+    
+    <context:annotation-config/>
+    <context:component-scan base-package="it.exolab.tesina.auction.controller,it.exolab.tesina.auction.controller.api"/>
+    <jpa:repositories base-package="it.exolab.tesina.auction.repository"/>
+	<mvc:annotation-driven/>
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>	
+   <bean  class="it.exolab.tesina.auction.service.FakeService"/>
+   <bean id="apiFakeService" class="it.exolab.tesina.auction.service.api.FakeService"/>
+    
+  <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://localhost:3306/corso_auction?serverTimezone=UTC" />
+    <property name="username" value="root" />
+    <property name="password" value="gigingongo" />
+  </bean>
+	
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true"/>
+        <property name="database" value="MYSQL"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+<!--         spring based scanning for entity classes -->
+        <property name="packagesToScan" value="it.exolab.tesina.auction.model"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+</beans>
