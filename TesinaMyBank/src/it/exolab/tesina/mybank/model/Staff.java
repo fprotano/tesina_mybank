@@ -19,6 +19,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name="staff")
 public class Staff {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
