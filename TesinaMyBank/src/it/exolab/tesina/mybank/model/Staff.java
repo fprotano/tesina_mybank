@@ -4,10 +4,17 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 @Entity
 @Table(name="staff")
@@ -31,6 +38,23 @@ public class Staff {
 	private String otpCode;
 	@Column(name="otp_code_expires_at")
 	private Timestamp otpCodeExpiresAt;
+	
+	
+	
+	@Fetch(value=FetchMode.JOIN)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
+	//@Transient
+	private Role role;
+	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
