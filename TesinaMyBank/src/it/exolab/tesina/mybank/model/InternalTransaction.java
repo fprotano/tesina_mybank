@@ -60,7 +60,7 @@ public class InternalTransaction {
 	}
 	public int getFromAccountId() {
 		return fromAccountId;
-	}
+	} 
 	public void setFromAccountId(int fromAccountId) {
 		this.fromAccountId = fromAccountId;
 	}

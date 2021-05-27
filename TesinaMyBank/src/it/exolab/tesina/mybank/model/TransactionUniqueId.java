@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 public class TransactionUniqueId {
 
-	@Entity
+	@Entity 
 	@Table(name = "internal_transaction")
 	public class InternalTransaction {
 
