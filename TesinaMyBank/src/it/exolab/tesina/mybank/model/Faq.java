@@ -12,12 +12,12 @@ import javax.persistence.Table;
 public class Faq {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
-private int id;
+private Integer id;
 @Column(name="question")
 private String question;
 @Column(name="answer")
 private String answer;
-public int getId() {
+public Integer getId() {
 	return id;
 }
 public void setId(int id) {
