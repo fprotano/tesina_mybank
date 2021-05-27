@@ -13,7 +13,7 @@ public class TransactionUniqueId {
 		@Column(name="transaction_id")
 		private String transactionId;
 
-		public String getTransactionId() {
+		public String getTransactionId() { 
 			return transactionId;
 		}
 
