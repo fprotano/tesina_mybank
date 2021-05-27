@@ -24,6 +24,7 @@ public class Help_center_thread {
 	private Integer help_center_id;
 	private String question;
 	private String answer;
+	
 //	@Fetch(value=FetchMode.JOIN)
 //    @ManyToOne(fetch=FetchType.EAGER,optional=false)
 //    @JoinColumn(name="help_center_id",nullable=false,insertable=false,updatable=false)
