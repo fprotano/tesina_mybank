@@ -67,7 +67,7 @@ public class InternalTransaction {
 	public int getToAccountId() {
 		return toAccountId; 
 	}
-	public void setToAccountId(int toAccountId) {
+	public void setToAccountId(int toAccountId) { 
 		this.toAccountId = toAccountId;
 	}
 	

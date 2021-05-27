@@ -10,7 +10,7 @@ public class TransactionUniqueId {
 	@Table(name = "internal_transaction")
 	public class InternalTransaction {
 
-		@Column(name="transaction_id")
+		@Column(name="transaction_id") 
 		private String transactionId;
 
 		public String getTransactionId() { 
