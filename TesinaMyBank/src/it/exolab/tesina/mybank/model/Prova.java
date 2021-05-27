@@ -10,17 +10,6 @@ public class Prova {
 		return ciao;
 	}
 
-	public void setCiao(String ciao) {
-		this.ciao = ciao;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 	
 	
 
