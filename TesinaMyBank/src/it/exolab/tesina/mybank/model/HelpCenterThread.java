@@ -21,6 +21,7 @@ public class HelpCenterThread {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Column(name="created_at")
 	private Timestamp createdAt;
 	@Column(name="help_center_id")
