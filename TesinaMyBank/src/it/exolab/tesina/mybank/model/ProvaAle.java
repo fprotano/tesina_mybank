@@ -3,6 +3,7 @@ package it.exolab.tesina.mybank.model;
 public class ProvaAle {
 	private String lettera;
 	private int id;
+	private int numero;
 	public String getLettera() {
 		return lettera;
 	}
