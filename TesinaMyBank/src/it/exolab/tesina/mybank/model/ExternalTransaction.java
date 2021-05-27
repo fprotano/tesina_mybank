@@ -133,12 +133,7 @@ public class ExternalTransaction {
 	public void setVerifyAssignedTo(Integer verifyAssignedTo) {
 		this.verifyAssignedTo = verifyAssignedTo;
 	}
-	public Staff getVerifyAssigneTo() {
-		return verifyAssigneTo;
-	}
-	public void setVerifyAssigneTo(Staff verifyAssigneTo) {
-		this.verifyAssigneTo = verifyAssigneTo;
-	}
+	
 	public String getCustomerName() {
 		return customerName;
 	}
