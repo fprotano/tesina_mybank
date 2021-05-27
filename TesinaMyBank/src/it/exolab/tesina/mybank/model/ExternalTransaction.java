@@ -21,15 +21,27 @@ public class ExternalTransaction {
 	private String customCode;
 	@Column(name="transaction_id")
 	private String transactionId;
+	
+	private TransactionUniqueId transactionUniqueId;
+	
 	private double amount;
 	@Column(name="to_account_id")
 	private Integer toAccountId;
+	
+	private Account account;
+	
 	@Column(name="transaction_status_id")
 	private Integer transactionStatusId;
+	
+	private TransactionStatus transactionStatus;
+	
 	@Column(name="transaction_error_reason")
 	private String transactionErrorReason;
 	@Column(name="verify_assigned_to")
 	private Integer verifyAssignedTo;
+	
+	private Staff staff;
+	
 	@Column(name="customer_name")
 	private String customerName;
 	@Column(name="customer_surname")
@@ -64,6 +76,13 @@ public class ExternalTransaction {
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
+	
+	public TransactionUniqueId getTransactionUniqueId() {
+		return transactionUniqueId;
+	}
+	public void setTransactionUniqueId(TransactionUniqueId transactionUniqueId) {
+		this.transactionUniqueId = transactionUniqueId;
+	}
 	public double getAmount() {
 		return amount;
 	}
@@ -76,11 +95,31 @@ public class ExternalTransaction {
 	public void setToAccountId(Integer toAccountId) {
 		this.toAccountId = toAccountId;
 	}
+	
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	public Staff getStaff() {
+		return staff;
+	}
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 	public Integer getTransactionStatusId() {
 		return transactionStatusId;
 	}
 	public void setTransactionStatusId(Integer transactionStatusId) {
 		this.transactionStatusId = transactionStatusId;
+	}
+	
+	public TransactionStatus getTransactionStatus() {
+		return transactionStatus;
+	}
+	public void setTransactionStatus(TransactionStatus transactionStatus) {
+		this.transactionStatus = transactionStatus;
 	}
 	public String getTransactionErrorReason() {
 		return transactionErrorReason;
@@ -93,6 +132,12 @@ public class ExternalTransaction {
 	}
 	public void setVerifyAssignedTo(Integer verifyAssignedTo) {
 		this.verifyAssignedTo = verifyAssignedTo;
+	}
+	public Staff getVerifyAssigneTo() {
+		return verifyAssigneTo;
+	}
+	public void setVerifyAssigneTo(Staff verifyAssigneTo) {
+		this.verifyAssigneTo = verifyAssigneTo;
 	}
 	public String getCustomerName() {
 		return customerName;
