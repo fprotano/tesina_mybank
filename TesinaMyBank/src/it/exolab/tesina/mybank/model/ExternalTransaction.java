@@ -2,26 +2,43 @@ package it.exolab.tesina.mybank.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+@Entity
+@Table(name="external_transaction")
 public class ExternalTransaction {
 
-	private int id;
+	private Integer id;
+	@Column(name="created_at")
 	private Timestamp createdAt;
+	@Column(name="custom_code")
 	private String customCode;
+	@Column(name="transaction_id")
 	private String transactionId;
 	private double amount;
-	private int toAccountId;
-	private int transactionStatusId;
+	@Column(name="to_account_id")
+	private Integer toAccountId;
+	@Column(name="transaction_status_id")
+	private Integer transactionStatusId;
+	@Column(name="transaction_error_reason")
 	private String transactionErrorReason;
-	private int verifyAssignedTo;
+	@Column(name="verify_assigned_to")
+	private Integer verifyAssignedTo;
+	@Column(name="customer_name")
 	private String customerName;
+	@Column(name="customer_surname")
 	private String customerSurname;
+	@Column(name="customer_credit_card_no")
 	private String customerCreditCardNo;
+	@Column(name="customer_credit_card_cin")
 	private String customerCreditCardCin;
+	@Column(name="customer_credit_card_expires_at")
 	private String customerCreditCardExpiresAt;
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Timestamp getCreatedAt() {
@@ -48,16 +65,16 @@ public class ExternalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getToAccountId() {
+	public Integer getToAccountId() {
 		return toAccountId;
 	}
-	public void setToAccountId(int toAccountId) {
+	public void setToAccountId(Integer toAccountId) {
 		this.toAccountId = toAccountId;
 	}
-	public int getTransactionStatusId() {
+	public Integer getTransactionStatusId() {
 		return transactionStatusId;
 	}
-	public void setTransactionStatusId(int transactionStatusId) {
+	public void setTransactionStatusId(Integer transactionStatusId) {
 		this.transactionStatusId = transactionStatusId;
 	}
 	public String getTransactionErrorReason() {
@@ -66,10 +83,10 @@ public class ExternalTransaction {
 	public void setTransactionErrorReason(String transactionErrorReason) {
 		this.transactionErrorReason = transactionErrorReason;
 	}
-	public int getVerifyAssignedTo() {
+	public Integer getVerifyAssignedTo() {
 		return verifyAssignedTo;
 	}
-	public void setVerifyAssignedTo(int verifyAssignedTo) {
+	public void setVerifyAssignedTo(Integer verifyAssignedTo) {
 		this.verifyAssignedTo = verifyAssignedTo;
 	}
 	public String getCustomerName() {
