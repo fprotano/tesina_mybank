@@ -2,6 +2,7 @@ package it.exolab.tesina.mybank.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 public class TransactionUniqueId {
@@ -9,7 +10,7 @@ public class TransactionUniqueId {
 	@Entity 
 	@Table(name = "internal_transaction")
 	public class InternalTransaction {
-
+        @Id
 		@Column(name="transaction_id") 
 		private String transactionId;
 
