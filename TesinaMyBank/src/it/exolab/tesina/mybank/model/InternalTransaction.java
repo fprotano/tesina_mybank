@@ -24,9 +24,9 @@ public class InternalTransaction {
 	private String transactionId;
 	private double amount;
 	@Column(name="from_account_id")
-	private int fromAccountId;
+	private Integer fromAccountId;
 	@Column(name="to_account_id")
-	private int toAccountId;
+	private Integer toAccountId;
 	
 	public Integer getId() {
 		return id;
@@ -58,16 +58,16 @@ public class InternalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getFromAccountId() {
+	public Integer getFromAccountId() {
 		return fromAccountId;
 	} 
-	public void setFromAccountId(int fromAccountId) {
+	public void setFromAccountId(Integer fromAccountId) {
 		this.fromAccountId = fromAccountId;
 	}
-	public int getToAccountId() {
+	public Integer getToAccountId() {
 		return toAccountId; 
 	}
-	public void setToAccountId(int toAccountId) { 
+	public void setToAccountId(Integer toAccountId) { 
 		this.toAccountId = toAccountId;
 	}
 	
