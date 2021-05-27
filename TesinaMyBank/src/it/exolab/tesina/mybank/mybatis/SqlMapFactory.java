@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 
+
+
 public class SqlMapFactory {
 	private SqlSessionFactory sqlSessionFactory;
 	private SqlSession sqlSession;
