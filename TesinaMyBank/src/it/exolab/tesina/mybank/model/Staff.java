@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="account")
-public class Account {
+@Table(name="staff")
+public class Staff {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -19,24 +19,18 @@ public class Account {
 	private Timestamp createdAt;
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
-	private String iban;
-	private Double balance;
 	private String email;
 	private String password;
 	private String name;
 	private String surname;
+	@Column(name="role_id")
+	private Integer roleId;
 	@Column(name="next_otp_code_after_date")
 	private Timestamp nextOtpCodeAfterDate;
 	@Column(name="otp_code")
 	private String otpCode;
 	@Column(name="otp_code_expires_at")
 	private Timestamp otpCodeExpiresAt;
-	@Column(name="credit_card_no")
-	private String creditCardNo;
-	@Column(name="credit_card_cid")
-	private String creditCardCin;
-	@Column(name="credit_card_expires_at")
-	private String creditCardExpiresAt;
 	public Integer getId() {
 		return id;
 	}
@@ -54,18 +48,6 @@ public class Account {
 	}
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-	public String getIban() {
-		return iban;
-	}
-	public void setIban(String iban) {
-		this.iban = iban;
-	}
-	public Double getBalance() {
-		return balance;
-	}
-	public void setBalance(Double balance) {
-		this.balance = balance;
 	}
 	public String getEmail() {
 		return email;
@@ -91,6 +73,12 @@ public class Account {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 	public Timestamp getNextOtpCodeAfterDate() {
 		return nextOtpCodeAfterDate;
 	}
@@ -109,33 +97,14 @@ public class Account {
 	public void setOtpCodeExpiresAt(Timestamp otpCodeExpiresAt) {
 		this.otpCodeExpiresAt = otpCodeExpiresAt;
 	}
-	public String getCreditCardNo() {
-		return creditCardNo;
-	}
-	public void setCreditCardNo(String creditCardNo) {
-		this.creditCardNo = creditCardNo;
-	}
-	public String getCreditCardCin() {
-		return creditCardCin;
-	}
-	public void setCreditCardCin(String creditCardCin) {
-		this.creditCardCin = creditCardCin;
-	}
-	public String getCreditCardExpiresAt() {
-		return creditCardExpiresAt;
-	}
-	public void setCreditCardExpiresAt(String creditCardExpiresAt) {
-		this.creditCardExpiresAt = creditCardExpiresAt;
-	}
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", iban=" + iban
-				+ ", balance=" + balance + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", surname=" + surname + ", nextOtpCodeAfterDate=" + nextOtpCodeAfterDate + ", otpCode=" + otpCode
-				+ ", otpCodeExpiresAt=" + otpCodeExpiresAt + ", creditCardNo=" + creditCardNo + ", creditCardCin="
-				+ creditCardCin + ", creditCardExpiresAt=" + creditCardExpiresAt + "]";
+		return "Staff [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", email=" + email
+				+ ", password=" + password + ", name=" + name + ", surname=" + surname + ", roleId=" + roleId
+				+ ", nextOtpCodeAfterDate=" + nextOtpCodeAfterDate + ", otpCode=" + otpCode + ", otpCodeExpiresAt="
+				+ otpCodeExpiresAt + "]";
 	}
-	public Account() {
+	public Staff() {
 		super();
 	}
 	
