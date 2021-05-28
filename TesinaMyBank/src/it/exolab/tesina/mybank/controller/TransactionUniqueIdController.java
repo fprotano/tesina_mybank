@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.dto.TransactionUniqueIdDTO;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
-
+ 
 @Controller
 @RequestMapping(value="transactionUniqueId")
 public class TransactionUniqueIdController {
