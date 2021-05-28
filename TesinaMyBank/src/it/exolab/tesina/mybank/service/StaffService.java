@@ -24,8 +24,8 @@ public class StaffService {
 	public void insert(Staff model) {
 		this.staffRepository.save(model);
 	}
-	public void update(Staff model) {
-		this.staffRepository.save(model);
+	public void update(Integer id) {
+		this.staffRepository.save(id);
 	}
 
 	public void delete(Integer id) {
