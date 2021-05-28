@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="internal_transaction")
 public class InternalTransaction {
 	
-	@Id
+	@Id  
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name="created_at")
@@ -22,11 +22,14 @@ public class InternalTransaction {
 	private String customCode;
 	@Column(name="transaction_id")
 	private String transactionId;
+	private TransactionUniqueId transactionUniqueId;
 	private double amount;
 	@Column(name="from_account_id")
-	private Integer fromAccountId;
+	private Integer fromAccountId ;
+	private Account account; 
+	
 	@Column(name="to_account_id")
-	private Integer toAccountId;
+	private Integer toAccountId; 
 	
 	public Integer getId() {
 		return id;

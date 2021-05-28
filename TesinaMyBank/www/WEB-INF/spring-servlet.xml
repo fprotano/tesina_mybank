@@ -72,7 +72,7 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
     <property name="url" value="jdbc:mysql://localhost:3306/corso_auction?serverTimezone=UTC" />
     <property name="username" value="root" />
-    <property name="password" value="gigingongo" />
+    <property name="password" value="" />
   </bean>
 	
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
