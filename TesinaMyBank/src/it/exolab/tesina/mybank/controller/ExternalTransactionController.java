@@ -122,6 +122,7 @@ public class ExternalTransactionController {
 				response.setErr("Errore");
 				response.setErr_code("01");
 					return response;
+					
 		}
 	}
 	
