@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="internal_transaction")
 public class InternalTransaction {
 	
-	@Id
+	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name="created_at")
