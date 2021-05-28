@@ -15,7 +15,7 @@ import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
 import it.exolab.tesina.mybank.service.HelpCenterService;
 import it.exolab.tesina.mybank.service.HelpCenterThreadService;
-
+ 
 @Controller
 @RequestMapping(value="helpCenterThread")
 public class HelpCenterThreadController {
