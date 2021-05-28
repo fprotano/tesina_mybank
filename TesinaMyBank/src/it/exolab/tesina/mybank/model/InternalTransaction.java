@@ -27,6 +27,7 @@ public class InternalTransaction {
 	@Column(name="from_account_id")
 	private Integer fromAccountId ;
 	private Account account; 
+	
 	@Column(name="to_account_id")
 	private Integer toAccountId; 
 	
