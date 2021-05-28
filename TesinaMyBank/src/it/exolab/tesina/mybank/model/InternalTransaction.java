@@ -26,7 +26,7 @@ public class InternalTransaction {
 	private double amount;
 	@Column(name="from_account_id")
 	private Integer fromAccountId;
-	private Account account;
+	private Account account; 
 	@Column(name="to_account_id")
 	private Integer toAccountId; 
 	
