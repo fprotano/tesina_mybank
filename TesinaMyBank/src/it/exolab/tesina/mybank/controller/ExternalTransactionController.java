@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import it.exolab.mavenspring.model.HTTPResponse;
-import it.exolab.mavenspring.model.User;
+import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value="libro")
+@RequestMapping(value="externalTransaction")
 public class ExternalTransactionController {
 	
 	private ExternalTransactionService externalTransactionService;
@@ -26,30 +25,49 @@ public class ExternalTransactionController {
 	}
 	
 	
-	@RequestMapping(value="login", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 @ResponseBody
-	 public HTTPResponse login(@RequestBody User user) {
-		 	HTTPResponse response = new HTTPResponse();
-		 	User user2 = this.userservice.findByEmailAndPassword(user.getEmail(), user.getPassword());
-			if(user2!=null) {
-		 	response.setData(user2);
-		 	response.setSuccess(true);
-			return response;
-			} else {
-				response.setSuccess(false);
-				response.setErr("Credenziali errate!");
-				response.setErr_code("01");
-					return response;
-			}
-		}
+//	@RequestMapping(value="login", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	 @ResponseBody
+//	 public HTTPResponse login(@RequestBody User user) {
+//		 	HTTPResponse response = new HTTPResponse();
+//		 	User user2 = this.userservice.findByEmailAndPassword(user.getEmail(), user.getPassword());
+//			if(user2!=null) {
+//		 	response.setData(user2);
+//		 	response.setSuccess(true);
+//			return response;
+//			} else {
+//				response.setSuccess(false);
+//				response.setErr("Credenziali errate!");
+//				response.setErr_code("01");
+//					return response;
+//			}
+//		}
+//	
+//	@RequestMapping(value="register2", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse register(@RequestBody User user) {
+//		HTTPResponse response = new HTTPResponse();
+//		if(user.getNome().length()>=1 && user.getCognome().length()>=1 && user.getEmail().length()>=1 && user.getPassword().length()>=1) {
+//			this.userservice.save(user);
+//			response.setData(user);
+//			response.setSuccess(true);
+//			return response;
+//		} else {
+//				response.setSuccess(false);
+//				response.setErr("Errore");
+//				response.setErr_code("01");
+//					return response;
+//		}
+//	}
 	
-	@RequestMapping(value="register2", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	
+	
+	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody User user) {
+	public HTTPResponse register(@RequestBody ExternalTransaction externalTransaction) {
 		HTTPResponse response = new HTTPResponse();
-		if(user.getNome().length()>=1 && user.getCognome().length()>=1 && user.getEmail().length()>=1 && user.getPassword().length()>=1) {
-			this.userservice.save(user);
-			response.setData(user);
+		if(externalTransaction!=null) {
+			this.externalTransactionService.insert(externalTransaction);
+			response.setData(externalTransaction);
 			response.setSuccess(true);
 			return response;
 		} else {
