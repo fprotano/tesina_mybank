@@ -30,6 +30,7 @@ public class InternalTransaction {
 	
 	
 	
+	
 	@Column(name="to_account_id")
 	private Integer toAccountId; 
 	
