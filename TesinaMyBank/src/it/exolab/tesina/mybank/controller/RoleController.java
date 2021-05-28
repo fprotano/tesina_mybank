@@ -7,6 +7,6 @@ import javax.persistence.Table;
 @Table(name="role")
 public class RoleController {
 	
-	
+	 
 	
 }

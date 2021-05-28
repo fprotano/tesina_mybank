@@ -78,7 +78,7 @@ public class AccountController {
 	public String delete(@PathVariable int id) {
 		accountService.delete(id);
 		return "redirect:/account/list";
-		
+		 
 	}
 	
 	@RequestMapping(value="login", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
