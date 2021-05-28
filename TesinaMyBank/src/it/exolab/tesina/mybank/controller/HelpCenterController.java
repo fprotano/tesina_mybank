@@ -24,7 +24,7 @@ public class HelpCenterController {
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
 		this.helpCenterService = helpCenterService;
 	}
-	
+	 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse register(@RequestBody HelpCenter helpCenter) {
