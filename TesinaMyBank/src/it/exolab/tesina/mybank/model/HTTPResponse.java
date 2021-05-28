@@ -16,6 +16,7 @@ public class HTTPResponse {
 		this.data = data;
 	}
 	
+	
 	public HTTPResponse(Object data) {
 		this(true,null,null,data);
 	}
