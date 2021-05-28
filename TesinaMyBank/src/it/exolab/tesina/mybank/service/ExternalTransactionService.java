@@ -32,6 +32,7 @@ private ExternalTransactionRepository externalTransactionRepository;
 	}
 	
 	
+	
 	public void delete(int id) {
 		externalTransactionRepository.delete(id);
 	}
