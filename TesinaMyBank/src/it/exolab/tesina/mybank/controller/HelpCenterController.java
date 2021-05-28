@@ -65,8 +65,8 @@ public class HelpCenterController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<HelpCenter> transazioni = this.helpCenterService.findAll();
-			response.setData(transazioni);
+			List<HelpCenter> helpcenters = this.helpCenterService.findAll();
+			response.setData(helpcenters);
 			response.setSuccess(true);
 			return response;
 		
