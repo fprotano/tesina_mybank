@@ -28,7 +28,7 @@ public class InternalTransaction {
 	private Integer fromAccountId;
 	private Account account;
 	@Column(name="to_account_id")
-	private Integer toAccountId;
+	private Integer toAccountId; 
 	
 	public Integer getId() {
 		return id;
