@@ -11,7 +11,7 @@ public class HelpCenterThreadService {
 	
 	private HelpCenterThreadRepository helpCenterThreadRepository;
   
-	@Autowired(required=true)
+	@Autowired(required=true) 
 	public void setHelpCenterThreadRepository(HelpCenterThreadRepository helpCenterThreadRepository) {
 		this.helpCenterThreadRepository = helpCenterThreadRepository;
 	}
