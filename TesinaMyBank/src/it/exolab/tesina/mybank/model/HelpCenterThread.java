@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import it.exolab.tesina.mybank.model.HelpCenter;
 
 @Entity
 @Table(name="help_center_thread")
@@ -121,3 +121,4 @@ public class HelpCenterThread {
 	
 	
 }
+
