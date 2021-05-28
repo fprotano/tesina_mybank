@@ -14,6 +14,7 @@ public class FakeCRUD  extends GenericCRUD<Fake,FakeMapper> {
 
 	}
 	
+	
 	@Override
 	public void insert(Fake model) throws Exception {
 //		validateInsert(model);
