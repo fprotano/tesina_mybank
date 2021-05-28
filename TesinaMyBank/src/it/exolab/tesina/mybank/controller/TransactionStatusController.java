@@ -59,7 +59,7 @@ public class TransactionStatusController {
 			return response;
 		}
 	}
-	
+	 
 	
 	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -71,7 +71,7 @@ public class TransactionStatusController {
 			return response;
 		
 	}
-	
+	 
 	
 	@RequestMapping(value="delete", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
