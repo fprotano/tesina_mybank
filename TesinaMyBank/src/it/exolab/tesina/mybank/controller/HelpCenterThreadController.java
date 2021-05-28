@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
+import it.exolab.tesina.mybank.model.dto.HelpCenterThreadDTO;
 import it.exolab.tesina.mybank.service.HelpCenterService;
 import it.exolab.tesina.mybank.service.HelpCenterThreadService;
  
@@ -29,7 +30,7 @@ public class HelpCenterThreadController {
 	
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody HelpCenterThread helpCenterThread) {
+	public HTTPResponse register(@RequestBody HelpCenterThreadDTO helpCenterThread) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenterThread != null) {
 			this.helpCenterThreadService.insert(helpCenterThread);
@@ -67,7 +68,7 @@ public class HelpCenterThreadController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<HelpCenterThread> transazioni = this.helpCenterThreadService.findAll();
+			List<HelpCenterThreadDTO> transazioni = this.helpCenterThreadService.findAll();
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;

@@ -1,11 +1,11 @@
 package it.exolab.tesina.mybank.service;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.ExternalTransaction;
-import it.exolab.tesina.mybank.model.TransactionStatus;
+import it.exolab.tesina.mybank.model.dto.TransactionStatusDTO;
 import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
 import it.exolab.tesina.mybank.repository.TransactionStatusRepository;
 
@@ -18,15 +18,15 @@ private TransactionStatusRepository transactionStatusRepository;
 		this.transactionStatusRepository=transactionStatusRepository;
 	}
 	
-	public List<TransactionStatus> findAll(){
-		return (List<TransactionStatus>) transactionStatusRepository.findAll();	
+	public List<TransactionStatusDTO> findAll(){
+		return (List<TransactionStatusDTO>) transactionStatusRepository.findAll();	
 	}
 	
-	public void insert(TransactionStatus transactionStatus) {
+	public void insert(TransactionStatusDTO transactionStatus) {
 		transactionStatusRepository.save(transactionStatus);
 	}
 	
-	public void update(TransactionStatus transactionStatus) {
+	public void update(TransactionStatusDTO transactionStatus) {
 		transactionStatusRepository.save(transactionStatus);
 	}
 	
@@ -38,7 +38,7 @@ private TransactionStatusRepository transactionStatusRepository;
 	
 	
 	
-	public TransactionStatus find(int id) {
+	public TransactionStatusDTO find(int id) {
 		return transactionStatusRepository.findOne(id);
 	}
 }

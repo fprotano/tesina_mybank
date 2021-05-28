@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.HelpCenterThread;
+import it.exolab.tesina.mybank.model.dto.HelpCenterThreadDTO;
 import it.exolab.tesina.mybank.repository.HelpCenterThreadRepository;
 
 public class HelpCenterThreadService {
@@ -16,17 +17,17 @@ public class HelpCenterThreadService {
 		this.helpCenterThreadRepository = helpCenterThreadRepository;
 	}
 	
-	public List<HelpCenterThread> findAll(){
-		return (List<HelpCenterThread>) helpCenterThreadRepository.findAll();
+	public List<HelpCenterThreadDTO> findAll(){
+		return (List<HelpCenterThreadDTO>) helpCenterThreadRepository.findAll();
 	}
-	public void insert(HelpCenterThread internalTransaction){
+	public void insert(HelpCenterThreadDTO internalTransaction){
 		this.helpCenterThreadRepository.save(internalTransaction);
 	}
 	
 	public void delete(Integer id){
 		this.helpCenterThreadRepository.delete(id);
 	}
-	public void update(HelpCenterThread helpCenterThread) {
+	public void update(HelpCenterThreadDTO helpCenterThread) {
 		helpCenterThreadRepository.save(helpCenterThread);
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.TransactionStatus;
+import it.exolab.tesina.mybank.model.dto.TransactionStatusDTO;
 import it.exolab.tesina.mybank.service.TransactionStatusService;
 
 @Controller
@@ -27,7 +28,7 @@ public class TransactionStatusController {
 	
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody TransactionStatus transactionStatus) {
+	public HTTPResponse register(@RequestBody TransactionStatusDTO transactionStatus) {
 		HTTPResponse response = new HTTPResponse();
 		if (transactionStatusService != null) {
 			this.transactionStatusService.insert(transactionStatus);
@@ -65,7 +66,7 @@ public class TransactionStatusController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<TransactionStatus> transazioni = this.transactionStatusService.findAll();
+			List<TransactionStatusDTO> transazioni = this.transactionStatusService.findAll();
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;

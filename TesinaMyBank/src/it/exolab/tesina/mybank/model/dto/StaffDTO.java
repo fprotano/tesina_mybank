@@ -1,6 +1,6 @@
 package it.exolab.tesina.mybank.model.dto;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +16,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import it.exolab.tesina.mybank.model.Staff;
+
 
 
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.Faq;
+import it.exolab.tesina.mybank.model.dto.FaqDTO;
 import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
 import it.exolab.tesina.mybank.repository.FaqRepository;
 
@@ -19,15 +20,15 @@ private FaqRepository faqRepository;
 		this.faqRepository=faqRepository;
 	}
 	
-	public List<Faq> findAll(){
-		return (List<Faq>) faqRepository.findAll();	
+	public List<FaqDTO> findAll(){
+		return (List<FaqDTO>) faqRepository.findAll();	
 	}
 	
-	public void insert(Faq faq) {
+	public void insert(FaqDTO faq) {
 		faqRepository.save(faq);
 	}
 	
-	public void update(Faq faq) {
+	public void update(FaqDTO faq) {
 		faqRepository.save(faq);
 	}
 	

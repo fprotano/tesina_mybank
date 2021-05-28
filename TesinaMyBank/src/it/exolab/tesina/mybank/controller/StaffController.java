@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
-
+import it.exolab.tesina.mybank.model.dto.StaffDTO;
 import it.exolab.tesina.mybank.service.StaffService;
 
 @CrossOrigin
@@ -46,7 +46,7 @@ public class StaffController {
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 
-	public HTTPResponse registrazione(@RequestBody Staff staff) {
+	public HTTPResponse registrazione(@RequestBody StaffDTO staff) {
 		if (staff != null) {
 			this.staffService.insert(staff);
 			response = new HTTPResponse(staff);
@@ -80,7 +80,7 @@ public class StaffController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 
-		List<Staff> staff = this.staffService.findAll();
+		List<StaffDTO> staff = this.staffService.findAll();
 		response = new HTTPResponse(staff);
 		return response;
 
