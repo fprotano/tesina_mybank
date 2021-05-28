@@ -6,4 +6,6 @@ import it.exolab.tesina.mybank.model.Account;
 
 public interface AccountRepository extends CrudRepository <Account, Integer>{
 
+	public Account findByEmailAndPassword(String email, String password);
+	 
 }

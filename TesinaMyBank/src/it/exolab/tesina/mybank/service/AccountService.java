@@ -11,17 +11,20 @@ import it.exolab.tesina.mybank.repository.AccountRepository;
 
 public class AccountService {
 	
-private AccountRepository accountRepository;
-	
+	private AccountRepository accountRepository;
+	 
 	@Autowired
-	public void setAutoreRepository(AccountRepository accountRepository) {
+	public void setAccountRepository(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}
 	
 	public List<Account> findAll(){
 		return (List<Account>)this.accountRepository.findAll();
 	}
-	public void save(Account model) {
+	public void insert(Account model) {
+		this.accountRepository.save(model);
+	}
+	public void update(Account model) {
 		this.accountRepository.save(model);
 	}
 	public void delete(int id) {
@@ -29,5 +32,8 @@ private AccountRepository accountRepository;
 	}
 	public Account find(int id) {
 		return this.accountRepository.findOne(id);
+	} 
+	public Account findByEmailAndPassword(String email, String password) {
+		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
 }
