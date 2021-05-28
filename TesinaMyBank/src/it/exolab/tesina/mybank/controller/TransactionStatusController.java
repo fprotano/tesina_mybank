@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.HelpCenter;
-import it.exolab.tesina.mybank.service.HelpCenterService;
 
+import it.exolab.tesina.mybank.model.HTTPResponse;
+import it.exolab.tesina.mybank.model.TransactionStatus;
+import it.exolab.tesina.mybank.service.TransactionStatusService;
 
 @Controller
-@RequestMapping(value="helpCenter")
-public class HelpCenterController {
+@RequestMapping(value="transactionStatus")
+public class TransactionStatusController {
 	
-	private HelpCenterService helpCenterService;
+	private TransactionStatusService transactionStatusService;
 	
-	@Autowired(required=true)
-	public void setHelpCenterService(HelpCenterService helpCenterService) {
-		this.helpCenterService = helpCenterService;
+	@Autowired(required=true)  
+	public void setTransactionStatusService(TransactionStatusService transactionStatusService) {
+		this.transactionStatusService = transactionStatusService;
 	}
-	 
+	
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody HelpCenter helpCenter) {
+	public HTTPResponse register(@RequestBody TransactionStatus transactionStatus) {
 		HTTPResponse response = new HTTPResponse();
-		if (helpCenter != null) {
-			this.helpCenterService.insert(helpCenter);
-			response.setData(helpCenter);
+		if (transactionStatusService != null) {
+			this.transactionStatusService.insert(transactionStatus);
+			response.setData(transactionStatus);
 			response.setSuccess(true);
 			return response;
 		} else {
@@ -48,7 +48,7 @@ public class HelpCenterController {
 	public HTTPResponse findOne(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
 		if (id != null) {
-			this.helpCenterService.find(id);
+			this.transactionStatusService.find(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
@@ -59,26 +59,26 @@ public class HelpCenterController {
 			return response;
 		}
 	}
-	
+	 
 	
 	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<HelpCenter> helpcenters = this.helpCenterService.findAll();
-			response.setData(helpcenters);
+			List<TransactionStatus> transazioni = this.transactionStatusService.findAll();
+			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;
 		
 	}
-	
+	 
 	
 	@RequestMapping(value="delete", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse delete(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
 		if(id!=null) {
-			this.helpCenterService.delete(id);
+			this.transactionStatusService.delete(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
@@ -93,5 +93,4 @@ public class HelpCenterController {
 
 	
 	
-
 }

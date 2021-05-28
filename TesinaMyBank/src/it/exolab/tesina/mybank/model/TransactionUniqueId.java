@@ -13,22 +13,26 @@ public class TransactionUniqueId {
 		@Column(name="transaction_id") 
 		private String transactionId;
 
-		public String getTransactionId() { 
+		public String getTransactionId() {
 			return transactionId;
 		}
 
 		public void setTransactionId(String transactionId) {
-			this.transactionId = transactionId; 
+			this.transactionId = transactionId;
 		}
 
-		@Override 
+		@Override
 		public String toString() {
-			return "InternalTransaction [transactionId=" + transactionId + "]";
+			return "TransactionUniqueId [transactionId=" + transactionId + "]";
 		}
 
-		public TransactionUniqueId(){
-			
+		public TransactionUniqueId() {
+			super();
 		}
+
+		
+
+		
 	
 	}
 
