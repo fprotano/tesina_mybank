@@ -6,4 +6,4 @@ import it.exolab.tesina.mybank.model.HelpCenterThread;
 
 public interface HelpCenterThreadRepository extends CrudRepository<HelpCenterThread, Integer>{
 
-} 
+}  

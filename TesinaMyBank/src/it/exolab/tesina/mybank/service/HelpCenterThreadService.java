@@ -10,7 +10,7 @@ import it.exolab.tesina.mybank.repository.HelpCenterThreadRepository;
 public class HelpCenterThreadService {
 	
 	private HelpCenterThreadRepository helpCenterThreadRepository;
- 
+  
 	@Autowired(required=true)
 	public void setHelpCenterThreadRepository(HelpCenterThreadRepository helpCenterThreadRepository) {
 		this.helpCenterThreadRepository = helpCenterThreadRepository;
