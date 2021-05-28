@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Entity 
 @Table(name = "transaction_unique_id")
 public class TransactionUniqueId {
-	
         @Id
 		@Column(name="transaction_id") 
 		private String transactionId;

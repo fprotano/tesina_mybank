@@ -1,15 +1,35 @@
 package it.exolab.tesina.mybank.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="role")
 public class Role {
+	
 	@Id
 	private Integer id;
 	private String title;
+	
+	@OneToMany(mappedBy="staff")
+//	@Transient
+	private List<Staff> staff;
+	
+	public List<Staff> getStaff() {
+		return staff;
+	}
+	public void setStaff(List<Staff> staff) {
+		this.staff = staff;
+	}
+	
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
