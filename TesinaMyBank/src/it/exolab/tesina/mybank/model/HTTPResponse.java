@@ -21,7 +21,7 @@ public class HTTPResponse {
 		this(true,null,null,data);
 	}
 	public HTTPResponse(String err,String err_code) {
-		this(true,err,err_code,null);
+		this(false,err,err_code,null);
 	}
 	
 	
