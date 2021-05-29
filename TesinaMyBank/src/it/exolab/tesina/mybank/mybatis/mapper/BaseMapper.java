@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface BaseMapper<T> {
 	
-	public void insert (T model) throws Exception;
-	public void update (T model) throws Exception;
+	public void insert (T model);
+	public void update (T model);
 	public List<T> findAll();
 	
 	

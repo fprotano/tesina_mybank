@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.ExternalTransaction;
-import it.exolab.tesina.mybank.model.Staff;
+import it.exolab.tesina.mybank.model.dto.StaffDTO;
 import it.exolab.tesina.mybank.repository.StaffRepository;
 
 public class StaffService {
@@ -18,23 +18,23 @@ public class StaffService {
 		this.staffRepository=staffRepository;
 		}
 	
-	public List<Staff> findAll() {
-		return (List<Staff>) this.staffRepository.findAll();
+	public List<StaffDTO> findAll() {
+		return (List<StaffDTO>) this.staffRepository.findAll();
 	}
-	public void insert(Staff model) {
+	public void insert(StaffDTO model) {
 		this.staffRepository.save(model);
 	}
-	public void update(Staff model) {
+	public void update(StaffDTO model) {
 		this.staffRepository.save(model);
 	}
 
 	public void delete(Integer id) {
 		this.staffRepository.delete(id);
 	}
-	public Staff findById(Integer id) {
+	public StaffDTO findById(Integer id) {
 		return this.staffRepository.findOne(id);
 	}
-	 public Staff findByEmailAndPassword(String email , String password) {
+	 public StaffDTO findByEmailAndPassword(String email , String password) {
 		 return this.staffRepository.findByEmailAndPassword(email, password);
 	 }
 	

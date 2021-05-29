@@ -1,33 +1,40 @@
 package it.exolab.tesina.mybank.service;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.Account;
+import it.exolab.tesina.mybank.model.dto.AccountDTO;
 import it.exolab.tesina.mybank.repository.AccountRepository;
 
 
 
 public class AccountService {
 	
-private AccountRepository accountRepository;
-	
+	private AccountRepository accountRepository;
+	 
 	@Autowired
-	public void setAutoreRepository(AccountRepository accountRepository) {
+	public void setAccountRepository(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}
 	
-	public List<Account> findAll(){
-		return (List<Account>)this.accountRepository.findAll();
+	public List<AccountDTO> findAll(){
+		return (List<AccountDTO>)this.accountRepository.findAll();
 	}
-	public void save(Account model) {
+	public void insert(AccountDTO model) {
+		this.accountRepository.save(model);
+	}
+	public void update(AccountDTO model) {
 		this.accountRepository.save(model);
 	}
 	public void delete(int id) {
 		this.accountRepository.delete(id);;
 	}
-	public Account find(int id) {
+	public AccountDTO find(int id) {
 		return this.accountRepository.findOne(id);
+	} 
+	public AccountDTO findByEmailAndPassword(String email, String password) {
+		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
 }

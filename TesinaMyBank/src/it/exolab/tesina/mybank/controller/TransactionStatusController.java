@@ -10,31 +10,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.InternalTransaction;
-import it.exolab.tesina.mybank.model.dto.InternalTransactionDTO;
-import it.exolab.tesina.mybank.service.InternalTransactionService;
+import it.exolab.tesina.mybank.model.TransactionStatus;
+import it.exolab.tesina.mybank.model.dto.TransactionStatusDTO;
+import it.exolab.tesina.mybank.service.TransactionStatusService;
 
 @Controller
-@RequestMapping(value = "internalTransaction")
-
-public class InternalTransactionController {
-
-	private InternalTransactionService internalTransactionService;
-
-	@Autowired(required = true)
-	public void setExternalTransactionService(InternalTransactionService internalTransactionService) {
-		this.internalTransactionService = internalTransactionService;
+@RequestMapping(value="transactionStatus")
+public class TransactionStatusController {
+	
+	private TransactionStatusService transactionStatusService;
+	
+	@Autowired(required=true)  
+	public void setTransactionStatusService(TransactionStatusService transactionStatusService) {
+		this.transactionStatusService = transactionStatusService;
 	}
-
+	
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody InternalTransactionDTO internalTransaction) {
+	public HTTPResponse register(@RequestBody TransactionStatusDTO transactionStatus) {
 		HTTPResponse response = new HTTPResponse();
-		if (internalTransaction != null) {
-			this.internalTransactionService.insert(internalTransaction);
-			response.setData(internalTransaction);
+		if (transactionStatusService != null) {
+			this.transactionStatusService.insert(transactionStatus);
+			response.setData(transactionStatus);
 			response.setSuccess(true);
 			return response;
 		} else {
@@ -43,14 +41,15 @@ public class InternalTransactionController {
 			response.setErr_code("01");
 			return response;
 		}
-	}
-
+	} 
+	
+	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
 		if (id != null) {
-			this.internalTransactionService.find(id);
+			this.transactionStatusService.find(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
@@ -61,33 +60,38 @@ public class InternalTransactionController {
 			return response;
 		}
 	}
-
-	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 
+	
+	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findAll() {
-		HTTPResponse response = new HTTPResponse();
-		List<InternalTransactionDTO> transazioni = this.internalTransactionService.findAll();
-		response.setData(transazioni);
-		response.setSuccess(true);
-		return response;
-
+			HTTPResponse response = new HTTPResponse();
+			List<TransactionStatusDTO> transazioni = this.transactionStatusService.findAll();
+			response.setData(transazioni);
+			response.setSuccess(true);
+			return response;
+		
 	}
-
-	@RequestMapping(value = "delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 
+	
+	@RequestMapping(value="delete", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse delete(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
-		if (id != null) {
-			this.internalTransactionService.delete(id);
+		if(id!=null) {
+			this.transactionStatusService.delete(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
 		} else {
-			response.setSuccess(false);
-			response.setErr("Errore");
-			response.setErr_code("01");
-			return response;
-
+				response.setSuccess(false);
+				response.setErr("Errore");
+				response.setErr_code("01");
+					return response;
+					
 		}
 	}
+
+	
+	
 }

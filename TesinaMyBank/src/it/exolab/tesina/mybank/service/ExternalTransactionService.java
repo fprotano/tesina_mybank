@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.dto.ExternalTransactionDTO;
 import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
 
 
@@ -19,15 +20,15 @@ private ExternalTransactionRepository externalTransactionRepository;
 		this.externalTransactionRepository=externalTransactionRepository;
 	}
 	
-	public List<ExternalTransaction> findAll(){
-		return (List<ExternalTransaction>) externalTransactionRepository.findAll();	
+	public List<ExternalTransactionDTO> findAll(){
+		return (List<ExternalTransactionDTO>) externalTransactionRepository.findAll();	
 	}
 	
-	public void insert(ExternalTransaction externalTransaction) {
+	public void insert(ExternalTransactionDTO externalTransaction) {
 		externalTransactionRepository.save(externalTransaction);
 	}
 	
-	public void update(ExternalTransaction externalTransaction) {
+	public void update(ExternalTransactionDTO externalTransaction) {
 		externalTransactionRepository.save(externalTransaction);
 	}
 	
@@ -39,7 +40,7 @@ private ExternalTransactionRepository externalTransactionRepository;
 	
 	
 	
-	public ExternalTransaction find(int id) {
+	public ExternalTransactionDTO find(int id) {
 		return externalTransactionRepository.findOne(id);
 	}
 }

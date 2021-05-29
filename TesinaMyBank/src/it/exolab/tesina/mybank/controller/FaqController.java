@@ -10,66 +10,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.dto.ExternalTransactionDTO;
+import it.exolab.tesina.mybank.model.dto.FaqDTO;
+import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
+import it.exolab.tesina.mybank.service.FaqService;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value="externalTransaction")
-public class ExternalTransactionController {
-	
-	private ExternalTransactionService externalTransactionService;
+@RequestMapping(value="faq")
+public class FaqController {
+
+	private FaqService faqService;
 	
 	@Autowired(required=true)
-	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
-		this.externalTransactionService = externalTransactionService;
+	public void setFaqService(FaqService faqService) {
+		this.faqService = faqService;
 	}
-	
-	
-//	@RequestMapping(value="login", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	 @ResponseBody
-//	 public HTTPResponse login(@RequestBody User user) {
-//		 	HTTPResponse response = new HTTPResponse();
-//		 	User user2 = this.userservice.findByEmailAndPassword(user.getEmail(), user.getPassword());
-//			if(user2!=null) {
-//		 	response.setData(user2);
-//		 	response.setSuccess(true);
-//			return response;
-//			} else {
-//				response.setSuccess(false);
-//				response.setErr("Credenziali errate!");
-//				response.setErr_code("01");
-//					return response;
-//			}
-//		}
-//	
-//	@RequestMapping(value="register2", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse register(@RequestBody User user) {
-//		HTTPResponse response = new HTTPResponse();
-//		if(user.getNome().length()>=1 && user.getCognome().length()>=1 && user.getEmail().length()>=1 && user.getPassword().length()>=1) {
-//			this.userservice.save(user);
-//			response.setData(user);
-//			response.setSuccess(true);
-//			return response;
-//		} else {
-//				response.setSuccess(false);
-//				response.setErr("Errore");
-//				response.setErr_code("01");
-//					return response;
-//		}
-//	}
-	
-	
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody ExternalTransactionDTO externalTransaction) {
+	public HTTPResponse register(@RequestBody FaqDTO faq) {
 		HTTPResponse response = new HTTPResponse();
-		if(externalTransaction!=null) {
-			this.externalTransactionService.insert(externalTransaction);
-			response.setData(externalTransaction);
+		if(faq!=null) {
+			this.faqService.insert(faq);
+			response.setData(faq);
 			response.setSuccess(true);
 			return response;
 		} else {
@@ -85,7 +52,7 @@ public class ExternalTransactionController {
 	public HTTPResponse findOne(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
 		if(id!=null) {
-			this.externalTransactionService.find(id);
+			this.faqService.find(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
@@ -101,8 +68,8 @@ public class ExternalTransactionController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<ExternalTransactionDTO> transazioni = this.externalTransactionService.findAll();
-			response.setData(transazioni);
+			List<FaqDTO> faqs = this.faqService.findAll();
+			response.setData(faqs);
 			response.setSuccess(true);
 			return response;
 		
@@ -113,7 +80,7 @@ public class ExternalTransactionController {
 	public HTTPResponse delete(@RequestBody Integer id) {
 		HTTPResponse response = new HTTPResponse();
 		if(id!=null) {
-			this.externalTransactionService.delete(id);
+			this.faqService.delete(id);
 			response.setData(id);
 			response.setSuccess(true);
 			return response;
@@ -126,6 +93,4 @@ public class ExternalTransactionController {
 		}
 	}
 	
-	
-
 }

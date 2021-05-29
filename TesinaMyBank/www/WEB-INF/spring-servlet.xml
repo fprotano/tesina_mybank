@@ -52,8 +52,8 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 
     
     <context:annotation-config/>
-    <context:component-scan base-package="it.exolab.tesina.auction.controller,it.exolab.tesina.auction.controller.api"/>
-    <jpa:repositories base-package="it.exolab.tesina.auction.repository"/>
+    <context:component-scan base-package="it.exolab.tesina.mybank.controller"/>
+    <jpa:repositories base-package="it.exolab.tesina.mybank.repository"/>
 	<mvc:annotation-driven/>
 
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
@@ -62,17 +62,26 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
     </bean>	
-   <bean  class="it.exolab.tesina.auction.service.FakeService"/>
-   <bean id="apiFakeService" class="it.exolab.tesina.auction.service.api.FakeService"/>
+   <bean  class="it.exolab.tesina.mybank.service.AccountService"/>
+   <bean  class="it.exolab.tesina.mybank.service.ExternalTransactionService"/>
+   <bean  class="it.exolab.tesina.mybank.service.FaqService"/>
+   <bean  class="it.exolab.tesina.mybank.service.HelpCenterService"/>
+   <bean  class="it.exolab.tesina.mybank.service.HelpCenterThreadService"/>
+   <bean  class="it.exolab.tesina.mybank.service.InternalTransactionService"/>
+   <bean  class="it.exolab.tesina.mybank.service.PushService"/>
+   <bean  class="it.exolab.tesina.mybank.service.RoleService"/>
+   <bean  class="it.exolab.tesina.mybank.service.StaffService"/>
+   <bean  class="it.exolab.tesina.mybank.service.TransactionStatusService"/>
+   <bean  class="it.exolab.tesina.mybank.service.TransactionUniqueIdService"/>
     
   <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/corso_auction?serverTimezone=UTC" />
+    <property name="url" value="jdbc:mysql://localhost:3306/tesina_mybank?serverTimezone=UTC" />
     <property name="username" value="root" />
-    <property name="password" value="" />
+    <property name="password" value="gigingongo" />
   </bean>
 	
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -84,7 +93,7 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
 <!--         spring based scanning for entity classes -->
-        <property name="packagesToScan" value="it.exolab.tesina.auction.model"/>
+        <property name="packagesToScan" value="it.exolab.tesina.mybank.model"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
