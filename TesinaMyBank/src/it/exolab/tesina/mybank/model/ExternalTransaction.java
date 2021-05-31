@@ -61,7 +61,7 @@ public class ExternalTransaction {
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="verify_assigned_to", nullable=false,insertable=false, updatable=false)
-	private Staff staff;
+	private Staff staff; 
 	
 	@Column(name="customer_name")
 	private String customerName;
