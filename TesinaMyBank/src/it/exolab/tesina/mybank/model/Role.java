@@ -16,16 +16,16 @@ public class Role {
 	private Integer id;
 	private String title;
 	
-	@OneToMany(mappedBy="role")
-//	@Transient
-	private List<Staff> staff;
-	
-	public List<Staff> getStaff() {
-		return staff;
-	}
-	public void setStaff(List<Staff> staff) {
-		this.staff = staff;
-	}
+//	@OneToMany(mappedBy="role")
+////	@Transient
+//	private List<Staff> staff;
+//	
+//	public List<Staff> getStaff() {
+//		return staff;
+//	}
+//	public void setStaff(List<Staff> staff) {
+//		this.staff = staff;
+//	}
 	
 	
 	

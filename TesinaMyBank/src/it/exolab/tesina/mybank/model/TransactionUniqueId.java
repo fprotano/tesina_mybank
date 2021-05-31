@@ -28,7 +28,7 @@ public class TransactionUniqueId {
    		this.externaltransaction = externaltransaction;
    	}        
 
-    // OneToMany per InternalTransaction
+    // OneToOne per InternalTransaction
    	@OneToOne(mappedBy="transactionUniqueId")
    	private InternalTransaction internaltransaction;
    	

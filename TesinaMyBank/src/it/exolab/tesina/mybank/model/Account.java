@@ -42,39 +42,39 @@ public class Account {
 	@Column(name="credit_card_expires_at")
 	private String creditCardExpiresAt;
 	
-	// OneToMany per HelpCenter
-	@OneToMany(mappedBy="account")
-//	@Transient
-	private List<HelpCenter> helpCenter;
+//	// OneToMany per HelpCenter
+//	@OneToMany(mappedBy="account")
+////	@Transient
+//	private List<HelpCenter> helpCenter;
+//	
+//	public List<HelpCenter> getHelpCenter() {
+//		return helpCenter;
+//	}
+//	public void setHelpCenter(List<HelpCenter> helpCenter) {
+//		this.helpCenter = helpCenter;
+//	}
 	
-	public List<HelpCenter> getHelpCenter() {
-		return helpCenter;
-	}
-	public void setHelpCenter(List<HelpCenter> helpCenter) {
-		this.helpCenter = helpCenter;
-	}
+//	// OneToMany per ExternalTransaction
+//	@OneToMany(mappedBy="account")
+//	private List<ExternalTransaction> externaltransaction;
+//	
+//	public List<ExternalTransaction> getExternaltransaction() {
+//		return externaltransaction;
+//	}
+//	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+//		this.externaltransaction = externaltransaction;
+//	}
 	
-	// OneToMany per ExternalTransaction
-	@OneToMany(mappedBy="account")
-	private List<ExternalTransaction> externaltransaction;
-	
-	public List<ExternalTransaction> getExternaltransaction() {
-		return externaltransaction;
-	}
-	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
-		this.externaltransaction = externaltransaction;
-	}
-	
-	// OneToMany per ExternalTransaction
-	@OneToMany(mappedBy="account")
-	private List<InternalTransaction> internaltransaction;
-	
-	public List<InternalTransaction> getInternaltransaction() {
-		return internaltransaction;
-	}
-	public void setInternaltransaction(List<InternalTransaction> internaltransaction) {
-		this.internaltransaction = internaltransaction;
-	}	
+//	// OneToMany per ExternalTransaction
+//	@OneToMany(mappedBy="account")
+//	private List<InternalTransaction> internaltransaction;
+//	
+//	public List<InternalTransaction> getInternaltransaction() {
+//		return internaltransaction;
+//	}
+//	public void setInternaltransaction(List<InternalTransaction> internaltransaction) {
+//		this.internaltransaction = internaltransaction;
+//	}	
 	
 	
 	public Integer getId() {

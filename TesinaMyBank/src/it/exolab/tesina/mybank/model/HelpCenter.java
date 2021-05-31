@@ -45,16 +45,16 @@ public class HelpCenter {
 	@JoinColumn(name="assigned_to_id", nullable=false,insertable=false, updatable=false)
 	private Staff staff;
 	
-	@OneToMany(mappedBy="help_center")
-//	@Transient
-	private List<HelpCenterThread> helpCenterThread;
-	
-	public List<HelpCenterThread> getHelpCenterThread() {
-		return helpCenterThread;
-	}
-	public void setHelpCenterThread(List<HelpCenterThread> helpCenterThread) {
-		this.helpCenterThread = helpCenterThread;
-	}
+//	@OneToMany(mappedBy="help_center")
+////	@Transient
+//	private List<HelpCenterThread> helpCenterThread;
+//	
+//	public List<HelpCenterThread> getHelpCenterThread() {
+//		return helpCenterThread;
+//	}
+//	public void setHelpCenterThread(List<HelpCenterThread> helpCenterThread) {
+//		this.helpCenterThread = helpCenterThread;
+//	}
 	
 	public Account getAccount() {
 		return account;

@@ -44,16 +44,16 @@ public class Staff {
 	@Column(name="otp_code_expires_at")
 	private Timestamp otpCodeExpiresAt;
 	
-	@OneToMany(mappedBy="staff")
-//	@Transient
-	private List<HelpCenter> helpCenter;
-	
-	public List<HelpCenter> getHelpCenter() {
-		return helpCenter;
-	}
-	public void setHelpCenter(List<HelpCenter> helpCenter) {
-		this.helpCenter = helpCenter;
-	}
+//	@OneToMany(mappedBy="staff")
+////	@Transient
+//	private List<HelpCenter> helpCenter;
+//	
+//	public List<HelpCenter> getHelpCenter() {
+//		return helpCenter;
+//	}
+//	public void setHelpCenter(List<HelpCenter> helpCenter) {
+//		this.helpCenter = helpCenter;
+//	}
 	
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
@@ -68,16 +68,16 @@ public class Staff {
 		this.role = role;
 	}
 	
-	// OneToMany per ExternalTransaction
-	@OneToMany(mappedBy="staff")
-	private List<ExternalTransaction> externaltransaction;
-	
-	public List<ExternalTransaction> getExternaltransaction() {
-		return externaltransaction;
-	}
-	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
-		this.externaltransaction = externaltransaction;
-	}
+//	// OneToMany per ExternalTransaction
+//	@OneToMany(mappedBy="staff")
+//	private List<ExternalTransaction> externaltransaction;
+//	
+//	public List<ExternalTransaction> getExternaltransaction() {
+//		return externaltransaction;
+//	}
+//	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+//		this.externaltransaction = externaltransaction;
+//	}
 	
 	
 	

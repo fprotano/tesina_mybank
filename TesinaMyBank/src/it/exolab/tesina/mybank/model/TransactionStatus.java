@@ -16,16 +16,16 @@ public class TransactionStatus {
 	@Column(name="title")
 	private String title;
 	
-	// OneToMany per ExternalTransaction
-	@OneToMany(mappedBy="transactionStatus")
-	private List<ExternalTransaction> externaltransaction;
-	
-	public List<ExternalTransaction> getExternaltransaction() {
-		return externaltransaction;
-	}
-	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
-		this.externaltransaction = externaltransaction;
-	}
+//	// OneToMany per ExternalTransaction
+//	@OneToMany(mappedBy="transactionStatus")
+//	private List<ExternalTransaction> externaltransaction;
+//	
+//	public List<ExternalTransaction> getExternaltransaction() {
+//		return externaltransaction;
+//	}
+//	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+//		this.externaltransaction = externaltransaction;
+//	}
 	
 	public Integer getId() {
 		return id;
