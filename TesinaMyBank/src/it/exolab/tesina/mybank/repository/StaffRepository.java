@@ -11,7 +11,7 @@ public interface StaffRepository extends CrudRepository<Staff, Integer> {
 
 	 public Staff findByEmailAndPassword(String email , String password);
 
-	public void save(Staff model, Integer id);
+//	public void save(Staff model, Integer id);
 	
 	
 	
