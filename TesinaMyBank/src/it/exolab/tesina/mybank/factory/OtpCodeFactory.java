@@ -1,5 +1,11 @@
 package it.exolab.tesina.mybank.factory;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import it.exolab.tesina.mybank.model.Account;
+import it.exolab.tesina.mybank.model.Staff;
+
 public  class OtpCodeFactory {
 	public static String doGenerateNewOtpCode() {
 		String ret = "";
@@ -15,6 +21,27 @@ public  class OtpCodeFactory {
 		ret=stringBuilder.toString();
 		System.out.println(ret);
 		return ret;
+	}
+	
+	public static void setCreatedUpdatedAndOtp(Object registrato) {
+		if(registrato instanceof Staff) {
+			Staff staff = (Staff) registrato;
+			staff.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			staff.setOtpCode(doGenerateNewOtpCode());
+//			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+//			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+//			staff.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+		}	
+		else if(registrato instanceof Account) {
+			Account account = (Account) registrato;
+			account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			account.setOtpCode(doGenerateNewOtpCode());
+			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+		}
 	}
 	
 	public static char doGenerateChar() {

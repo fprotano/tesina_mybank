@@ -1,6 +1,7 @@
 package it.exolab.tesina.mybank.controller;
 
 import java.sql.Timestamp;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.model.dto.StaffDTO;
 import it.exolab.tesina.mybank.service.StaffService;
+import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 
 @CrossOrigin
 @Controller
@@ -26,6 +28,7 @@ import it.exolab.tesina.mybank.service.StaffService;
 public class StaffController {
 	private StaffService staffService;
 	private HTTPResponse response;
+	private OtpCodeFactory otpfactory = new OtpCodeFactory();
 
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
@@ -35,8 +38,10 @@ public class StaffController {
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse login(@RequestBody Staff staff) {
-		if (staff != null) {
+		if (staff.getEmail()!=null || staff.getPassword()!=null) {
 			staff = this.staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
+			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			this.staffService.update(staff);
 			response = new HTTPResponse(staff);
 			return response;
 		}
@@ -47,11 +52,11 @@ public class StaffController {
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-
-	public HTTPResponse registrazione(@RequestBody Staff staff) {
-		if (staff != null) {
-			this.staffService.insert(staff);
-			response = new HTTPResponse(staff);
+	public HTTPResponse registrazione(@RequestBody Staff staffRegistrato) {
+		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
+			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			this.staffService.insert(staffRegistrato);
+			response = new HTTPResponse(staffRegistrato);
 			return response;
 
 		} else {
