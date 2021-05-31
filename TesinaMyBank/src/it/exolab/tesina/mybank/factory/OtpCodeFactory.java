@@ -1,4 +1,4 @@
-package it.exolab.tesina.mybank.util;
+package it.exolab.tesina.mybank.factory;
 
 public  class OtpCodeFactory {
 	public static String doGenerateNewOtpCode() {
