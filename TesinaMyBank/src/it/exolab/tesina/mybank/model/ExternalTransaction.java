@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -48,7 +49,7 @@ public class ExternalTransaction {
 	@Column(name="transaction_status_id")
 	private Integer transactionStatusId;
 	@Fetch(value=FetchMode.JOIN)
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@OneToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="transaction_status_id", nullable=false,insertable=false, updatable=false)
 	private TransactionStatus transactionStatus;
 	

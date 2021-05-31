@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
  
 
@@ -17,7 +17,7 @@ public class TransactionUniqueId {
 		private String transactionId;
         
      // OneToMany per ExternalTransaction
-   	@OneToMany(mappedBy="transactionUniqueId")
+   	@OneToOne(mappedBy="transactionUniqueId")
    	private List<ExternalTransaction> externaltransaction;
    	
    	public List<ExternalTransaction> getExternaltransaction() {
