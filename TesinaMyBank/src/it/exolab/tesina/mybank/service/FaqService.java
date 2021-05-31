@@ -20,15 +20,15 @@ private FaqRepository faqRepository;
 		this.faqRepository=faqRepository;
 	}
 	
-	public List<FaqDTO> findAll(){
-		return (List<FaqDTO>) faqRepository.findAll();	
+	public List<Faq> findAll(){
+		return (List<Faq>) faqRepository.findAll();	
 	}
 	
-	public void insert(FaqDTO faq) {
+	public void insert(Faq faq) {
 		faqRepository.save(faq);
 	}
 	
-	public void update(FaqDTO faq) {
+	public void update(Faq faq) {
 		faqRepository.save(faq);
 	}
 	

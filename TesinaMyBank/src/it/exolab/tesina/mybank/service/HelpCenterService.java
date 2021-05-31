@@ -18,15 +18,15 @@ public class HelpCenterService {
 		this.helpCenterRepository=helpCenterRepository;
 	}
 	
-	public List<HelpCenterDTO> findAll(){
-		return (List<HelpCenterDTO>) helpCenterRepository.findAll();	
+	public List<HelpCenter> findAll(){
+		return (List<HelpCenter>) helpCenterRepository.findAll();	
 	}
 	
-	public void insert( HelpCenterDTO helpCenter) {
+	public void insert( HelpCenter helpCenter) {
 		helpCenterRepository.save(helpCenter);
 	}
 	
-	public void update(HelpCenterDTO helpCenter) {
+	public void update(HelpCenter helpCenter) {
 		helpCenterRepository.save(helpCenter);
 	}
 	
@@ -35,7 +35,7 @@ public class HelpCenterService {
 		helpCenterRepository.delete(id);
 	}
 	
-	public HelpCenterDTO find(int id) {
+	public HelpCenter find(int id) {
 		return helpCenterRepository.findOne(id);
 	}
 

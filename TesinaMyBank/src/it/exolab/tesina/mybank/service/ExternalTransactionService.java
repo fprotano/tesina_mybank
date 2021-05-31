@@ -24,11 +24,11 @@ private ExternalTransactionRepository externalTransactionRepository;
 		return (List<ExternalTransaction>) externalTransactionRepository.findAll();	
 	}
 	
-	public void insert(ExternalTransactionDTO externalTransaction) {
+	public void insert(ExternalTransaction externalTransaction) {
 		externalTransactionRepository.save(externalTransaction);
 	}
 	
-	public void update(ExternalTransactionDTO externalTransaction) {
+	public void update(ExternalTransaction externalTransaction) {
 		externalTransactionRepository.save(externalTransaction);
 	}
 	

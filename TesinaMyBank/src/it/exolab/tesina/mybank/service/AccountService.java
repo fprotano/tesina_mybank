@@ -22,10 +22,10 @@ public class AccountService {
 	public List<Account> findAll(){
 		return (List<Account>)this.accountRepository.findAll();
 	}
-	public void insert(AccountDTO model) {
+	public void insert(Account model) {
 		this.accountRepository.save(model);
 	}
-	public void update(AccountDTO model) {
+	public void update(Account model) {
 		this.accountRepository.save(model);
 	}
 	public void delete(int id) {
