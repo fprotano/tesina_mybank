@@ -40,16 +40,10 @@ public class HelpCenter {
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="assigned_to_id", nullable=false,insertable=false, updatable=false)
-	private Account accountTo;
 	private Staff staff;
 	
 	
-	public Account getAccountTo() {
-		return accountTo;
-	}
-	public void setAccountTo(Account accountTo) {
-		this.accountTo = accountTo;
-	}
+	
 	public Account getAccount() {
 		return account;
 	}
