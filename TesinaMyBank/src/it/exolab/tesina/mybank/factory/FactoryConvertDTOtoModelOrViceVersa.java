@@ -38,11 +38,7 @@ public class FactoryConvertDTOtoModelOrViceVersa<T,K> {
 	protected List<T> fromModelToDTO(List<K> model) {
 		return (List<T>)model;
 	}
-	//-------------------------------------------------------------------------- UTILS FOR SERVICES
-	
-	protected Validator validator= new Validator();
-	
-	
+	//----------------------------------------------------------------------------------------------- DTO ---> Model
 	protected  Object fromDtoToModel(Object dtoObject) {
 		Object modelObject=null;
 		try {
@@ -77,6 +73,88 @@ public class FactoryConvertDTOtoModelOrViceVersa<T,K> {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
+		return modelObject;
+	}
+	//----------------------------------------------------------------------------------------------- Model ---> DTO
+	protected  Object fromModelToDto(Object dtoObject) {
+		Object modelObject=null;
+		try {
+			model_jpa = (Class<K>) Class.forName(model_jpa.getCanonicalName());
+			Constructor<K> ctor = (Constructor<K>) dtoObject.getClass().getConstructor();
+			modelObject = ctor.newInstance();
+			
+			Field[] properties = model_jpa.getDeclaredFields();
+			for(Field property : properties) {
+				String propertyName = property.getName();
+				String getterName = "get"+ propertyName.substring(0,1).toUpperCase() +propertyName.substring(1);
+				String setterName = "set"+ propertyName.substring(0,1).toUpperCase() +propertyName.substring(1);
+				Method getterMethod =  model_jpa.getMethod(getterName);
+				Class returnType = getterMethod.getReturnType();
+				Method setterMethod =  dtoObject.getClass().getMethod(setterName,returnType);
+				Object value = getterMethod.invoke(dtoObject);
+				setterMethod.invoke(modelObject,value);
+			}		
+//			System.out.println(modelObject);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return modelObject;
+	}
+	//-------------------------------------------------------------------------- UTILS FOR SERVICES
+	
+	protected Validator validator= new Validator();
+	
+	
+	public static Object fromModelToDto(Object dtoObject, Class<?> modelClass) {   // non funziona
+		Object modelObject=null;
+		try {
+			
+			modelClass = Class.forName(modelClass.getCanonicalName());
+			Constructor<?> ctor = dtoObject.getClass().getConstructor();
+			modelObject = ctor.newInstance();
+			
+			Field[] properties = modelClass.getDeclaredFields();
+			for(Field property : properties) {
+				String propertyName = property.getName();
+				String getterName = "get"+ propertyName.substring(0,1).toUpperCase() +propertyName.substring(1);
+				String setterName = "set"+ propertyName.substring(0,1).toUpperCase() +propertyName.substring(1);
+				Method getterMethod =  modelClass.getMethod(getterName);
+				Class returnType = getterMethod.getReturnType();
+				Method setterMethod =  dtoObject.getClass().getMethod(setterName,returnType);
+				Object value = getterMethod.invoke(dtoObject);
+				setterMethod.invoke(modelObject,value);
+			}
+			
+			System.out.println(modelObject);
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		
 		return modelObject;
 	}
 	
