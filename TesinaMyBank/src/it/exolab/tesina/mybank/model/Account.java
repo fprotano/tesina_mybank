@@ -1,12 +1,14 @@
 package it.exolab.tesina.mybank.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +39,17 @@ public class Account {
 	private String creditCardCin;
 	@Column(name="credit_card_expires_at")
 	private String creditCardExpiresAt;
+	
+	@OneToMany(mappedBy="account")
+//	@Transient
+	private List<HelpCenter> helpCenter;
+	
+	public List<HelpCenter> getHelpCenter() {
+		return helpCenter;
+	}
+	public void setHelpCenter(List<HelpCenter> helpCenter) {
+		this.helpCenter = helpCenter;
+	}
 	public Integer getId() {
 		return id;
 	}

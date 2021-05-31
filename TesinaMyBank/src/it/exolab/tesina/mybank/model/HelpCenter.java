@@ -3,10 +3,16 @@ package it.exolab.tesina.mybank.model;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -24,13 +30,26 @@ public class HelpCenter {
 	private Timestamp closedAt;
 	@Column(name="from_account_id")
 	private Integer fromAccountId;
+	@Fetch(value=FetchMode.JOIN)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="from_account_id", nullable=false,insertable=false, updatable=false)
 	private Account account;
 	private String question;
 	@Column(name="assigned_to_id")
 	private Integer assignedToId;
+	@Fetch(value=FetchMode.JOIN)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="assigned_to_id", nullable=false,insertable=false, updatable=false)
+	private Account accountTo;
 	private Staff staff;
 	
 	
+	public Account getAccountTo() {
+		return accountTo;
+	}
+	public void setAccountTo(Account accountTo) {
+		this.accountTo = accountTo;
+	}
 	public Account getAccount() {
 		return account;
 	}
