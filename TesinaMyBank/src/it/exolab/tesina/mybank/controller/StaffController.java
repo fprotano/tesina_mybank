@@ -55,6 +55,7 @@ public class StaffController {
 	public HTTPResponse registrazione(@RequestBody Staff staffRegistrato) {
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			
 			this.staffService.insert(staffRegistrato);
 			response = new HTTPResponse(staffRegistrato);
 			return response;
