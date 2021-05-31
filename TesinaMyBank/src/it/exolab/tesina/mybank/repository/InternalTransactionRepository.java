@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import it.exolab.tesina.mybank.model.InternalTransaction;
 import it.exolab.tesina.mybank.model.dto.InternalTransactionDTO;
 
-public interface InternalTransactionRepository extends CrudRepository<InternalTransactionDTO, Integer> {
+public interface InternalTransactionRepository extends CrudRepository<InternalTransaction, Integer> {
 
 }

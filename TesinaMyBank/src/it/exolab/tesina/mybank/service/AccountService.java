@@ -19,8 +19,8 @@ public class AccountService {
 		this.accountRepository = accountRepository;
 	}
 	
-	public List<AccountDTO> findAll(){
-		return (List<AccountDTO>)this.accountRepository.findAll();
+	public List<Account> findAll(){
+		return (List<Account>)this.accountRepository.findAll();
 	}
 	public void insert(AccountDTO model) {
 		this.accountRepository.save(model);
@@ -31,10 +31,10 @@ public class AccountService {
 	public void delete(int id) {
 		this.accountRepository.delete(id);;
 	}
-	public AccountDTO find(int id) {
+	public Account find(int id) {
 		return this.accountRepository.findOne(id);
 	} 
-	public AccountDTO findByEmailAndPassword(String email, String password) {
+	public Account findByEmailAndPassword(String email, String password) {
 		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
 }
