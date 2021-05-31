@@ -107,6 +107,11 @@ public class ExternalTransactionDTO {
 	public void setCustomerCreditCardExpiresAt(String customerCreditCardExpiresAt) {
 		this.customerCreditCardExpiresAt = customerCreditCardExpiresAt;
 	}
+	
+	public ExternalTransactionDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "ExternalTransactionDTO [id=" + id + ", createdAt=" + createdAt + ", customCode=" + customCode
@@ -116,7 +121,5 @@ public class ExternalTransactionDTO {
 				+ customerSurname + ", customerCreditCardNo=" + customerCreditCardNo + ", customerCreditCardCin="
 				+ customerCreditCardCin + ", customerCreditCardExpiresAt=" + customerCreditCardExpiresAt + "]";
 	}
-	
-	
-	
+
 }

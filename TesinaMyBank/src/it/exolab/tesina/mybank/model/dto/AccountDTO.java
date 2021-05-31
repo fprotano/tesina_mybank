@@ -115,6 +115,11 @@ public class AccountDTO {
 	public void setCreditCardExpiresAt(String creditCardExpiresAt) {
 		this.creditCardExpiresAt = creditCardExpiresAt;
 	}
+	
+	public AccountDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "AccountDTO [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", iban=" + iban
@@ -123,6 +128,5 @@ public class AccountDTO {
 				+ ", otpCodeExpiresAt=" + otpCodeExpiresAt + ", creditCardNo=" + creditCardNo + ", creditCardCin="
 				+ creditCardCin + ", creditCardExpiresAt=" + creditCardExpiresAt + "]";
 	}
-	
 	
 }

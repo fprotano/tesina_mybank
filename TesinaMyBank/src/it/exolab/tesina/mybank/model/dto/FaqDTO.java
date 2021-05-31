@@ -28,6 +28,11 @@ public class FaqDTO {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+	
+	public FaqDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "FaqDTO [id=" + id + ", question=" + question + ", answer=" + answer + "]";

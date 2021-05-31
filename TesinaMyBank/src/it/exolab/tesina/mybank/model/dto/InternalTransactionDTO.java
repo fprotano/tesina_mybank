@@ -56,6 +56,11 @@ public class InternalTransactionDTO {
 	public void setToAccountId(Integer toAccountId) {
 		this.toAccountId = toAccountId;
 	}
+	
+	public InternalTransactionDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "InternalTransactionDTO [id=" + id + ", createdAt=" + createdAt + ", customCode=" + customCode

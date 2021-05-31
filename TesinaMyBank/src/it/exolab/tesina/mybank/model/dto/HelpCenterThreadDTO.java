@@ -42,6 +42,11 @@ public class HelpCenterThreadDTO  {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+	
+	public HelpCenterThreadDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "HelpCenterThreadDTO [id=" + id + ", createdAt=" + createdAt + ", helpCenterId=" + helpCenterId

@@ -18,6 +18,11 @@ public class RoleDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public RoleDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "RoleDTO [id=" + id + ", title=" + title + "]";

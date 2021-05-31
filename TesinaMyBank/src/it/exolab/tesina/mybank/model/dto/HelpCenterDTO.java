@@ -56,6 +56,11 @@ public class HelpCenterDTO {
 	public void setAssignedToId(Integer assignedToId) {
 		this.assignedToId = assignedToId;
 	}
+	
+	public HelpCenterDTO() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "HelpCenterDTO [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", closedAt="
