@@ -22,6 +22,8 @@ import org.hibernate.annotations.FetchMode;
 @Table(name="staff")
 public class Staff {
 	
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
