@@ -1,15 +1,26 @@
 package it.exolab.tesina.mybank.model.dto;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import it.exolab.tesina.mybank.model.Role;
 
 
-public class RoleDTO extends Role{
+public class RoleDTO {
+	
+	private Integer id;
+	private String title;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	@Override
+	public String toString() {
+		return "RoleDTO [id=" + id + ", title=" + title + "]";
+	}
 	
 }
