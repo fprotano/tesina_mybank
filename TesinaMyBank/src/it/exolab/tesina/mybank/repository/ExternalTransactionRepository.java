@@ -10,7 +10,7 @@ import it.exolab.tesina.mybank.model.dto.ExternalTransactionDTO;
 
 
 
-public interface ExternalTransactionRepository extends CrudRepository<ExternalTransactionDTO, Integer> {
+public interface ExternalTransactionRepository extends CrudRepository<ExternalTransaction, Integer> {
 
 	
 }

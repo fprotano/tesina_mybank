@@ -7,11 +7,11 @@ import it.exolab.tesina.mybank.model.dto.StaffDTO;
 
 
 
-public interface StaffRepository extends CrudRepository<StaffDTO, Integer> {
+public interface StaffRepository extends CrudRepository<Staff, Integer> {
 
-	 public StaffDTO findByEmailAndPassword(String email , String password);
+	 public Staff findByEmailAndPassword(String email , String password);
 
-	public void save(StaffDTO model, Integer id);
+	public void save(Staff model, Integer id);
 	
 	
 	

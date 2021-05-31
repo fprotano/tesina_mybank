@@ -20,8 +20,8 @@ private ExternalTransactionRepository externalTransactionRepository;
 		this.externalTransactionRepository=externalTransactionRepository;
 	}
 	
-	public List<ExternalTransactionDTO> findAll(){
-		return (List<ExternalTransactionDTO>) externalTransactionRepository.findAll();	
+	public List<ExternalTransaction> findAll(){
+		return (List<ExternalTransaction>) externalTransactionRepository.findAll();	
 	}
 	
 	public void insert(ExternalTransactionDTO externalTransaction) {
@@ -40,7 +40,7 @@ private ExternalTransactionRepository externalTransactionRepository;
 	
 	
 	
-	public ExternalTransactionDTO find(int id) {
+	public ExternalTransaction find(int id) {
 		return externalTransactionRepository.findOne(id);
 	}
 }

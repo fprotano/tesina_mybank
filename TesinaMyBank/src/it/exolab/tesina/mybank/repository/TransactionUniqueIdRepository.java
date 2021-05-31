@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.model.dto.TransactionUniqueIdDTO;
 
-public interface TransactionUniqueIdRepository extends CrudRepository<TransactionUniqueIdDTO, Integer> {
+public interface TransactionUniqueIdRepository extends CrudRepository<TransactionUniqueId, Integer> {
 
 }
