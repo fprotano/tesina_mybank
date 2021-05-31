@@ -1,6 +1,6 @@
 package it.exolab.tesina.mybank.model;
 
-import java.util.List;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,12 +18,12 @@ public class TransactionUniqueId {
         
      // OneToMany per ExternalTransaction
    	@OneToOne(mappedBy="transactionUniqueId")
-   	private List<ExternalTransaction> externaltransaction;
+   	private ExternalTransaction externaltransaction;
    	
-   	public List<ExternalTransaction> getExternaltransaction() {
+   	public ExternalTransaction getExternaltransaction() {
    		return externaltransaction;
    	}
-   	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+   	public void setExternaltransaction(ExternalTransaction externaltransaction) {
    		this.externaltransaction = externaltransaction;
    	}        
 
