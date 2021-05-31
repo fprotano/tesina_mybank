@@ -3,7 +3,7 @@ package it.exolab.tesina.mybank.model.dto;
 
 
 public class RoleDTO {
-	
+	 
 	private Integer id;
 	private String title;
 	public Integer getId() {

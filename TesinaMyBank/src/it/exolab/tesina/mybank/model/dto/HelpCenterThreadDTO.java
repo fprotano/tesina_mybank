@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 
 public class HelpCenterThreadDTO  {
-	
+	 
 	private Integer id;
 	private Timestamp createdAt;
 	private Integer helpCenterId;

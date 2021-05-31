@@ -5,7 +5,7 @@ import java.security.Timestamp;
 
 
 public class InternalTransactionDTO {
-
+ 
 	private Integer id;
 	private Timestamp createdAt;
 	private String customCode;
