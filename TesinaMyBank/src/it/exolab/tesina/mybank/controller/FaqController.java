@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.dto.FaqDTO;
-import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
-import it.exolab.tesina.mybank.service.ExternalTransactionService;
 import it.exolab.tesina.mybank.service.FaqService;
 
 @CrossOrigin
@@ -32,7 +29,7 @@ public class FaqController {
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody FaqDTO faq) {
+	public HTTPResponse register(@RequestBody Faq faq) {
 		HTTPResponse response = new HTTPResponse();
 		if(faq!=null) {
 			this.faqService.insert(faq);
@@ -68,7 +65,7 @@ public class FaqController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<FaqDTO> faqs = this.faqService.findAll();
+			List<Faq> faqs = this.faqService.findAll();
 			response.setData(faqs);
 			response.setSuccess(true);
 			return response;

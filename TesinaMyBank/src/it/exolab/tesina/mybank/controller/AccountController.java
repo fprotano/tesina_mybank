@@ -6,13 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
+import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.dto.AccountDTO;
 import it.exolab.tesina.mybank.service.AccountService;
@@ -39,7 +38,7 @@ public class AccountController {
 	 @ResponseBody
 	 public HTTPResponse login(@RequestBody AccountDTO account) {
 		 	HTTPResponse response = new HTTPResponse();
-		 	AccountDTO account_searched = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
+		 	Account account_searched = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 			if(account!=null) {
 		 	response.setData(account_searched);
 		 	response.setSuccess(true);
@@ -54,7 +53,7 @@ public class AccountController {
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody AccountDTO account) {
+	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 		if(account!=null) {
 			this.accountService.insert(account);
@@ -90,7 +89,7 @@ public class AccountController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<AccountDTO> transazioni = this.accountService.findAll();
+			List<Account> transazioni = this.accountService.findAll();
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;

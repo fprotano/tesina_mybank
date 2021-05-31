@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.InternalTransaction;
-import it.exolab.tesina.mybank.model.dto.InternalTransactionDTO;
 import it.exolab.tesina.mybank.service.InternalTransactionService;
 
 @Controller
@@ -30,7 +28,7 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody InternalTransactionDTO internalTransaction) {
+	public HTTPResponse register(@RequestBody InternalTransaction internalTransaction) {
 		HTTPResponse response = new HTTPResponse();
 		if (internalTransaction != null) {
 			this.internalTransactionService.insert(internalTransaction);
@@ -66,7 +64,7 @@ public class InternalTransactionController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 		HTTPResponse response = new HTTPResponse();
-		List<InternalTransactionDTO> transazioni = this.internalTransactionService.findAll();
+		List<InternalTransaction> transazioni = this.internalTransactionService.findAll();
 		response.setData(transazioni);
 		response.setSuccess(true);
 		return response;

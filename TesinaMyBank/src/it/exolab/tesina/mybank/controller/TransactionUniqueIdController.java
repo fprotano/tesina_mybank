@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.exolab.tesina.mybank.model.HTTPResponse;
+import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.model.dto.TransactionUniqueIdDTO;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
  
@@ -27,11 +28,11 @@ public class TransactionUniqueIdController {
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody TransactionUniqueIdDTO transactionUniqueIdDto) {
+	public HTTPResponse register(@RequestBody TransactionUniqueId transactionUniqueId) {
 		HTTPResponse response = new HTTPResponse();
-		if(transactionUniqueIdDto!=null) {
-			this.transactionUniqueIdService.insert(transactionUniqueIdDto);
-			response.setData(transactionUniqueIdDto);
+		if(transactionUniqueId!=null) {
+			this.transactionUniqueIdService.insert(transactionUniqueId);
+			response.setData(transactionUniqueId);
 			response.setSuccess(true);
 			return response;
 		} else {
@@ -63,7 +64,7 @@ public class TransactionUniqueIdController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<TransactionUniqueIdDTO> transazioni = this.transactionUniqueIdService.findAll();
+			List<TransactionUniqueId> transazioni = this.transactionUniqueIdService.findAll();
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;

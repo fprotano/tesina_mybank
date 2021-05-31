@@ -48,7 +48,7 @@ public class StaffController {
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 
-	public HTTPResponse registrazione(@RequestBody StaffDTO staff) {
+	public HTTPResponse registrazione(@RequestBody Staff staff) {
 		if (staff != null) {
 			this.staffService.insert(staff);
 			response = new HTTPResponse(staff);
@@ -82,7 +82,7 @@ public class StaffController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 
-		List<StaffDTO> staff = this.staffService.findAll();
+		List<Staff> staff = this.staffService.findAll();
 		response = new HTTPResponse(staff);
 		return response;
 

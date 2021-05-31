@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.dto.ExternalTransactionDTO;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
 
 @CrossOrigin
@@ -65,7 +66,7 @@ public class ExternalTransactionController {
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody ExternalTransactionDTO externalTransaction) {
+	public HTTPResponse register(@RequestBody ExternalTransaction externalTransaction) {
 		HTTPResponse response = new HTTPResponse();
 		if(externalTransaction!=null) {
 			this.externalTransactionService.insert(externalTransaction);
@@ -101,7 +102,7 @@ public class ExternalTransactionController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<ExternalTransactionDTO> transazioni = this.externalTransactionService.findAll();
+			List<ExternalTransaction> transazioni = this.externalTransactionService.findAll();
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;

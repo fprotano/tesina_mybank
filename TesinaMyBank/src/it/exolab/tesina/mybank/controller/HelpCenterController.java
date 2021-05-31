@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.dto.HelpCenterDTO;
+import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.service.HelpCenterService;
 
 
@@ -27,7 +27,7 @@ public class HelpCenterController {
 	 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody HelpCenterDTO helpCenter) {
+	public HTTPResponse register(@RequestBody HelpCenter helpCenter) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
 			this.helpCenterService.insert(helpCenter);
@@ -65,7 +65,7 @@ public class HelpCenterController {
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
-			List<HelpCenterDTO> helpcenters = this.helpCenterService.findAll();
+			List<HelpCenter> helpcenters = this.helpCenterService.findAll();
 			response.setData(helpcenters);
 			response.setSuccess(true);
 			return response;
