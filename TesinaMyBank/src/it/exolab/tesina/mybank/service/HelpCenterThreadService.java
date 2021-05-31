@@ -17,17 +17,17 @@ public class HelpCenterThreadService {
 		this.helpCenterThreadRepository = helpCenterThreadRepository;
 	}
 	
-	public List<HelpCenterThreadDTO> findAll(){
-		return (List<HelpCenterThreadDTO>) helpCenterThreadRepository.findAll();
+	public List<HelpCenterThread> findAll(){
+		return (List<HelpCenterThread>) helpCenterThreadRepository.findAll();
 	}
-	public void insert(HelpCenterThreadDTO internalTransaction){
+	public void insert(HelpCenterThread internalTransaction){
 		this.helpCenterThreadRepository.save(internalTransaction);
 	}
 	
 	public void delete(Integer id){
 		this.helpCenterThreadRepository.delete(id);
 	}
-	public void update(HelpCenterThreadDTO helpCenterThread) {
+	public void update(HelpCenterThread helpCenterThread) {
 		helpCenterThreadRepository.save(helpCenterThread);
 	}
 	
