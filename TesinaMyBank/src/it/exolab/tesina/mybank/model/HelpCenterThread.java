@@ -18,30 +18,31 @@ import it.exolab.tesina.mybank.model.HelpCenter;
 @Entity
 @Table(name="help_center_thread")
 public class HelpCenterThread {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="created_at")
 	private Timestamp createdAt;
+	
 	@Column(name="help_center_id")
 	private Integer helpCenterId;
-	private String question;
-	private String answer;
-
-	
 	@Fetch(value=FetchMode.JOIN)
     @ManyToOne(fetch=FetchType.EAGER,optional=false)
     @JoinColumn(name="help_center_id",nullable=false,insertable=false,updatable=false)
 	private HelpCenter helpCenter;
 	
+	@Column(name="question")
+	private String question;
+	
+	@Column(name="answer")
+	private String answer;
+
 	
 	public HelpCenterThread() {
 		
 	}
-
-	
-	
 
 
 	public HelpCenter getHelpCenter() {
@@ -49,15 +50,9 @@ public class HelpCenterThread {
 	}
 
 
-
-
-
 	public void setHelpCenter(HelpCenter helpCenter) {
 		this.helpCenter = helpCenter;
 	}
-
-
-
 
 
 	public Integer getId() {
