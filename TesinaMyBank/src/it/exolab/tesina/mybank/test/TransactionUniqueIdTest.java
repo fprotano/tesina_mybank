@@ -9,14 +9,14 @@ import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.model.dto.TransactionUniqueIdDTO;
 
 public class TransactionUniqueIdTest {
-    // questo va, me lo casta
-	public TransactionUniqueId fromDTOtoModel(TransactionUniqueIdDTO dto) {
-		return (TransactionUniqueId)dto;
-	}
-	//NON FUNZIONA
-	public TransactionUniqueIdDTO fromModelToDTO(TransactionUniqueId model) {
-		return (TransactionUniqueIdDTO)model;
-	}
+//    // questo va, me lo casta
+//	public TransactionUniqueId fromDTOtoModel(TransactionUniqueIdDTO dto) {
+//		return (TransactionUniqueId)dto;
+//	}
+//	//NON FUNZIONA
+//	public TransactionUniqueIdDTO fromModelToDTO(TransactionUniqueId model) {
+//		return (TransactionUniqueIdDTO)model;
+//	}
 	//--------------------------------------------------------------------------------------------------------------------
 	public List<TransactionUniqueIdDTO> listOfModelToDTO(List<TransactionUniqueId> model) {
 		List<Object> myObjects = new ArrayList<Object>();
@@ -31,7 +31,7 @@ public class TransactionUniqueIdTest {
 	
 	public List<TransactionUniqueIdDTO> listOfModelToDTOParte2(List<TransactionUniqueId> model) {
 		List<TransactionUniqueIdDTO> lista_dto = new ArrayList<TransactionUniqueIdDTO>();
-		model.stream().forEach(x->lista_dto.add((TransactionUniqueIdDTO)x));
+//		model.stream().forEach(x->lista_dto.add((TransactionUniqueIdDTO)x));
 
 		return lista_dto;
 	}
@@ -47,7 +47,7 @@ public class TransactionUniqueIdTest {
 	public List<TransactionUniqueIdDTO> listOfModelToDTOParte4(List<TransactionUniqueId> model ,List<TransactionUniqueIdDTO> list_dto) {
 		for(TransactionUniqueId m : model) {
 			TransactionUniqueIdDTO prova = new TransactionUniqueIdDTO();
-			prova = (TransactionUniqueIdDTO)m;
+//			prova = (TransactionUniqueIdDTO)m;
 			list_dto.add( prova  );
 		}
 			
@@ -56,7 +56,7 @@ public class TransactionUniqueIdTest {
 	// Questo funziona da dto a model
 	public List<TransactionUniqueId> listOfDTOtoModel(List<TransactionUniqueIdDTO> list_dto ,List<TransactionUniqueId> model_list) {
 		for(TransactionUniqueIdDTO dto : list_dto) {
-			model_list.add( (TransactionUniqueId)dto   );
+//			model_list.add( (TransactionUniqueId)dto   );
 		}
 		return model_list;
 	}
@@ -72,7 +72,7 @@ public class TransactionUniqueIdTest {
 		
 		model_jpa.setTransactionId("A007");
 		
-		model_dto = test.fromModelToDTO(model_jpa);
+//		model_dto = test.fromModelToDTO(model_jpa);
 		
 		List<TransactionUniqueId> lista_model = new ArrayList<TransactionUniqueId>();
 //		lista_model.add(new TransactionUniqueId("A0009"));
