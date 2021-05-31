@@ -65,7 +65,16 @@ public class Account {
 		this.externaltransaction = externaltransaction;
 	}
 	
+	// OneToMany per ExternalTransaction
+	@OneToMany(mappedBy="account")
+	private List<InternalTransaction> internaltransaction;
 	
+	public List<InternalTransaction> getInternaltransaction() {
+		return internaltransaction;
+	}
+	public void setInternaltransaction(List<InternalTransaction> internaltransaction) {
+		this.internaltransaction = internaltransaction;
+	}	
 	
 	
 	public Integer getId() {
