@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.TransactionStatus;
 import it.exolab.tesina.mybank.model.dto.TransactionStatusDTO;
 import it.exolab.tesina.mybank.repository.ExternalTransactionRepository;
 import it.exolab.tesina.mybank.repository.TransactionStatusRepository;
@@ -18,15 +19,15 @@ private TransactionStatusRepository transactionStatusRepository;
 		this.transactionStatusRepository=transactionStatusRepository;
 	}
 	
-	public List<TransactionStatusDTO> findAll(){
-		return (List<TransactionStatusDTO>) transactionStatusRepository.findAll();	
+	public List<TransactionStatus> findAll(){
+		return (List<TransactionStatus>) transactionStatusRepository.findAll();	
 	}
 	
-	public void insert(TransactionStatusDTO transactionStatus) {
+	public void insert(TransactionStatus transactionStatus) {
 		transactionStatusRepository.save(transactionStatus);
 	}
 	
-	public void update(TransactionStatusDTO transactionStatus) {
+	public void update(TransactionStatus transactionStatus) {
 		transactionStatusRepository.save(transactionStatus);
 	}
 	
@@ -38,7 +39,7 @@ private TransactionStatusRepository transactionStatusRepository;
 	
 	
 	
-	public TransactionStatusDTO find(int id) {
+	public TransactionStatus find(int id) {
 		return transactionStatusRepository.findOne(id);
 	}
 }
