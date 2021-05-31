@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -17,52 +18,66 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name="external_transaction")
 public class ExternalTransaction {
-
+  
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Column(name="created_at")
 	private Timestamp createdAt;
+	
 	@Column(name="custom_code")
 	private String customCode;
+	
 	@Column(name="transaction_id")
 	private String transactionId;
 	@Fetch(value=FetchMode.JOIN)
-	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="transaction_id", nullable=false,insertable=false, updatable=false)
 	private TransactionUniqueId transactionUniqueId;
 	
+	@Column(name="amount")
 	private double amount;
+	
 	@Column(name="to_account_id")
 	private Integer toAccountId;
-	
 	@Fetch(value=FetchMode.JOIN)
-	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
+    @ManyToOne(fetch=FetchType.EAGER,optional=false)
+    @JoinColumn(name="to_account_id",nullable=false,insertable=false,updatable=false)
 	private Account account;
 	
 	@Column(name="transaction_status_id")
 	private Integer transactionStatusId;
 	@Fetch(value=FetchMode.JOIN)
-	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
+	@OneToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="transaction_status_id", nullable=false,insertable=false, updatable=false)
 	private TransactionStatus transactionStatus;
 	
 	@Column(name="transaction_error_reason")
 	private String transactionErrorReason;
+	
 	@Column(name="verify_assigned_to")
 	private Integer verifyAssignedTo;
 	@Fetch(value=FetchMode.JOIN)
-	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="verify_assigned_to", nullable=false,insertable=false, updatable=false)
 	private Staff staff;
 	
 	@Column(name="customer_name")
 	private String customerName;
+	
 	@Column(name="customer_surname")
 	private String customerSurname;
+	
 	@Column(name="customer_credit_card_no")
 	private String customerCreditCardNo;
+	
 	@Column(name="customer_credit_card_cin")
 	private String customerCreditCardCin;
+	
 	@Column(name="customer_credit_card_expires_at")
 	private String customerCreditCardExpiresAt;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -99,12 +114,6 @@ public class ExternalTransaction {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
-	}
-	public Integer getToAccountId() {
-		return toAccountId;
-	}
-	public void setToAccountId(Integer toAccountId) {
-		this.toAccountId = toAccountId;
 	}
 	
 	public Account getAccount() {
@@ -181,11 +190,13 @@ public class ExternalTransaction {
 	@Override
 	public String toString() {
 		return "ExternalTransaction [id=" + id + ", createdAt=" + createdAt + ", customCode=" + customCode
-				+ ", transactionId=" + transactionId + ", amount=" + amount + ", toAccountId=" + toAccountId
-				+ ", transactionStatusId=" + transactionStatusId + ", transactionErrorReason=" + transactionErrorReason
-				+ ", verifyAssignedTo=" + verifyAssignedTo + ", customerName=" + customerName + ", customerSurname="
-				+ customerSurname + ", customerCreditCardNo=" + customerCreditCardNo + ", customerCreditCardCin="
-				+ customerCreditCardCin + ", customerCreditCardExpiresAt=" + customerCreditCardExpiresAt + "]";
+				+ ", transactionId=" + transactionId + ", transactionUniqueId=" + transactionUniqueId + ", amount="
+				+ amount + ", account=" + account + ", transactionStatusId=" + transactionStatusId
+				+ ", transactionStatus=" + transactionStatus + ", transactionErrorReason=" + transactionErrorReason
+				+ ", verifyAssignedTo=" + verifyAssignedTo + ", staff=" + staff + ", customerName=" + customerName
+				+ ", customerSurname=" + customerSurname + ", customerCreditCardNo=" + customerCreditCardNo
+				+ ", customerCreditCardCin=" + customerCreditCardCin + ", customerCreditCardExpiresAt="
+				+ customerCreditCardExpiresAt + "]";
 	}
 	
 	

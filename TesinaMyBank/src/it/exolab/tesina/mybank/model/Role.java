@@ -16,7 +16,7 @@ public class Role {
 	private Integer id;
 	private String title;
 	
-	@OneToMany(mappedBy="staff")
+	@OneToMany(mappedBy="role")
 //	@Transient
 	private List<Staff> staff;
 	

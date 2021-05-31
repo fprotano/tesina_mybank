@@ -1,10 +1,13 @@
 package it.exolab.tesina.mybank.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+ 
 @Entity
 @Table
 public class TransactionStatus {
@@ -12,6 +15,18 @@ public class TransactionStatus {
 	private Integer id;
 	@Column(name="title")
 	private String title;
+	
+	// OneToMany per ExternalTransaction
+	@OneToMany(mappedBy="transactionStatus")
+	private List<ExternalTransaction> externaltransaction;
+	
+	public List<ExternalTransaction> getExternaltransaction() {
+		return externaltransaction;
+	}
+	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+		this.externaltransaction = externaltransaction;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

@@ -30,9 +30,9 @@ public class HelpCenterThread {
 	private String answer;
 
 	
-//	@Fetch(value=FetchMode.JOIN)
-//    @ManyToOne(fetch=FetchType.EAGER,optional=false)
-//    @JoinColumn(name="help_center_id",nullable=false,insertable=false,updatable=false)
+	@Fetch(value=FetchMode.JOIN)
+    @ManyToOne(fetch=FetchType.EAGER,optional=false)
+    @JoinColumn(name="help_center_id",nullable=false,insertable=false,updatable=false)
 	private HelpCenter helpCenter;
 	
 	
