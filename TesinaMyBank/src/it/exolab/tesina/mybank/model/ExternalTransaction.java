@@ -17,7 +17,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name="external_transaction")
 public class ExternalTransaction {
-
+ 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
