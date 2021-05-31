@@ -42,6 +42,17 @@ public class Staff {
 	@Column(name="otp_code_expires_at")
 	private Timestamp otpCodeExpiresAt;
 	
+	@OneToMany(mappedBy="staff")
+//	@Transient
+	private List<HelpCenter> helpCenter;
+	
+	public List<HelpCenter> getHelpCenter() {
+		return helpCenter;
+	}
+	public void setHelpCenter(List<HelpCenter> helpCenter) {
+		this.helpCenter = helpCenter;
+	}
+	
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)

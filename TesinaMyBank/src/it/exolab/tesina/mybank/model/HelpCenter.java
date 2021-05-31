@@ -1,6 +1,8 @@
 package it.exolab.tesina.mybank.model;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -40,16 +43,19 @@ public class HelpCenter {
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="assigned_to_id", nullable=false,insertable=false, updatable=false)
-	private Account accountTo;
 	private Staff staff;
 	
+	@OneToMany(mappedBy="help_center")
+//	@Transient
+	private List<HelpCenterThread> helpCenterThread;
 	
-	public Account getAccountTo() {
-		return accountTo;
+	public List<HelpCenterThread> getHelpCenterThread() {
+		return helpCenterThread;
 	}
-	public void setAccountTo(Account accountTo) {
-		this.accountTo = accountTo;
+	public void setHelpCenterThread(List<HelpCenterThread> helpCenterThread) {
+		this.helpCenterThread = helpCenterThread;
 	}
+	
 	public Account getAccount() {
 		return account;
 	}
