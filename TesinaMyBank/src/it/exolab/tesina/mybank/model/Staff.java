@@ -1,6 +1,7 @@
 package it.exolab.tesina.mybank.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -40,8 +42,6 @@ public class Staff {
 	@Column(name="otp_code_expires_at")
 	private Timestamp otpCodeExpiresAt;
 	
-	
-	
 	@Fetch(value=FetchMode.JOIN)
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
@@ -54,6 +54,18 @@ public class Staff {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	
+	// OneToMany per ExternalTransaction
+	@OneToMany(mappedBy="staff")
+	private List<ExternalTransaction> externaltransaction;
+	
+	public List<ExternalTransaction> getExternaltransaction() {
+		return externaltransaction;
+	}
+	public void setExternaltransaction(List<ExternalTransaction> externaltransaction) {
+		this.externaltransaction = externaltransaction;
+	}
+	
 	
 	
 	public Integer getId() {
