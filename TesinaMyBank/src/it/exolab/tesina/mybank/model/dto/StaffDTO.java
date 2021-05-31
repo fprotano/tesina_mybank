@@ -20,7 +20,117 @@ import it.exolab.tesina.mybank.model.Staff;
 
 
 
-public class StaffDTO extends Staff{
+public class StaffDTO  {
+	
+	private Integer id;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
+	private String email;
+	private String password;
+	private String name;
+	private String surname;
+	private int roleId;
+	private Timestamp nextOtpCodeAfterDate;
+	private  String otpCode;
+	private Timestamp otpCodeExpiresAt;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public int getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+	public Timestamp getNextOtpCodeAfterDate() {
+		return nextOtpCodeAfterDate;
+	}
+	public void setNextOtpCodeAfterDate(Timestamp nextOtpCodeAfterDate) {
+		this.nextOtpCodeAfterDate = nextOtpCodeAfterDate;
+	}
+	public String getOtpCode() {
+		return otpCode;
+	}
+	public void setOtpCode(String otpCode) {
+		this.otpCode = otpCode;
+	}
+	public Timestamp getOtpCodeExpiresAt() {
+		return otpCodeExpiresAt;
+	}
+	public void setOtpCodeExpiresAt(Timestamp otpCodeExpiresAt) {
+		this.otpCodeExpiresAt = otpCodeExpiresAt;
+	}
+	public StaffDTO(Integer id, Timestamp createdAt, Timestamp updatedAt, String email, String password, String name,
+			String surname, int roleId, Timestamp nextOtpCodeAfterDate, String otpCode, Timestamp otpCodeExpiresAt) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.roleId = roleId;
+		this.nextOtpCodeAfterDate = nextOtpCodeAfterDate;
+		this.otpCode = otpCode;
+		this.otpCodeExpiresAt = otpCodeExpiresAt;
+	}
+	public StaffDTO() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "StaffDTO [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", email=" + email
+				+ ", password=" + password + ", name=" + name + ", surname=" + surname + ", roleId=" + roleId
+				+ ", nextOtpCodeAfterDate=" + nextOtpCodeAfterDate + ", otpCode=" + otpCode + ", otpCodeExpiresAt="
+				+ otpCodeExpiresAt + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
