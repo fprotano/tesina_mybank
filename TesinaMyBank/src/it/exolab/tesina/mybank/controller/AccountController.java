@@ -51,7 +51,7 @@ public class AccountController {
 			}
 		}
 	
-	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="registrazione", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
