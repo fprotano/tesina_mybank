@@ -24,7 +24,10 @@ public class OtpEmailFactory extends EmailFactoryData {
         properties.put(portSettings, port);
         properties.put(sslSettings, ssl);
         properties.put(authenticationSettings, auth);
-
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.user", mailto);
+        properties.put("mail.smtp.socketFactory.fallback", "false");
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
