@@ -21,6 +21,7 @@ import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.model.dto.StaffDTO;
 import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
+import it.exolab.tesina.mybank.factory.OtpEmailFactory;
 
 @CrossOrigin
 @Controller
@@ -29,7 +30,8 @@ public class StaffController {
 	private StaffService staffService;
 	private HTTPResponse response;
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
-
+	private OtpEmailFactory otpemailfactory = new OtpEmailFactory();
+	
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
@@ -39,9 +41,10 @@ public class StaffController {
 	@ResponseBody
 	public HTTPResponse login(@RequestBody Staff staff) {
 		if (staff.getEmail()!=null || staff.getPassword()!=null) {
-			staff = this.staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
+			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-			this.staffService.update(staff);
+			staffService.update(staff);
+			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail());
 			response = new HTTPResponse(staff);
 			return response;
 		}
@@ -56,7 +59,7 @@ public class StaffController {
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			
-			this.staffService.insert(staffRegistrato);
+			staffService.insert(staffRegistrato);
 			response = new HTTPResponse(staffRegistrato);
 			return response;
 
@@ -67,6 +70,27 @@ public class StaffController {
 
 	}
 
+	@RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
+		
+		if(staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(), staffOTP.getOtpCode())!=null) {
+			boolean ret = true;
+			HTTPResponse risposta = new HTTPResponse(ret);
+			return risposta;
+		} else {
+			HTTPResponse risposta = new HTTPResponse("Errore OTP errato", "00");
+			return risposta;
+		}
+		
+		
+			
+			
+
+		
+
+	}
+	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {

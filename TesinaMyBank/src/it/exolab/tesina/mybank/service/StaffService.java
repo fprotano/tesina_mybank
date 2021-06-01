@@ -38,7 +38,9 @@ public class StaffService {
 	 public Staff findByEmailAndPassword(String email , String password) {
 		 return this.staffRepository.findByEmailAndPassword(email, password);
 	 }
-	
+	 public Staff findByEmailAndPasswordAndOtpCode(String email , String password, String OTP) {
+		 return this.staffRepository.findByEmailAndPasswordAndOtpCode(email, password, OTP);
+	 }
 
 	 
 	
