@@ -41,6 +41,10 @@ public  class OtpCodeFactory {
 			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+//			if(Timestamp.valueOf(LocalDateTime.now()).after(time)) {
+//				
+//			}
+			
 		}
 	}
 	
