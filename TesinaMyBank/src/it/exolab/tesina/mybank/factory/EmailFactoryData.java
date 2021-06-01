@@ -4,7 +4,7 @@ public class EmailFactoryData {
 	
 	// settings 
 		final String hostSettings = "mail.smtp.host";
-		final String portSettings = "mail.smtp.port";
+		final String portSettings = "mail.smtp.socketFactory.port";
 		final String sslSettings = "mail.smtp.ssl.enable";
 		final String authenticationSettings = "mail.smtp.auth";
 		final String host = "smtp.gmail.com";
