@@ -29,9 +29,9 @@ public  class OtpCodeFactory {
 			staff.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			staff.setOtpCode(doGenerateNewOtpCode());
-//			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
-//			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-//			staff.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+			staff.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 		}	
 		else if(registrato instanceof Account) {
 			Account account = (Account) registrato;
