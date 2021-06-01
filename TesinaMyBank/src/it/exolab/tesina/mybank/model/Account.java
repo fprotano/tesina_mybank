@@ -37,7 +37,7 @@ public class Account {
 	private Timestamp otpCodeExpiresAt;
 	@Column(name="credit_card_no")
 	private String creditCardNo;
-	@Column(name="credit_card_cid")
+	@Column(name="credit_card_cin")
 	private String creditCardCin;
 	@Column(name="credit_card_expires_at")
 	private String creditCardExpiresAt;
