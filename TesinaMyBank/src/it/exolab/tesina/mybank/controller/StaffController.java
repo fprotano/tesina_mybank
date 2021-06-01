@@ -44,7 +44,7 @@ public class StaffController {
 			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			staffService.update(staff);
-			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail());
+			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			response = new HTTPResponse(staff);
 			return response;
 		}

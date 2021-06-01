@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class OtpEmailFactory extends EmailFactoryData {
     
-    public void doSendOtpCodeViaEmail(String mailto) {
+    public void doSendOtpCodeViaEmail(String mailto, String OTP) {
     	
     	Properties properties = System.getProperties();
 
@@ -52,8 +52,8 @@ public class OtpEmailFactory extends EmailFactoryData {
             //	setto l'oggetto della mail
             message.setSubject(subject);
             //	setto il testo del messaggio
-            String otpCode = OtpCodeFactory.doGenerateNewOtpCode();
-            String textMessage=doCreateTextMessage(otpCode);
+//            String otpCode = OtpCodeFactory.doGenerateNewOtpCode();
+            String textMessage=doCreateTextMessage(OTP);
             
             // .setText per mandare testo non formattato
 //            message.setText(textMessage);

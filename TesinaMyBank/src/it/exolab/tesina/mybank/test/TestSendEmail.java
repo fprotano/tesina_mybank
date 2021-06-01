@@ -12,7 +12,7 @@ public class TestSendEmail {
 		Scanner s = new Scanner(System.in);
 		sendto=s.nextLine();
 		System.out.println("l'email verrà inviata a: "+sendto);
-		otp.doSendOtpCodeViaEmail(sendto);
+//		otp.doSendOtpCodeViaEmail(sendto);
 	}
 
 }
