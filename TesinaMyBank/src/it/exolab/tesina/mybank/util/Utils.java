@@ -140,7 +140,7 @@ public class Utils {
 		for (int i = 0; i < email.length(); i++) {
 			if (email.charAt(i) == '@') {
 				contaChiocciola++;
-				if (contaChiocciola >= 1)
+				if (contaChiocciola < 1)
 					return true;
 			}
 
