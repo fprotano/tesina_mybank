@@ -22,7 +22,7 @@ public class HelpCenterThreadController {
 	private HelpCenterThreadService helpCenterThreadService;
 	
 	@Autowired(required=true)  
-	public void setHelpCenterService(HelpCenterThreadService helpCenterThreadService) {
+	public void setHelpCenterThreadService(HelpCenterThreadService helpCenterThreadService) {
 		this.helpCenterThreadService = helpCenterThreadService;
 	}
 	
@@ -67,9 +67,16 @@ public class HelpCenterThreadController {
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
 			List<HelpCenterThread> transazioni = this.helpCenterThreadService.findAll();
+			if(transazioni.size()>0) {
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;
+			} else {
+				response.setSuccess(false);
+				response.setErr("Errore");
+				response.setErr_code("01");
+				return response;
+			}
 		
 	}
 	
