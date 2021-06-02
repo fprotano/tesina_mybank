@@ -62,7 +62,7 @@ public class HelpCenterThreadController {
 	}
 	
 	
-	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="findAll", method=RequestMethod.GET)
 	@ResponseBody
 	public HTTPResponse findAll() {
 			HTTPResponse response = new HTTPResponse();
