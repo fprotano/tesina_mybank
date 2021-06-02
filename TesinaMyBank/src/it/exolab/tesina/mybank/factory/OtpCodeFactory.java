@@ -65,6 +65,7 @@ public  class OtpCodeFactory {
 	
 	
 	public static  void timer() {
+		
 //		Timer timer = new Timer();
 ////		account.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now()));
 ////		Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
