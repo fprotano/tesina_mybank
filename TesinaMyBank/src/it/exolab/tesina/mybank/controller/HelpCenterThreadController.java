@@ -62,11 +62,11 @@ public class HelpCenterThreadController {
 	}
 	
 	
-	@RequestMapping(value="findAll", method=RequestMethod.GET)
+	@RequestMapping(value="findAll", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse findAll() {
+	public HTTPResponse findAll(@RequestBody Integer id) {
 			HTTPResponse response = new HTTPResponse();
-			List<HelpCenterThread> transazioni = this.helpCenterThreadService.findAll();
+			List<HelpCenterThread> transazioni = this.helpCenterThreadService.findbyFromAccountId(id);
 			if(transazioni.size()>0) {
 			response.setData(transazioni);
 			response.setSuccess(true);
