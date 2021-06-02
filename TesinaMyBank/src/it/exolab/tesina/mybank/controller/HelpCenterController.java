@@ -81,9 +81,17 @@ public class HelpCenterController {
 	public HTTPResponse findAllThreads() {
 			HTTPResponse response = new HTTPResponse();
 			List<HelpCenterThread> helpcentersthreads = this.helpCenterThreadService.findAll();
+			if(helpcentersthreads.size()>0) {
 			response.setData(helpcentersthreads);
 			response.setSuccess(true);
 			return response;
+			} else {
+				response.setSuccess(false);
+				response.setErr("Errore");
+				response.setErr_code("01");
+					return response;
+					
+		}
 		
 	}
 	
