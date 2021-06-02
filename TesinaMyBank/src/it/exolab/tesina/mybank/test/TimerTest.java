@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import it.exolab.tesina.mybank.factory.IbanFactory;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 
 public class TimerTest {
@@ -59,16 +60,23 @@ public class TimerTest {
 	
 	
 	public static void main(String[] args) throws InterruptedException {
-		 
-		for (int i = 0; i < 1; i++)
-	        {  
-			
-	            System.out.println("Sleep for 2 seconds.");
-	            Thread.sleep(2000);
-	        }
-
-	        System.out.println("richiedi nuovo codice otp");
-	    }
+		IbanFactory.GenerateIban();
+		IbanFactory.iban();
+		IbanFactory.iban2();
+		
+		
+		
+		
+//		for (int i = 0; i < 1; i++)
+//	        {  
+//			
+//	            System.out.println("Sleep for 2 seconds.");
+//	            Thread.sleep(2000);
+//	            
+//	        }
+//
+//	        System.out.println("richiedi nuovo codice otp");
+//	    }
 //		 System.out.println("INIZIA il conto alla rovescia:");
 //		     CountDown();
 		   	//	OtpCodeFactory.timer();
@@ -99,6 +107,6 @@ public class TimerTest {
 	
 	
 	
-	
+	}	
 
 }

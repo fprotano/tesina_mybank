@@ -4,9 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.exolab.tesina.mybank.exception.InvalidEmail;
+import it.exolab.tesina.mybank.exception.InvalidPassword;
+import it.exolab.tesina.mybank.exception.MaxLengthError;
+import it.exolab.tesina.mybank.exception.RequiredFieldError;
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.dto.AccountDTO;
 import it.exolab.tesina.mybank.repository.AccountRepository;
+import it.exolab.tesina.mybank.util.Validator;
+
+
 
 
 
@@ -37,4 +44,7 @@ public class AccountService {
 	public Account findByEmailAndPassword(String email, String password) {
 		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
+	
+
+	
 }

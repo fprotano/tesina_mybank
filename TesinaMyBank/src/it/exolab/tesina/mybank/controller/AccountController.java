@@ -1,6 +1,8 @@
 package it.exolab.tesina.mybank.controller;
 
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.dto.AccountDTO;
@@ -39,7 +42,9 @@ public class AccountController {
 	 @ResponseBody
 	 public HTTPResponse login(@RequestBody AccountDTO account) {
 		 	HTTPResponse response = new HTTPResponse();
+		 	
 		 	Account account_searched = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
+		 	account_searched.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			if(account!=null) {
 		 	response.setData(account_searched);
 		 	response.setSuccess(true);
@@ -57,6 +62,7 @@ public class AccountController {
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 		if(account!=null) {
+			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
 			this.accountService.insert(account);
 			response.setData(account);
 			response.setSuccess(true);
