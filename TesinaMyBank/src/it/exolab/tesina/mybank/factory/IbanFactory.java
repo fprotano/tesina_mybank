@@ -61,6 +61,7 @@ public class IbanFactory {
 	 String perRandom = numeri;
      
      int lunghezzaRandom = 9;
+     
 
      SecureRandom sr = new SecureRandom();
      StringBuilder sb = new StringBuilder(lunghezzaRandom);
