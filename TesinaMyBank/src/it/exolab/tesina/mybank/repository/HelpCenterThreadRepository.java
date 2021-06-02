@@ -14,7 +14,7 @@ public interface HelpCenterThreadRepository extends CrudRepository<HelpCenterThr
 
 	@Transactional
 	@Modifying
-	@Query("SELECT hc FROM HelpCenter hc JOIN FETCH hc.helpCenter WHERE hc.fromAccountId=?1")
+	@Query("SELECT hct FROM HelpCenterThread hct JOIN FETCH hct.helpCenter AS hc WHERE hc.fromAccountId=?1")
 	public List<HelpCenterThread> findbyFromAccountId(Integer id);
 	
 	
