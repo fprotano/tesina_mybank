@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenter;
+import it.exolab.tesina.mybank.model.HelpCenterThread;
 import it.exolab.tesina.mybank.service.HelpCenterService;
+import it.exolab.tesina.mybank.service.HelpCenterThreadService;
 
 @CrossOrigin
 @Controller
@@ -20,6 +22,8 @@ import it.exolab.tesina.mybank.service.HelpCenterService;
 public class HelpCenterController {
 	
 	private HelpCenterService helpCenterService;
+	
+	private HelpCenterThreadService helpCenterThreadService;
 	
 	@Autowired(required=true)
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
@@ -68,6 +72,16 @@ public class HelpCenterController {
 			HTTPResponse response = new HTTPResponse();
 			List<HelpCenter> helpcenters = this.helpCenterService.findAll();
 			response.setData(helpcenters);
+			response.setSuccess(true);
+			return response;
+		
+	}
+	@RequestMapping(value="findAllThreads", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse findAllThreads() {
+			HTTPResponse response = new HTTPResponse();
+			List<HelpCenterThread> helpcentersthreads = this.helpCenterThreadService.findAll();
+			response.setData(helpcentersthreads);
 			response.setSuccess(true);
 			return response;
 		
