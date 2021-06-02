@@ -29,6 +29,11 @@ public class HelpCenterController {
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
 		this.helpCenterService = helpCenterService;
 	}
+	
+	@Autowired(required=true)
+	public void setHelpCenterThreadService(HelpCenterThreadService helpCenterThreadService) {
+		this.helpCenterThreadService = helpCenterThreadService;
+	}
 	 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -81,6 +86,7 @@ public class HelpCenterController {
 	public HTTPResponse findAllThreads() {
 			HTTPResponse response = new HTTPResponse();
 			List<HelpCenterThread> helpcentersthreads = this.helpCenterThreadService.findAll();
+			System.out.println("CIAIOOOOOO" + helpcentersthreads);
 			if(helpcentersthreads.size()>0) {
 			response.setData(helpcentersthreads);
 			response.setSuccess(true);
