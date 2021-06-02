@@ -60,9 +60,8 @@ public class TimerTest {
 	
 	
 	public static void main(String[] args) throws InterruptedException {
-		IbanFactory.GenerateIban();
-		IbanFactory.iban();
-		IbanFactory.iban2();
+		IbanFactory.Genetateiban();
+		
 		
 		
 		
