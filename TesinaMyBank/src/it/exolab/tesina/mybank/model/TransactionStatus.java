@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
  
 @Entity
-@Table
+@Table(name="transaction_status")
 public class TransactionStatus {
 	@Id
 	private Integer id;

@@ -62,7 +62,7 @@ public class AccountController {
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 		if(account!=null) {
-			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
+//			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
 			this.accountService.insert(account);
 			response.setData(account);
 			response.setSuccess(true);

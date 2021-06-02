@@ -75,7 +75,7 @@ public class IbanFactory {
 	 Iban iban =  new Iban .Builder()
              .countryCode ( CountryCode . AT )
              .bankCode( "190843" )
-             .accountNumber((String) sb)
+//             .accountNumber((String) sb)
              .build();
 	 System.out.println(iban);
 	 

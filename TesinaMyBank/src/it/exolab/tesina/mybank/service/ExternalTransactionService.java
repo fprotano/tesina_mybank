@@ -43,4 +43,8 @@ private ExternalTransactionRepository externalTransactionRepository;
 	public ExternalTransaction find(int id) {
 		return externalTransactionRepository.findOne(id);
 	}
+	
+	public List<ExternalTransaction> findAllByStaffId(Integer id){
+		return (List<ExternalTransaction>) externalTransactionRepository.findByVerifyAssignedTo(id);
+	}
 }
