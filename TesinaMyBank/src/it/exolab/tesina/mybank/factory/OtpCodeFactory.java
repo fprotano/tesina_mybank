@@ -2,6 +2,13 @@ package it.exolab.tesina.mybank.factory;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.Staff;
@@ -23,6 +30,11 @@ public  class OtpCodeFactory {
 		return ret;
 	}
 	
+	
+	
+	
+	
+	
 	public static void setCreatedUpdatedAndOtp(Object registrato) {
 		if(registrato instanceof Staff) {
 			Staff staff = (Staff) registrato;
@@ -39,14 +51,80 @@ public  class OtpCodeFactory {
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			account.setOtpCode(doGenerateNewOtpCode());
 			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+			
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+		//	timer(account);
 //			if(Timestamp.valueOf(LocalDateTime.now()).after(time)) {
 //				
 //			}
 			
 		}
 	}
+	
+	
+	
+	public static  void timer() {
+		
+//		Timer timer = new Timer();
+////		account.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now()));
+////		Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+////		
+////		Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+////		account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+//	;
+//		//mail list
+//	     
+//		TimerTask timerTask = new TimerTask() {
+//		
+//         
+//			@Override
+//			public void run() {
+//				int count = 2;
+//				
+//				if( count > 0) {
+//					count--;
+//					System.out.println(" 3 minuti per immetere otp" +count) ;
+//					if(count==0) {
+//						System.out.println("tempo scaduto");
+//					}
+//						
+//				}else {
+//					System.out.println("rifatti mandare il codice");
+//				}
+//				
+//				
+//			}
+		
+		  final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+	        ses.scheduleWithFixedDelay(new Runnable() {
+	            @Override
+	            public void run() {
+	            	int c = 1;
+	            	if(c>0) { 
+	            		System.out.println("hai 3 minuti per inserire l'otp" +c);
+	            		c--;
+	            		if (c==0) {
+		            		System.out.println("ciao");
+		            	//	Thread.sleep(millis);
+		            	}
+	            	}
+	            	
+	            	
+	    				
+	               
+	            	
+	            }
+	        }, 0, 5, TimeUnit.SECONDS);
+	        
+	    }
+	
+
+		
+		
+//	};
+//	timer.schedule(timerTask,1000);
+
 	
 	public static char doGenerateChar() {
 		char ret='0';
