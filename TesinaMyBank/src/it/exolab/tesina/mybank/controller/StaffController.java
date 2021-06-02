@@ -74,8 +74,8 @@ public class StaffController {
 	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
 		
 		if(staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(), staffOTP.getOtpCode())!=null) {
-			boolean ret = true;
-			HTTPResponse risposta = new HTTPResponse(ret);
+			boolean data = true;
+			HTTPResponse risposta = new HTTPResponse(data);
 			return risposta;
 		} else {
 			HTTPResponse risposta = new HTTPResponse("Errore OTP errato", "00");
