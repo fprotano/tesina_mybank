@@ -43,6 +43,8 @@ public class StaffController {
 		if (staff.getEmail()!=null || staff.getPassword()!=null) {
 			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			staff.setOtpCodeExpiresAt(Timestamp.valueOf(LocalDateTime.now()));
+			staff.setOtpCode(otpfactory.doGenerateNewOtpCode());
 			staffService.update(staff);
 			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			response = new HTTPResponse(staff);
@@ -73,14 +75,15 @@ public class StaffController {
 	@ResponseBody
 	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
 		
-		if(staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(), staffOTP.getOtpCode())!=null) {
+		if(staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(), staffOTP.getOtpCode())!=null && !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
 			boolean data = true;
 			HTTPResponse risposta = new HTTPResponse(data);
 			return risposta;
-		} else {
-			HTTPResponse risposta = new HTTPResponse("Errore OTP errato", "00");
+			} else {
+			HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
 			return risposta;
 		}
+		
 		
 		
 			
