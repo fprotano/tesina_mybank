@@ -35,7 +35,7 @@ public class HelpCenterThreadService {
 		return helpCenterThreadRepository.findOne(id);
 	}
 	
-	public List<HelpCenterThread> findbyFromAccountId(){
-		return (List<HelpCenterThread>) helpCenterThreadRepository.findAll();
+	public List<HelpCenterThread> findbyFromAccountId(Integer id){
+		return (List<HelpCenterThread>) helpCenterThreadRepository.findbyFromAccountId(id);
 	}
 }
