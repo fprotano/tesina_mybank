@@ -7,18 +7,21 @@
 <title>Admin Home</title>
 </head>
 <body>
-<%-- 	<jsp:include page="header.jsp"/> --%>
+ 	<jsp:include page="header.jsp"/> 
 	
-	Ciao <b>${staff.name}</b>
-	<br>
-<b>${staff.surname}</b>
+<fieldset>
+<b>Nome: ${staff.name}</b>
 <br>
-<b>${staff.email}</b>
+<b>Cognome: ${staff.surname}</b>
 <br>
-<b>${staff.password}</b>
+<b>Email: ${staff.email}</b>
+<br>
+<b>Password: ${staff.password}</b>
+<br>
+<b>RoleId: ${staff.roleId}</b>
+</fieldset>
 <br>
 <br>
-<br>
-{{messaggio}}
+${messaggio}
 </body>
 </html>
