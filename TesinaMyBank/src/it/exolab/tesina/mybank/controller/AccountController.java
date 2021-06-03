@@ -3,7 +3,9 @@ package it.exolab.tesina.mybank.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List; 
+import java.util.List;
+
+import javax.naming.spi.ObjectFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.factory.IbanFactory;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
@@ -57,12 +60,24 @@ public class AccountController {
 			}
 		}
 	
+	
 	@RequestMapping(value="registrazione", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 		if(account!=null) {
 //			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
+			account.setBalance(1000.0);
+			account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			account.setIban(IbanFactory.Genetateiban());
+			account.setOtpCode(OtpCodeFactory.doGenerateNewOtpCode());
+			
+			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+			
+			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+			System.out.println(account);
 			this.accountService.insert(account);
 			response.setData(account);
 			response.setSuccess(true);

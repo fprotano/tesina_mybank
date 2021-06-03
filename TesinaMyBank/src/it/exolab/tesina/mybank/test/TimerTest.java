@@ -60,7 +60,7 @@ public class TimerTest {
 	
 	
 	public static void main(String[] args) throws InterruptedException {
-		IbanFactory.Genetateiban();
+	System.out.println(IbanFactory.Genetateiban());
 		
 		
 		

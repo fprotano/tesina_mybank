@@ -10,6 +10,7 @@ public class IbanFactory {
 	
 	
 	private static final String IT = null;
+	private static final Iban String = null;
 
 
 
@@ -40,7 +41,7 @@ public class IbanFactory {
 			
 	
 	
-	public static void Genetateiban() {
+	public static String Genetateiban() {
 		//metodo per generare una stringa di 12 numeri casuali
 				String numeri ="0123456789";
 			     Random rand = new Random();
@@ -58,8 +59,8 @@ public class IbanFactory {
 				     
 			 }		
 				 //------------------------------------
-		
-		Iban iban = new Iban.Builder()
+		 String ret = "";
+		 Iban Iban = new Iban.Builder()
                 .countryCode(CountryCode.IT)
                .nationalCheckDigit("X")
                 .bankCode("19043")
@@ -68,7 +69,9 @@ public class IbanFactory {
                 
                
                 .build();
-		System.out.println(iban);
+	        String iban2 = java.lang.String.valueOf(Iban);
+		//System.out.println(iban);
+		return iban2;
 	}
 		
 // public static void iban2() {
