@@ -91,6 +91,7 @@ public class StaffController {
 		public String register(HttpSession session,Model model) {
 			Staff staffRegistrato = new Staff();
 			boolean otp = false;
+			
 			model.addAttribute("staffRegistrato", staffRegistrato);
 			return "admin/registrazione";
 		}
