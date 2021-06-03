@@ -89,7 +89,8 @@ public class StaffController {
 
 	@RequestMapping(value="registrazione", method=RequestMethod.GET)
 		public String register(HttpSession session,Model model) {
-			model.addAttribute("staff",(Staff)session.getAttribute("staff"));
+			Staff staffRegistrato = new Staff();
+			model.addAttribute("staffRegistrato", staffRegistrato);
 			return "admin/registrazione";
 		}
 	 
