@@ -7,11 +7,24 @@
 <title>Admin Home</title>
 </head>
 <body>
-<%-- 	<jsp:include page="header.jsp"/> --%>
+ 	<jsp:include page="header.jsp"/> 
 	
-	Ciao <b>${staff.name}</b>
-<b>${staff.surname}</b>
-<b>${staff.email}</b>
-<b>${staff.password}</b>
+<fieldset>
+<b>Nome: ${staff.name}</b>
+<br>
+<b>Cognome: ${staff.surname}</b>
+<br>
+<b>Email: ${staff.email}</b>
+<br>
+<b>Password: ${staff.password}</b>
+<br>
+<b>RoleId: ${staff.roleId}</b>
+</fieldset>
+<br>
+<br>
+<a href="${pageContext.request.contextPath}/staff/registrazione">Registra un nuovo membro dello Staff</a>
+<br>
+<br>
+${messaggio}
 </body>
 </html>

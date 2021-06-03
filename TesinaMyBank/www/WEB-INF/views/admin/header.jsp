@@ -31,16 +31,16 @@
        </c:otherwise>
        </c:choose>
       
-      <hr/>
+      <hr/> 
         
         <c:choose>
-        	<c:when test="${staff.ruolo.id == 1}">
+        	<c:when test="${staff.roleId == 1}">
         		<li><jsp:include page="navbarAdmin.jsp"></jsp:include></li>
         	</c:when>
-       		<c:when test="${staff.ruolo.id == 2}">
+       		<c:when test="${staff.roleId == 2}">
         	<li><jsp:include page="navbarValidator.jsp"></jsp:include></li>
         	</c:when>
-        	<c:when test="${staff.ruolo.id == 3}">
+        	<c:when test="${staff.roleId == 3}">
         	<li><jsp:include page="navbarHelpdesk.jsp"></jsp:include></li>
         	</c:when>
         </c:choose>

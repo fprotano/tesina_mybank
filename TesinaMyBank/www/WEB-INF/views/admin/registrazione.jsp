@@ -9,7 +9,10 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="staffRegistrato" action="mettinomemetodoRegistrazione()">
+<form:form method="post" modelAttribute="staffRegistrato" action="${pageContext.request.contextPath}/staff/registrazione()">
+
+<p>Registra un nuovo membro dello Staff</p>
+
 
 <label>Nome</label>
 <br/>
@@ -27,6 +30,11 @@
 <br/>
 <form:input path="password" />
 <hr/>
+<form:select path="roleId">
+<option value='1'> Amministratore </option>
+<option value='2'>Verificatore</option>
+<option value='3'>Help Desk</option>
+</form:select>
 <input type="submit" value="registrati">
 </form:form>
 
