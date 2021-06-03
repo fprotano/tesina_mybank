@@ -54,7 +54,7 @@ public class StaffController {
 	
 	
 	
-	@RequestMapping(value="confermaOTP", method=RequestMethod.POST)
+	@RequestMapping(value="confermaOTP/{OTP}", method=RequestMethod.POST)
 	 public ModelAndView confermaOTP(@PathVariable String OTP, HttpSession session, Model model) {
 		 	ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		 	Staff staff = (Staff) session.getAttribute("staff");

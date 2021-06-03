@@ -23,8 +23,20 @@
 <input type="submit" value="Login">
 </form:form>
 <c:if test="${staff.name!=null}">
+<div>
+</div>
 <script>
-prompt("Inserisci otp")
+var OTP = prompt("Inserisci otp");
+$.ajax({url: "http://localhost:8080/TesinaMyBank/staff/confermaOTP/${"+OTP+"}", success: {
+
+}});
+$.ajax({
+	  type: "POST",
+	  url: url,
+	  data: data,
+	  success: success,
+	  dataType: dataType
+	});
 </script>
 </c:if>
 
