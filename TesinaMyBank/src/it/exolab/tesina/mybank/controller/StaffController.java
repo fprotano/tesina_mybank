@@ -68,7 +68,7 @@ public class StaffController {
 	 @RequestMapping(value="home", method=RequestMethod.GET)
 		public String home(HttpSession session,Model model) {
 			model.addAttribute("staff",(Staff)session.getAttribute("staff"));
-			return "homeAdmin";
+			return "admin/homeAdmin";
 		}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
