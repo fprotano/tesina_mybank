@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,11 @@ public class StaffController {
 //			model.addAttribute("user",user);
 //			return "login";
 //		}
+	
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	   public String index(@ModelAttribute Staff staff) {
+	      return "login";
+	   }
 	 @RequestMapping(value="login", method=RequestMethod.POST)
 	 public ModelAndView login(Staff staff, HttpSession session) {
 		 ModelAndView ret = new ModelAndView("redirect:/staff/home");
