@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -33,6 +34,7 @@ public class Staff {
 	private Timestamp updatedAt;
 	private String email;
 	private String password;
+	@NotEmpty(message = "nome richiesto")
 	private String name;
 	private String surname;
 	@Column(name="role_id")
