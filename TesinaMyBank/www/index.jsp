@@ -11,3 +11,4 @@ String cp = request.getContextPath();
 </jsp:include>
 It works!
 <jsp:include page="templates/footer.jsp"></jsp:include>
+<jsp:forward page="WEB-INF/views/admin/login.jsp"></jsp:forward>
