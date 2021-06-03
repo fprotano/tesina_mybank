@@ -31,7 +31,7 @@
        </c:otherwise>
        </c:choose>
       
-      <hr/>
+      <hr/> 
         
         <c:choose>
         	<c:when test="${staff.ruolo.id == 1}">
