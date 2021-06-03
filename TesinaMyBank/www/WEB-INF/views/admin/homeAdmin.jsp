@@ -22,8 +22,6 @@
 </fieldset>
 <br>
 <br>
-<a href="${pageContext.request.contextPath}/staff/registrazione">Registra un nuovo membro dello Staff</a>
-<br>
 <br>
 ${messaggio}
 </body>
