@@ -95,8 +95,7 @@ public class StaffController {
 		}
 	
 	 
-	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
 	public ModelAndView registrazione(Staff staffRegistrato) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null || staffRegistrato.getRoleId()!=0) {
