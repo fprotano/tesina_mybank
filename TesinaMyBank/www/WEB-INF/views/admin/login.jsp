@@ -9,16 +9,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="staffRegistrato" action="metodoLogin()">
-
-<label>Nome</label>
-<br/>
-<form:input path="name" />
-<br/>
-<label>cognome</label>
-<br/>
-<form:input path="surname" />
-<br/>
+<form:form method="post" modelAttribute="staff">
 <label>Email: </label>
 <br/>
 <form:input path="email" />
@@ -27,7 +18,7 @@
 <br/>
 <form:input path="password" />
 <hr/>
-<input type="submit" value="registrati">
+<input type="submit" value="Login">
 </form:form>
 
 
