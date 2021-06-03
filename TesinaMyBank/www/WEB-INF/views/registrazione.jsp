@@ -27,6 +27,11 @@
 <br/>
 <form:input path="password" />
 <hr/>
+<form:select path="roleId">
+<option value='1'> Amministratore </option>
+<option value='2'>Verificatore</option>
+<option value='3'>Help Desk</option>
+</form:select>
 <input type="submit" value="registrati">
 </form:form>
 

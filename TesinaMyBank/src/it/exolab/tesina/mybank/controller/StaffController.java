@@ -91,7 +91,7 @@ public class StaffController {
 	@ResponseBody
 	public ModelAndView registrazione(@RequestBody Staff staffRegistrato) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
-		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
+		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null || staffRegistrato.getRoleId()!=0) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffService.insert(staffRegistrato);
 			ret.addObject("messaggio", "Membro dello staff inserito.");
