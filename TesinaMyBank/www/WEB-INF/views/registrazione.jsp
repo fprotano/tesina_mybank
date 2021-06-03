@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="staffRegistrato" action="metodoLogin()">
+<form:form method="post" modelAttribute="staffRegistrato" action="mettinomemetodoRegistrazione()">
 
 <label>Nome</label>
 <br/>
