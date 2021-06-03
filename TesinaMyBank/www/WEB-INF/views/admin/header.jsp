@@ -2,6 +2,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <body>
+
 <jsp:include page="style.jsp"></jsp:include>
 
 <!--  -default dopo navbar, -custom per la custom, niente per niente -->
@@ -15,15 +16,31 @@
     
     </div>
       <ul class="nav navbar-nav">
-        <li><jsp:include page="loginForm.jsp"></jsp:include></li>
+      
+      <c:choose>
+		<c:when test="${staff.id!=null}">
+			<form action="MainServlet">
+				<c:out value="Benvenuto, ${staff.name} ${staff.surname}"/>
+				<input class="btn btn-danger" type="submit" id ="logout" name="logout" value="Logout"/>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<c:out value="Effettua il login: "/>
+			<jsp:include page="login.jsp"></jsp:include>
+			<br/>
+       </c:otherwise>
+       </c:choose>
+      
+      <hr/>
+        
         <c:choose>
-        	<c:when test="${user.ruolo.id == 1}">
+        	<c:when test="${staff.ruolo.id == 1}">
         		<li><jsp:include page="navbarAdmin.jsp"></jsp:include></li>
         	</c:when>
-       		<c:when test="${user.ruolo.id == 2}">
+       		<c:when test="${staff.ruolo.id == 2}">
         	<li><jsp:include page="navbarValidator.jsp"></jsp:include></li>
         	</c:when>
-        	<c:when test="${user.ruolo.id == 3}">
+        	<c:when test="${staff.ruolo.id == 3}">
         	<li><jsp:include page="navbarHelpdesk.jsp"></jsp:include></li>
         	</c:when>
         </c:choose>
