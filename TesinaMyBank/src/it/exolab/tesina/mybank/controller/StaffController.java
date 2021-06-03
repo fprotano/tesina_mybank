@@ -43,6 +43,7 @@ public class StaffController {
 		if (staff.getEmail()!=null || staff.getPassword()!=null) {
 			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			otpfactory.setNewOtpUpdate(staff);
+			staffService.update(staff);
 			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			response = new HTTPResponse(staff);
 			return response;
