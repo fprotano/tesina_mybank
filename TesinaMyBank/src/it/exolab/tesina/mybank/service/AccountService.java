@@ -30,7 +30,7 @@ public class AccountService {
 	public List<Account> findAll(){
 		return (List<Account>)this.accountRepository.findAll();
 	}
-	public void insert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail {
+	public void insert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword {
 		validateInsert(model);
 		this.accountRepository.save(model);
 	}
@@ -47,7 +47,7 @@ public class AccountService {
 		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
 	
-	public void validateInsert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail {
+	public void validateInsert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword {
 		Validator.required("email", model.getEmail());
 		Validator.required("password", model.getPassword());
 		Validator.required("name", model.getName());
@@ -61,7 +61,7 @@ public class AccountService {
 		Validator.minLength("name", model.getName(), 1);
 		Validator.minLength("surname", model.getSurname(), 1);
 		Validator.validateEmail("email", model.getEmail());
-		Validator.validateEmail("password", model.getPassword());
+		Validator.validatePassword("password", model.getPassword());
 		
 		
 		
