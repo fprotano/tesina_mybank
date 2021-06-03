@@ -94,6 +94,7 @@ public class StaffController {
 			return "admin/registrazione";
 		}
 	
+	
 	 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
 	public ModelAndView registrazione(Staff staffRegistrato) {
