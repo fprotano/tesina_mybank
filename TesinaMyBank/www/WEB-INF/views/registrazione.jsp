@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="staffRegistrato" action="mettinomemetodoRegistrazione()">
+<form:form method="post" modelAttribute="staffRegistrato" action="${pageContext.request.contextPath}/staff/registrazione()">
 
 <label>Nome</label>
 <br/>

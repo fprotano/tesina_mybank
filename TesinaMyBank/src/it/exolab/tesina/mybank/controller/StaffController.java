@@ -89,16 +89,17 @@ public class StaffController {
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse registrazione(@RequestBody Staff staffRegistrato) {
+	public ModelAndView registrazione(@RequestBody Staff staffRegistrato) {
+		ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffService.insert(staffRegistrato);
-			response = new HTTPResponse(staffRegistrato);
-			return response;
+			ret.addObject("messaggio", "Membro dello staff inserito.");
+			return ret;
 
 		} else {
-			response = new HTTPResponse("errore", "01");
-			return response;
+			ret.addObject("messaggio", "Errore inserimento, staff non inserito.");
+			return ret;
 		}
 
 	}

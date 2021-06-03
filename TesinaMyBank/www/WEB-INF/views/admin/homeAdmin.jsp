@@ -10,8 +10,15 @@
 <%-- 	<jsp:include page="header.jsp"/> --%>
 	
 	Ciao <b>${staff.name}</b>
+	<br>
 <b>${staff.surname}</b>
+<br>
 <b>${staff.email}</b>
+<br>
 <b>${staff.password}</b>
+<br>
+<br>
+<br>
+{{messaggio}}
 </body>
 </html>
