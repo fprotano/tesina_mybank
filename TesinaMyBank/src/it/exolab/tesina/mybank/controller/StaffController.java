@@ -42,10 +42,7 @@ public class StaffController {
 	public HTTPResponse login(@RequestBody Staff staff) {
 		if (staff.getEmail()!=null || staff.getPassword()!=null) {
 			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
-			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-			staff.setOtpCodeExpiresAt(Timestamp.valueOf(LocalDateTime.now()));
-			staff.setOtpCode(otpfactory.doGenerateNewOtpCode());
-			staffService.update(staff);
+			otpfactory.setNewOtpUpdate(staff);
 			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			response = new HTTPResponse(staff);
 			return response;

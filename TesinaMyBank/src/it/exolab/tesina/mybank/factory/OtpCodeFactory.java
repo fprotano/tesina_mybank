@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.Staff;
+import it.exolab.tesina.mybank.service.StaffService;
 
 public  class OtpCodeFactory {
 	public static String doGenerateNewOtpCode() {
@@ -31,6 +32,15 @@ public  class OtpCodeFactory {
 	}
 	
 	
+	public static void setNewOtpUpdate(Staff staff){
+		StaffService staffservice = new StaffService();
+		staff.setOtpCode(doGenerateNewOtpCode());
+		Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
+		Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+		staff.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+		staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+		staffservice.update(staff);
+	}
 	
 	
 	
