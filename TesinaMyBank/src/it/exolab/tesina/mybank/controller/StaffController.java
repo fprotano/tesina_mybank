@@ -1,20 +1,22 @@
 package it.exolab.tesina.mybank.controller;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; 
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
+import org.springframework.web.servlet.ModelAndView;
 
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
@@ -37,6 +39,32 @@ public class StaffController {
 		this.staffService = staffService;
 	}
 
+//	 @RequestMapping(value="login", method=RequestMethod.GET)
+//		public String login(User user, Model model) {
+//			model.addAttribute("messaggio","Ciao inserisci le credenziali");
+//			model.addAttribute("user",user);
+//			return "login";
+//		}
+	 @RequestMapping(value="login", method=RequestMethod.POST)
+	 public ModelAndView login(Staff staff, HttpSession session) {
+		 ModelAndView ret = new ModelAndView("redirect:/staff/home");
+		 	staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
+			if(staff!=null) {
+		 	ret.addObject("staff",staff);
+		 	session.setAttribute("staff", staff);
+			return ret;
+			} else {
+				ModelAndView ret2 = new ModelAndView("login");
+				ret2.addObject("messaggio", "Credenziali errate");
+					return ret2;
+			}
+		}
+	 @RequestMapping(value="home", method=RequestMethod.GET)
+		public String home(HttpSession session,Model model) {
+			model.addAttribute("staff",(Staff)session.getAttribute("staff"));
+			return "homeAdmin";
+		}
+	
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse login(@RequestBody Staff staff) {
