@@ -19,10 +19,9 @@
       
       <c:choose>
 		<c:when test="${staff.id!=null}">
-			<form action="MainServlet">
 				<c:out value="Benvenuto, ${staff.name} ${staff.surname}"/>
-				<input class="btn btn-danger" type="submit" id ="logout" name="logout" value="Logout"/>
-			</form>
+				<a href="${pageContext.request.contextPath}/staff/logout">Logout</a>
+			
 		</c:when>
 		<c:otherwise>
 			<c:out value="Effettua il login: "/>

@@ -95,7 +95,11 @@ public class StaffController {
 			model.addAttribute("staffRegistrato", staffRegistrato);
 			return "admin/registrazione";
 		}
-	
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(@ModelAttribute Staff staff, HttpSession session) {
+		session.invalidate();
+		return "admin/login";
+	}
 	
 	 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
