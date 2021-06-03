@@ -18,7 +18,5 @@
 <b>${staff.password}</b>
 <br>
 <br>
-<br>
-{{messaggio}}
 </body>
 </html>
