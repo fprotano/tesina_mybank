@@ -61,6 +61,9 @@ public  class OtpCodeFactory {
 			account.setOtpCode(doGenerateNewOtpCode());
 			account.setIban(IbanFactory.Genetateiban());
 			account.setBalance(1000.0);
+			account.setCreditCardNo(IbanFactory.GenerateCreditCardNumber());
+			account.setCreditCardCin(IbanFactory.GenerateCin());
+			
 			Long duration = Long.valueOf(((14 * 60) + 59) * 200);
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));

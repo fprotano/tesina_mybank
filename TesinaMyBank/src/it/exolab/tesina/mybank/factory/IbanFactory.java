@@ -9,33 +9,50 @@ import org.iban4j.Iban;
 public class IbanFactory {
 	
 	
-	private static final String IT = null;
-	private static final Iban String = null;
+	public static String GenerateCreditCardNumber() {
+		String numeri ="0123456789";
+	     Random rand = new Random();
+	     
+	 String perRandom = "";
+	 int lunghezzaRandom = 16;
+	 char[] text= new char[lunghezzaRandom];
+	  
+		 for(int i =0; i<lunghezzaRandom; i++) {
+			 text[i]=numeri.charAt(rand.nextInt(numeri.length()));
+			 
+		 }
+		 for(int i =0; i<text.length; i++) {
+			  perRandom += text[i];
+		     
+	 }
+		return perRandom;		
+		
+	}
+
+	public static String GenerateCin() {
+		String numeri ="0123456789";
+	     Random rand = new Random();
+	     
+	 String perRandom = "";
+	 int lunghezzaRandom = 3;
+	 char[] text= new char[lunghezzaRandom];
+	  
+		 for(int i =0; i<lunghezzaRandom; i++) {
+			 text[i]=numeri.charAt(rand.nextInt(numeri.length()));
+			 
+		 }
+		 for(int i =0; i<text.length; i++) {
+			  perRandom += text[i];
+		     
+	 }
+		return perRandom;		
+		
+	}
 
 
 
 
-
-//	public static void GenerateIban () {
-//		  String lower = "abcdefghijklmnopqrstuvwxyz";
-//	        String upper = lower.toUpperCase();
-//	        String numeri = "0123456789";
-//	        String perRandom = upper + lower + numeri;
-//	        
-//	        int lunghezzaRandom = 27;
-//
-//	        SecureRandom sr = new SecureRandom();
-//	        StringBuilder sb = new StringBuilder(lunghezzaRandom);
-//	        for (int i = 0; i < lunghezzaRandom; i++) {
-//	            int randomInt = sr.nextInt(perRandom.length());
-//	            char randomChar = perRandom.charAt(randomInt);
-//	            
-//	            sb.append(randomChar);
-//	           
-//	        }
-//
-//	        System.out.println(sb.toString());
-//	    }
+	
 			
 			
 			
@@ -74,31 +91,27 @@ public class IbanFactory {
 		return iban2;
 	}
 		
-// public static void iban2() {
-//	 String numeri ="0123456789";
-//
-//	 String perRandom = numeri;
-//     
-//     int lunghezzaRandom = 9;
-//     
-//
-//     SecureRandom sr = new SecureRandom();
-//     StringBuilder sb = new StringBuilder(lunghezzaRandom);
-//     for (int i = 0; i < lunghezzaRandom; i++) {
-//         int randomInt = sr.nextInt(perRandom.length());
-//         char randomChar = perRandom.charAt(randomInt);
-//         
-//         sb.append(randomChar);
-//         
-//
-//	 Iban iban =  new Iban .Builder()
-//             .countryCode ( CountryCode . AT )
-//             .bankCode( "190843" )
-////             .accountNumber((String) sb)
-//             .build();
-//	 System.out.println(iban);
-//	 
-// }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 		
 	
 		
