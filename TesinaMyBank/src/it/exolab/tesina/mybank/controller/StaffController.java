@@ -49,7 +49,7 @@ public class StaffController {
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	   public String index(@ModelAttribute Staff staff) {
-	      return "login";
+	      return "admin/login";
 	   }
 	 @RequestMapping(value="login", method=RequestMethod.POST)
 	 public ModelAndView login(Staff staff, HttpSession session) {
