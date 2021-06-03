@@ -4,7 +4,9 @@
 
 </div>
 <footer  class="container">
-
+<a href="${pageContext.request.contextPath}/index?lang=it_IT">Italiano</a>
+| <a href="${pageContext.request.contextPath}/index?lang=en_EN">Inglese</a>
+| Lingua corrente : ${pageContext.response.locale}
 </footer>
 </body>
 </html>

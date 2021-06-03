@@ -14,6 +14,7 @@
 <label>Nome</label>
 <br/>
 <form:input path="name" />
+<form:errors path="name" />
 <br/>
 <label>cognome</label>
 <br/>
