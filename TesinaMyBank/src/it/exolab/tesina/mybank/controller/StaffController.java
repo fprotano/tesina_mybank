@@ -43,8 +43,8 @@ public class StaffController {
 		if (staff.getEmail()!=null || staff.getPassword()!=null) {
 			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//			staff.setOtpCodeExpiresAt(Timestamp.valueOf(LocalDateTime.now()));
-//			staff.setOtpCode(otpfactory.doGenerateNewOtpCode());
+			staff.setOtpCodeExpiresAt(Timestamp.valueOf(LocalDateTime.now()));
+			staff.setOtpCode(otpfactory.doGenerateNewOtpCode());
 			staffService.update(staff);
 			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			response = new HTTPResponse(staff);
@@ -59,7 +59,7 @@ public class StaffController {
 	@ResponseBody
 	public HTTPResponse registrazione(@RequestBody Staff staffRegistrato) {
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null) {
-//			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffService.insert(staffRegistrato);
 			response = new HTTPResponse(staffRegistrato);
 			return response;

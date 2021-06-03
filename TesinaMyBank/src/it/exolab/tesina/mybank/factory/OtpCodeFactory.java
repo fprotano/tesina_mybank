@@ -50,8 +50,9 @@ public  class OtpCodeFactory {
 			account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			account.setOtpCode(doGenerateNewOtpCode());
+			account.setIban(IbanFactory.Genetateiban());
+			account.setBalance(1000.0);
 			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
-			
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 		//	timer(account);

@@ -66,18 +66,7 @@ public class AccountController {
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 		if(account!=null) {
-//			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
-			account.setBalance(1000.0);
-			account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-			account.setIban(IbanFactory.Genetateiban());
-			account.setOtpCode(OtpCodeFactory.doGenerateNewOtpCode());
-			
-			Long duration = Long.valueOf(((14 * 60) + 59) * 1000);
-			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-			
-			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
-			System.out.println(account);
+			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
 			this.accountService.insert(account);
 			response.setData(account);
 			response.setSuccess(true);
