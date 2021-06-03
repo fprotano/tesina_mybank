@@ -93,6 +93,7 @@ public class StaffController {
 			model.addAttribute("staffRegistrato", staffRegistrato);
 			return "admin/registrazione";
 		}
+	
 	 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
