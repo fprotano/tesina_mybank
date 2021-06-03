@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.exception.InvalidEmail;
+import it.exolab.tesina.mybank.exception.InvalidPassword;
+import it.exolab.tesina.mybank.exception.MaxLengthError;
+import it.exolab.tesina.mybank.exception.MinLengthError;
+import it.exolab.tesina.mybank.exception.RequiredFieldError;
 import it.exolab.tesina.mybank.factory.IbanFactory;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.model.Account;
@@ -65,18 +70,48 @@ public class AccountController {
 	@ResponseBody
 	public HTTPResponse register(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
-		if(account!=null) {
-			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
-			this.accountService.insert(account);
-			response.setData(account);
-			response.setSuccess(true);
-			return response;
-		} else {
+		
+			try {
+				if(account!=null) {
+					OtpCodeFactory.setCreatedUpdatedAndOtp(account);
+				this.accountService.insert(account);
+				response.setData(account);
+				response.setSuccess(true);
+				
+				}
+			
+			} catch (RequiredFieldError e) {
 				response.setSuccess(false);
-				response.setErr("Errore");
+				response.setErr("Errore Campo Obbligatorio");
 				response.setErr_code("01");
 					return response;
-		}
+			} catch (MaxLengthError e) {
+				response.setSuccess(false);
+				response.setErr("Lunghezza massima superata");
+				response.setErr_code("02");
+					return response;
+			
+				
+			} catch (MinLengthError e) {
+				response.setSuccess(false);
+				response.setErr("Lunghezza minima superata");
+				response.setErr_code("03");
+					return response;
+			} catch (InvalidEmail e) {
+				response.setSuccess(false);
+				response.setErr("Lunghezza minima superata");
+				response.setErr_code("03");
+					return response;
+			} catch (InvalidPassword e) {
+				response.setSuccess(false);
+				response.setErr("Lunghezza minima superata");
+				response.setErr_code("03");
+					return response;
+				
+			}
+			return response;
+			
+		
 	}
 	
 	@RequestMapping(value="findOne", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
