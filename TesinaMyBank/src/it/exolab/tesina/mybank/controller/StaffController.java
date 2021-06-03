@@ -71,25 +71,31 @@ public class StaffController {
 			return "admin/homeAdmin";
 		}
 	
-	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse login(@RequestBody Staff staff) {
-		if (staff.getEmail()!=null || staff.getPassword()!=null) {
-			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
-			otpfactory.setNewOtpUpdate(staff);
-			staffService.update(staff);
-			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
-			response = new HTTPResponse(staff);
-			return response;
+//	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse login(@RequestBody Staff staff) {
+//		if (staff.getEmail()!=null || staff.getPassword()!=null) {
+//			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
+//			otpfactory.setNewOtpUpdate(staff);
+//			staffService.update(staff);
+//			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
+//			response = new HTTPResponse(staff);
+//			return response;
+//		}
+//		response = new HTTPResponse("err", "errore");
+//		return response;
+//
+//	}
+
+	@RequestMapping(value="registrazione", method=RequestMethod.GET)
+		public String register(HttpSession session,Model model) {
+			model.addAttribute("staff",(Staff)session.getAttribute("staff"));
+			return "admin/registrazione";
 		}
-		response = new HTTPResponse("err", "errore");
-		return response;
-
-	}
-
+	 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView registrazione(@RequestBody Staff staffRegistrato) {
+	public ModelAndView registrazione(Staff staffRegistrato) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null || staffRegistrato.getRoleId()!=0) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
