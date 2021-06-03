@@ -1,10 +1,13 @@
 package it.exolab.tesina.mybank.factory;
 
 import java.security.SecureRandom;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 
 public class IbanFactory {
 	
@@ -49,6 +52,30 @@ public class IbanFactory {
 		
 	}
 
+	public static String GenerateDataScadenzaCarta() {
+		
+
+		 int r = (int) (Math.floor(Math.random() * 12) + 1);
+	 
+	    String a= "/";
+	     
+	   
+	    
+	   Date date = new Date();
+       Calendar calendar = Calendar.getInstance();
+
+       calendar.setTime(date);
+       int dateYear = calendar.get(Calendar.YEAR );
+       dateYear = dateYear + 5;
+      
+       String result = r+a+dateYear;
+    
+       return result;
+     
+       
+
+		
+	}
 
 
 

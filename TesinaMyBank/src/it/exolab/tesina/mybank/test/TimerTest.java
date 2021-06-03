@@ -60,9 +60,9 @@ public class TimerTest {
 	
 	
 	public static void main(String[] args) throws InterruptedException {
-	System.out.println(IbanFactory.Genetateiban());
-    System.out.println(IbanFactory.GenerateCreditCardNumber());
-		
+//	System.out.println(IbanFactory.Genetateiban());
+//    System.out.println(IbanFactory.GenerateCreditCardNumber());
+		System.out.println(IbanFactory.GenerateDataScadenzaCarta());
 		
 		
 		
