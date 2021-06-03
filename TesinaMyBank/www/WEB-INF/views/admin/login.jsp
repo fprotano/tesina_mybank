@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="staff">
+<form:form method="post" modelAttribute="staff" action="${pageContext.request.contextPath}/staff/login">
 <label>Email: </label>
 <br/>
 <form:input path="email" />

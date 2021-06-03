@@ -8,5 +8,10 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
+	
+	Ciao <b>${staff.nome}</b>
+<b>${staff.cognome}</b>
+<b>${staff.email}</b>
+<b>${staff.password}</b>
 </body>
 </html>
