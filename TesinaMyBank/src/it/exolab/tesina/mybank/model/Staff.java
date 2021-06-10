@@ -58,7 +58,7 @@ public class Staff {
 //	}
 	
 	@Fetch(value=FetchMode.JOIN)
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="role_id", nullable=false,insertable=false, updatable=false)
 	//@Transient
 	private Role role;
