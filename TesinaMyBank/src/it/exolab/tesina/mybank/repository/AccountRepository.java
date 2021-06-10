@@ -8,5 +8,6 @@ import it.exolab.tesina.mybank.model.dto.AccountDTO;
 public interface AccountRepository extends CrudRepository <Account, Integer>{
 	
 	public Account findByEmailAndPassword(String email, String password);
+	public Account findByEmailAndPasswordAndOtpCode(String email , String password , String OTP);
 	 
 }

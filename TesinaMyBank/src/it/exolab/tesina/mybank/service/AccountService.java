@@ -46,6 +46,9 @@ public class AccountService {
 	public Account findByEmailAndPassword(String email, String password) {
 		return this.accountRepository.findByEmailAndPassword(email, password);
 	}
+	public Account findByEmailAndPasswordAndOtp(String email,String password,String OTP) {
+		return this.accountRepository.findByEmailAndPasswordAndOtpCode(email, password, OTP);
+	}
 	
 	public void validateInsert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword {
 		Validator.required("email", model.getEmail());
