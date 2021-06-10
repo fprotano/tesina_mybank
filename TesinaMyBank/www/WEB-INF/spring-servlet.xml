@@ -56,6 +56,12 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 
 <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
 
+<!-- Questo comando serve perchè nell'header.jsp noi richiamavamo nel src tutto l'url. Il problema sussisteva nel fatto
+che quell'indirizzo veniva visualizzato come controller quindi sarebbe stato 
+Httplocalhost8080:TesinaMyBank/${pageContext.request.contextPath}/assets/...
+Quindi per far risultare un URL corretto noi abbiamo usato il mapping di assets che indica alla servlet che quando
+incontrerà la parola assets, dovrà ricercare le risorse all'interno di "/WEB-INF/assets/" -->
+
 <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"/>
 
 
@@ -104,8 +110,8 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
     <property name="url" value="jdbc:mysql://localhost:3306/tesina_mybank?serverTimezone=UTC" />
-    <property name="username" value="sviluppo" />
-    <property name="password" value="sviluppo" />
+    <property name="username" value="root" />
+    <property name="password" value="gigingongo" />
   </bean>
 	
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
