@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,28 +36,44 @@ public class StaffController {
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
 	private OtpEmailFactory otpemailfactory = new OtpEmailFactory();
 	
+
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
 	}
 
-//	 @RequestMapping(value="login", method=RequestMethod.GET)
-//		public String login(User user, Model model) {
-//			model.addAttribute("messaggio","Ciao inserisci le credenziali");
-//			model.addAttribute("user",user);
-//			return "login";
-//		}
+	
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	   public String index(@ModelAttribute Staff staff) {
+	   public String index(@ModelAttribute Staff staff, Model model, HttpSession session) {
+		  if(session.getAttribute("staff")!=null) {
+		  model.addAttribute("staff",(Staff)session.getAttribute("staff"));
+		  }
 	      return "admin/login";
 	   }
+	
+	
+	
+	@RequestMapping(value="confermaOTP/{OTP}", method=RequestMethod.POST)
+	 public ModelAndView confermaOTP(@PathVariable String OTP, HttpSession session, Model model) {
+		 	ModelAndView ret = new ModelAndView("redirect:/staff/home");
+		 	Staff staff = (Staff) session.getAttribute("staff");
+		 	if(staffService.findByEmailAndPasswordAndOtpCode(staff.getEmail(), staff.getPassword(), OTP)!=null) {
+			return ret;
+			} 
+				ModelAndView ret2 = new ModelAndView("login");
+				ret2.addObject("messaggio", "Credenziali errate");
+					return ret2;
+	}
+
+		
+	
 	 @RequestMapping(value="login", method=RequestMethod.POST)
-	 public ModelAndView login(Staff staff, HttpSession session) {
-		 ModelAndView ret = new ModelAndView("redirect:/staff/home");
+	 public ModelAndView login(Staff staff, HttpSession session, Model model) {
+		 	ModelAndView ret = new ModelAndView("redirect:/staff/index");
+		 
 		 	staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 			if(staff!=null) {
-		 	ret.addObject("staff",staff);
 		 	session.setAttribute("staff", staff);
 			return ret;
 			} else {
@@ -93,10 +110,14 @@ public class StaffController {
 			model.addAttribute("staffRegistrato", staffRegistrato);
 			return "admin/registrazione";
 		}
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(@ModelAttribute Staff staff, HttpSession session) {
+		session.invalidate();
+		return "admin/login";
+	}
 	
 	 
-	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
 	public ModelAndView registrazione(Staff staffRegistrato) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null || staffRegistrato.getRoleId()!=0) {
