@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +10,8 @@
 <title>Transactions</title>
 </head>
 <body>
-	<p>esisto, transactionsList</p>
+	 
+	<legend>Dettagli transazioni da Autorizzare</legend>
 	<fieldset>
 	<table>
 		<tr>
@@ -17,7 +19,7 @@
 			<th>createdAt</th>
 			<th>customCode</th>
 			<th>transactionId</th>
-			<th>transactionStatusId</th>
+			<th>Stato</th>
 			<th>Amount</th>
 			<th>toAccountId</th>
 			
@@ -25,11 +27,12 @@
 	<c:forEach items="${transactions}" var="transaction" varStatus="loop">
 		<tr>
 			<td>${transaction.id}</td>
-			<td>${transaction.createdAt}</td>
+			<fmt:setLocale value="it_IT" /> 
+			<td><fmt:formatDate type="both" value="${transaction.createdAt}" pattern="E, dd-MMM-yyyy, HH:mm:ss" /></td>
 			<td>${transaction.customCode}</td>
 			<td>${transaction.transactionId}</td>
-			<td>${transaction.transactionStatusId}</td>
-			<td>${transaction.amount}</td>
+			<td>${transaction.transactionStatus.title}</td>
+			<td><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></td>
 			<td>${transaction.toAccountId}</td>
 		</tr>
 	</c:forEach>
