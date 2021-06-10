@@ -28,9 +28,6 @@ String cp = request.getContextPath();
 </div>
 <script>
 var OTP = prompt("Inserisci otp");
-// $.ajax({url: "http://localhost:8080/TesinaMyBank/staff/confermaOTP/${"+OTP+"}", success: {
-
-// }});
 if(OTP.length==10){
 $.ajax({
 	  type: "POST",
