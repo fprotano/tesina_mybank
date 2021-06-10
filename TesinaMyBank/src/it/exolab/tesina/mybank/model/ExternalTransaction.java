@@ -115,7 +115,12 @@ public class ExternalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
+	public Integer getToAccountId() {
+		return toAccountId;
+	}
+	public void setToAccountId(Integer toAccountId) {
+		this.toAccountId = toAccountId;
+	}
 	public Account getAccount() {
 		return account;
 	}

@@ -1,9 +1,7 @@
 package it.exolab.tesina.mybank.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,17 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.Staff;
-import it.exolab.tesina.mybank.model.dto.StaffDTO;
-import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.factory.OtpEmailFactory;
+import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.HTTPResponse;
+import it.exolab.tesina.mybank.model.Staff;
+import it.exolab.tesina.mybank.service.ExternalTransactionService;
+import it.exolab.tesina.mybank.service.StaffService;
 
 @CrossOrigin
 @Controller
 @RequestMapping(value = "staff")
 public class StaffController {
+	private ExternalTransactionService externalTransactionService;
 	private StaffService staffService;
 	private HTTPResponse response;
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
@@ -42,6 +42,11 @@ public class StaffController {
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
 	}
+	
+	@Autowired(required=true)
+	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
+		this.externalTransactionService = externalTransactionService;
+	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index(@ModelAttribute Staff staff, Model model, HttpSession session) {
@@ -50,7 +55,8 @@ public class StaffController {
 		}
 		return "admin/login";
 	}
-
+	
+	// controlloOtp per le jsp
 	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)
 	@ResponseBody
 	public void confermaOTP(@PathVariable String OTP, HttpSession session, Model model, HttpServletResponse response)
@@ -69,7 +75,6 @@ public class StaffController {
 
 		staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 		if (staff != null) {
-			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			session.setAttribute("staff", staff);
 			return ret;
 		} else {
@@ -133,22 +138,35 @@ public class StaffController {
 		}
 
 	}
-
-	@RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
-
-		if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(),
-				staffOTP.getOtpCode()) != null
-				&& !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
-			boolean data = true;
-			HTTPResponse risposta = new HTTPResponse(data);
-			return risposta;
-		} else {
-			HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
-			return risposta;
-		}
-
+	
+	// controlloOtp che comunica solo con angular - discontinuato
+//	@RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
+//
+//		if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(),
+//				staffOTP.getOtpCode()) != null
+//				&& !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
+//			boolean data = true;
+//			HTTPResponse risposta = new HTTPResponse(data);
+//			return risposta;
+//		} else {
+//			HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
+//			return risposta;
+//		}
+//
+//	}
+	
+	@RequestMapping(value = "transactionsList", method = RequestMethod.GET)
+	public ModelAndView transactionsList(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/transactionsList");
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			System.out.println(staff.getId());
+			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
+			ret.addObject("transactions", transactions);
+		} 
+		return ret;
 	}
 
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -162,12 +180,12 @@ public class StaffController {
 			return response;
 		} else {
 
-			response = new HTTPResponse("errore", "ciaobelli");
+			response = new HTTPResponse("errore", "01");
 			return response;
 		}
 
 	}
-
+	
 	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findAll() {
