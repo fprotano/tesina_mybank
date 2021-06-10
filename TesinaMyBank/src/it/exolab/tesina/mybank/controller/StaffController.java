@@ -69,6 +69,7 @@ public class StaffController {
 
 		staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 		if (staff != null) {
+			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
 			session.setAttribute("staff", staff);
 			return ret;
 		} else {
