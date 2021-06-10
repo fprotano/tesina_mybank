@@ -1,10 +1,12 @@
 package it.exolab.tesina.mybank.controller;
 
-import java.sql.Timestamp; 
+import java.io.IOException;
+import java.sql.Timestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,92 +37,90 @@ public class StaffController {
 	private HTTPResponse response;
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
 	private OtpEmailFactory otpemailfactory = new OtpEmailFactory();
-	
 
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
 	}
 
-	
-	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	   public String index(@ModelAttribute Staff staff, Model model, HttpSession session) {
-		  if(session.getAttribute("staff")!=null) {
-		  model.addAttribute("staff",(Staff)session.getAttribute("staff"));
-		  }
-	      return "admin/login";
-	   }
-	
-	
-	
-	@RequestMapping(value="confermaOTP/{OTP}", method=RequestMethod.POST)
-	 public ModelAndView confermaOTP(@PathVariable String OTP, HttpSession session, Model model) {
-		 	ModelAndView ret = new ModelAndView("redirect:/staff/home");
-		 	Staff staff = (Staff) session.getAttribute("staff");
-		 	if(staffService.findByEmailAndPasswordAndOtpCode(staff.getEmail(), staff.getPassword(), OTP)!=null) {
-			return ret;
-			} 
-				ModelAndView ret2 = new ModelAndView("login");
-				ret2.addObject("messaggio", "Credenziali errate");
-					return ret2;
+	public String index(@ModelAttribute Staff staff, Model model, HttpSession session) {
+		if (session.getAttribute("staff") != null) {
+			model.addAttribute("staff", (Staff) session.getAttribute("staff"));
+		}
+		return "admin/login";
 	}
 
-		
-	
-	 @RequestMapping(value="login", method=RequestMethod.POST)
-	 public ModelAndView login(Staff staff, HttpSession session, Model model) {
-		 	ModelAndView ret = new ModelAndView("redirect:/staff/index");
-		 
-		 	staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
-			if(staff!=null) {
-		 	session.setAttribute("staff", staff);
-			return ret;
-			} else {
-				ModelAndView ret2 = new ModelAndView("login");
-				ret2.addObject("messaggio", "Credenziali errate");
-					return ret2;
-			}
+	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)
+	@ResponseBody
+	public void confermaOTP(@PathVariable String OTP, HttpSession session, Model model, HttpServletResponse response)
+			throws IOException {
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staffService.findByEmailAndPasswordAndOtpCode(staff.getEmail(), staff.getPassword(), OTP) != null) {
+			response.getWriter().append("1");
+		} else {
+			response.getWriter().append("0");
 		}
-	 @RequestMapping(value="home", method=RequestMethod.GET)
-		public String home(HttpSession session,Model model) {
-			model.addAttribute("staff",(Staff)session.getAttribute("staff"));
-			return "admin/homeAdmin";
-		}
-	
-//	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse login(@RequestBody Staff staff) {
-//		if (staff.getEmail()!=null || staff.getPassword()!=null) {
-//			staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
-//			otpfactory.setNewOtpUpdate(staff);
-//			staffService.update(staff);
-//			otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
-//			response = new HTTPResponse(staff);
-//			return response;
-//		}
-//		response = new HTTPResponse("err", "errore");
-//		return response;
-//
-//	}
+	}
 
-	@RequestMapping(value="registrazione", method=RequestMethod.GET)
-		public String register(HttpSession session,Model model) {
-			Staff staffRegistrato = new Staff();
-			model.addAttribute("staffRegistrato", staffRegistrato);
-			return "admin/registrazione";
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public ModelAndView login(Staff staff, HttpSession session, Model model) {
+		ModelAndView ret = new ModelAndView("redirect:/staff/index");
+
+		staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
+		if (staff != null) {
+			session.setAttribute("staff", staff);
+			return ret;
+		} else {
+			ModelAndView ret2 = new ModelAndView("login");
+			ret2.addObject("messaggio", "Credenziali errate");
+			return ret2;
 		}
-	@RequestMapping(value="logout", method=RequestMethod.GET)
+	}
+
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String home(HttpSession session, Model model) {
+		model.addAttribute("staff", (Staff) session.getAttribute("staff"));
+		return "admin/homeAdmin";
+	}
+
+	// @RequestMapping(value = "login", method = RequestMethod.POST, consumes =
+	// MediaType.APPLICATION_JSON_VALUE)
+	// @ResponseBody
+	// public HTTPResponse login(@RequestBody Staff staff) {
+	// if (staff.getEmail()!=null || staff.getPassword()!=null) {
+	// staff = staffService.findByEmailAndPassword(staff.getEmail(),
+	// staff.getPassword());
+	// otpfactory.setNewOtpUpdate(staff);
+	// staffService.update(staff);
+	// otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
+	// response = new HTTPResponse(staff);
+	// return response;
+	// }
+	// response = new HTTPResponse("err", "errore");
+	// return response;
+	//
+	// }
+
+	@RequestMapping(value = "registrazione", method = RequestMethod.GET)
+	public String register(HttpSession session, Model model) {
+		Staff staffRegistrato = new Staff();
+		model.addAttribute("staffRegistrato", staffRegistrato);
+		return "admin/registrazione";
+	}
+
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(@ModelAttribute Staff staff, HttpSession session) {
 		session.invalidate();
 		return "admin/login";
 	}
-	
-	 
+
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
 	public ModelAndView registrazione(Staff staffRegistrato) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
-		if (staffRegistrato.getEmail()!=null || staffRegistrato.getPassword()!=null || staffRegistrato.getName()!=null || staffRegistrato.getSurname()!=null || staffRegistrato.getRoleId()!=0) {
+		if (staffRegistrato.getEmail() != null || staffRegistrato.getPassword() != null
+				|| staffRegistrato.getName() != null || staffRegistrato.getSurname() != null
+				|| staffRegistrato.getRoleId() != 0) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffService.insert(staffRegistrato);
 			ret.addObject("messaggio", "Membro dello staff inserito.");
@@ -136,25 +136,20 @@ public class StaffController {
 	@RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
-		
-		if(staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(), staffOTP.getOtpCode())!=null && !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
+
+		if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(),
+				staffOTP.getOtpCode()) != null
+				&& !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
 			boolean data = true;
 			HTTPResponse risposta = new HTTPResponse(data);
 			return risposta;
-			} else {
+		} else {
 			HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
 			return risposta;
 		}
-		
-		
-		
-			
-			
-
-		
 
 	}
-	
+
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {
