@@ -1,4 +1,4 @@
-package it.exolab.tesina.mybank.controller;
+ package it.exolab.tesina.mybank.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.exolab.tesina.mybank.exception.GenericError;
 import it.exolab.tesina.mybank.exception.InvalidEmail;
 import it.exolab.tesina.mybank.exception.InvalidPassword;
 import it.exolab.tesina.mybank.exception.MaxLengthError;
@@ -36,7 +37,7 @@ import it.exolab.tesina.mybank.service.AccountService;
 @Controller
 @RequestMapping(value = "account")
 public class AccountController {
-
+    private HTTPResponse response;
 	private AccountService accountService;
 
 	@Autowired
@@ -67,8 +68,6 @@ public class AccountController {
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse register(@RequestBody Account account) {
-		HTTPResponse response = new HTTPResponse();
-
 		try {
 			if (account != null) {
 				OtpCodeFactory.setCreatedUpdatedAndOtp(account);
@@ -78,33 +77,8 @@ public class AccountController {
 
 			}
 
-		} catch (RequiredFieldError e) {
-			response.setSuccess(false);
-			response.setErr("Errore Campo Obbligatorio");
-			response.setErr_code("01");
-			return response;
-		} catch (MaxLengthError e) {
-			response.setSuccess(false);
-			response.setErr("Lunghezza massima superata");
-			response.setErr_code("02");
-			return response;
-
-		} catch (MinLengthError e) {
-			response.setSuccess(false);
-			response.setErr("Lunghezza minima superata");
-			response.setErr_code("03");
-			return response;
-		} catch (InvalidEmail e) {
-			response.setSuccess(false);
-			response.setErr("Lunghezza minima superata");
-			response.setErr_code("03");
-			return response;
-		} catch (InvalidPassword e) {
-			response.setSuccess(false);
-			response.setErr("Lunghezza minima superata");
-			response.setErr_code("03");
-			return response;
-
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword e) {
+			return response = new HTTPResponse(e.getDescription(e),GenericError.getDescription(e));
 		}
 		return response;
 
@@ -125,6 +99,7 @@ public class AccountController {
 			response.setErr_code("01");
 			return response;
 		}
+		
 		
 	}
 
