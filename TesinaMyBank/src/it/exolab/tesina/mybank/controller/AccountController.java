@@ -38,10 +38,20 @@ public class AccountController {
 	@ResponseBody
 	public HTTPResponse login(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
+		Account account_searched =  new Account();
+	
 
-		Account account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
+		account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
 				account.getPassword()); 
 		account_searched.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+		Long duration = Long.valueOf(((14 * 60) + 59) * 200);
+		Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+		account_searched.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+		this.accountService.update(account_searched);
+		
+		 System.out.println(account_searched.toString());
+		
+		
 		if (account != null) {
 			response.setData(account_searched);
 			response.setSuccess(true);
@@ -125,10 +135,12 @@ public class AccountController {
 	//cofermaotp Angular
 	@RequestMapping(value="confermaOTP", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	
 	public HTTPResponse confermaOTP(@RequestBody Account account,	HTTPResponse response ) {
+		
 
-		if(accountService.findByEmailAndPasswordAndOtp(account.getEmail(), account.getPassword(), account.getOtpCode()) != null
-			&& !Timestamp.valueOf(LocalDateTime.now()).after(account.getOtpCodeExpiresAt())) {
+		if(accountService.findByEmailAndPasswordAndOtp(account.getEmail(), account.getPassword(), account.getOtpCode()) != null &&
+				!Timestamp.valueOf(LocalDateTime.now()).after(account.getOtpCodeExpiresAt())) {
 				
 				response.setData(account);
 				response.setSuccess(true);
