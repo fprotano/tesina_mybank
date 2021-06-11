@@ -1,25 +1,16 @@
  package it.exolab.tesina.mybank.controller;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import it.exolab.tesina.mybank.exception.GenericError;
 import it.exolab.tesina.mybank.exception.InvalidEmail;
 import it.exolab.tesina.mybank.exception.InvalidPassword;
@@ -29,8 +20,6 @@ import it.exolab.tesina.mybank.exception.RequiredFieldError;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
-import it.exolab.tesina.mybank.model.Staff;
-import it.exolab.tesina.mybank.model.dto.AccountDTO;
 import it.exolab.tesina.mybank.service.AccountService;
 
 @CrossOrigin
@@ -51,7 +40,7 @@ public class AccountController {
 		HTTPResponse response = new HTTPResponse();
 
 		Account account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
-				account.getPassword());
+				account.getPassword()); 
 		account_searched.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		if (account != null) {
 			response.setData(account_searched);
