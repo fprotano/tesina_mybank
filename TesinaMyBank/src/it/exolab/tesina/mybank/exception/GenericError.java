@@ -3,6 +3,20 @@ package it.exolab.tesina.mybank.exception;
 public class GenericError extends Exception {
 	public static final int C_999 = 999;
 	public static final int A_001 = 001;
+	public static final int A_002= 002;
+	public static final int A_003= 003;
+	public static final int A_004= 004;
+	public static final int B_001= 001;
+	public static final int B_002= 002;
+	public static final int B_003= 003;
+	public static final int B_004= 004;
+	public static final int C_001= 001;
+	public static final int C_002= 002;
+	public static final int C_003= 003;
+	public static final int D_001= 001;
+	public static final int D_002= 002;
+	public static final int D_003= 003;
+	
 	private int code;
 	public GenericError(int code) {
 		this.code=code;
@@ -18,35 +32,48 @@ public class GenericError extends Exception {
 	}
 	
 	
-	public static String getDescription(Exception ex) {
+	public static Integer getCode(Exception ex) {
 
 		if(ex instanceof RequiredFieldError) {
 			RequiredFieldError rq = (RequiredFieldError) ex;
-			return "Il campo " + rq.getField()+ " è richiesto ";
+			
 		}
 		if(ex instanceof MaxLengthError) {
 			MaxLengthError rq = (MaxLengthError) ex;
-			return "Il campo " + rq.getField()+ " deve essere al massimo di "+ rq.getMaxLength()+ " caratteri";
+		   if(rq.getField().equals("password"))
+			   return GenericError.A_002;
+		   if(rq.getField().equals("email"))
+			   return GenericError.B_002;
+			   
 		}
 		if(ex instanceof UniqueFieldError) {
 			UniqueFieldError rq = (UniqueFieldError) ex;
-			return "Il campo " + rq.getField()+ " deve essere univoco";
+		
 		}
 		if(ex instanceof FormatError) {
 			FormatError rq = (FormatError) ex;
-			return "Il campo " + rq.getField()+ " non è nel formato previsto";
+		
 		}
 		if(ex instanceof MinLengthError) {
 			MinLengthError rq = (MinLengthError) ex;
-			return "Il campo " + rq.getField()+ " deve essere minimo "+ rq.getMinLength()+ " caratteri";
+		
 		}
 		if(ex instanceof MinValueError) {
 			MinValueError rq = (MinValueError) ex;
-			return "Per Il campo " + rq.getField()+ " inserire un valore minimo di "+ rq.getMin();
+		
+		}
+		if(ex instanceof InvalidEmail ) {
+			InvalidEmail rq =  (InvalidEmail) ex;
+		
+
+		}
+		if(ex instanceof InvalidPassword) {
+			InvalidPassword rq = (InvalidPassword) ex;
+
 		}
 		
 		
-		return "";
+		return null;
 
 	}
 	
