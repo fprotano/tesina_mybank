@@ -6,6 +6,14 @@ public class Payment {
 	public String email;
 	public String custom_code;
 	public String transaction_id;
+	public String url;
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public double getAmount() {
 		return amount;
 	}
@@ -30,21 +38,23 @@ public class Payment {
 	public void setTransaction_id(String transaction_id) {
 		this.transaction_id = transaction_id;
 	}
-	@Override
-	public String toString() {
-		return "Payment [amount=" + amount + ", email=" + email + ", custom_code=" + custom_code + ", transaction_id="
-				+ transaction_id + "]";
-	}
-	public Payment() {
-		super();
-	}
-	public Payment(double amount, String email, String custom_code, String transaction_id) {
+	public Payment(double amount, String email, String custom_code, String transaction_id, String url) {
 		super();
 		this.amount = amount;
 		this.email = email;
 		this.custom_code = custom_code;
 		this.transaction_id = transaction_id;
+		this.url = url;
 	}
+	public Payment() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "Payment [amount=" + amount + ", email=" + email + ", custom_code=" + custom_code + ", transaction_id="
+				+ transaction_id + ", url=" + url + "]";
+	}
+	
 	
 	
 
