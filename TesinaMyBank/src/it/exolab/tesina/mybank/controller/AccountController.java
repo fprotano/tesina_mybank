@@ -78,7 +78,7 @@ public class AccountController {
 			}
 
 		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword e) {
-			return response = new HTTPResponse(e.getDescription(e),GenericError.getDescription(e));
+			return response = new HTTPResponse(e.getDescription(e),String.valueOf(GenericError.getCode(e)));
 		}
 		return response;
 

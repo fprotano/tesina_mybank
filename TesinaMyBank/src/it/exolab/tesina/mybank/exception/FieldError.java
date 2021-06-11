@@ -33,10 +33,9 @@ public class FieldError extends Exception {
 		}
 		if(ex instanceof MinValueError) {
 			MinValueError rq = (MinValueError) ex;
-			return "Per Il campo " + rq.getField()+ " inserire un valore minimo di "+ rq.getMin();
+			return "Per  campo " + rq.getField()+ " inserire un valore minimo di "+ rq.getMin();
 		}
-		
-		
+		// MANCANO I CASI DI EMAIL E PASSWORD
 		return "";
 
 	}
