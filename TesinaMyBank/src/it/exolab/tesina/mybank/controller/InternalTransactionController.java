@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.InternalTransaction;
+import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.InternalTransactionService;
+import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 @CrossOrigin
 @Controller
 @RequestMapping(value = "internalTransaction")
@@ -21,6 +24,8 @@ import it.exolab.tesina.mybank.service.InternalTransactionService;
 public class InternalTransactionController {
 
 	private InternalTransactionService internalTransactionService;
+	private TransactionUniqueIdService transactionUniqueIdService;
+	private TransactionUniqueIdFactory transactionUniqueIdFactory;
 
 	@Autowired(required = true)
 	public void setExternalTransactionService(InternalTransactionService internalTransactionService) {
@@ -32,6 +37,10 @@ public class InternalTransactionController {
 	public HTTPResponse register(@RequestBody InternalTransaction internalTransaction) {
 		HTTPResponse response = new HTTPResponse();
 		if (internalTransaction != null) {
+			TransactionUniqueId transactionUniqueId = new TransactionUniqueId();
+			transactionUniqueId.setTransactionId(transactionUniqueIdFactory.CreateTransactionUniqueId());
+			transactionUniqueIdService.insert(transactionUniqueId);
+			internalTransaction.setTransactionId(transactionUniqueId.getTransactionId());
 			this.internalTransactionService.insert(internalTransaction);
 			response.setData(internalTransaction);
 			response.setSuccess(true);
