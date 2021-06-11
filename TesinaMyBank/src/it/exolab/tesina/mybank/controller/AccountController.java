@@ -40,7 +40,6 @@ public class AccountController {
 		HTTPResponse response = new HTTPResponse();
 		Account account_searched =  new Account();
 	
-
 		account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
 				account.getPassword()); 
 		account_searched.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
