@@ -47,7 +47,7 @@ public class AccountController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse login(@RequestBody AccountDTO account) {
+	public HTTPResponse login(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
 
 		Account account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
