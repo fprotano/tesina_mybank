@@ -29,7 +29,7 @@ public class TransactionUniqueIdController {
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody TransactionUniqueId transactionUniqueId) {
+	public HTTPResponse insert(@RequestBody TransactionUniqueId transactionUniqueId) {
 		HTTPResponse response = new HTTPResponse();
 		if(transactionUniqueId!=null) {
 			this.transactionUniqueIdService.insert(transactionUniqueId);
@@ -58,35 +58,6 @@ public class TransactionUniqueIdController {
 				response.setErr("Errore");
 				response.setErr_code("01");
 					return response;
-		}
-	}
-	
-	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse findAll() {
-			HTTPResponse response = new HTTPResponse();
-			List<TransactionUniqueId> transazioni = this.transactionUniqueIdService.findAll();
-			response.setData(transazioni);
-			response.setSuccess(true);
-			return response;
-		
-	}
-	
-	@RequestMapping(value="delete", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse delete(@RequestBody Integer id) {
-		HTTPResponse response = new HTTPResponse();
-		if(id!=null) {
-			this.transactionUniqueIdService.delete(id);
-			response.setData(id);
-			response.setSuccess(true);
-			return response;
-		} else {
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-					return response;
-					
 		}
 	}
 	
