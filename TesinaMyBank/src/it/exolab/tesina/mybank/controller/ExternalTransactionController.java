@@ -32,6 +32,10 @@ public class ExternalTransactionController {
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
 	}
+	@Autowired(required = true)
+	public void setTransactionUniqueIdService(TransactionUniqueIdService transactionUniqueIdService) {
+		this.transactionUniqueIdService = transactionUniqueIdService;
+	}
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
