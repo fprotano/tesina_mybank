@@ -41,8 +41,8 @@ public class StaffController {
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
 	}
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
 	}
@@ -54,7 +54,7 @@ public class StaffController {
 		}
 		return "admin/login";
 	}
-	
+
 	// controlloOtp per le jsp
 	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)
 	@ResponseBody
@@ -137,25 +137,47 @@ public class StaffController {
 		}
 
 	}
-	
+
 	// controlloOtp che comunica solo con angular - discontinuato
-//	@RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
-//
-//		if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(), staffOTP.getPassword(),
-//				staffOTP.getOtpCode()) != null
-//				&& !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt())) {
-//			boolean data = true;
-//			HTTPResponse risposta = new HTTPResponse(data);
-//			return risposta;
-//		} else {
-//			HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
-//			return risposta;
-//		}
-//
-//	}
-	
+	// @RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes
+	// = MediaType.APPLICATION_JSON_VALUE)
+	// @ResponseBody
+	// public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
+	//
+	// if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(),
+	// staffOTP.getPassword(),
+	// staffOTP.getOtpCode()) != null
+	// &&
+	// !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt()))
+	// {
+	// boolean data = true;
+	// HTTPResponse risposta = new HTTPResponse(data);
+	// return risposta;
+	// } else {
+	// HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
+	// return risposta;
+	// }
+	//
+	// }
+
+	@RequestMapping(value = "updatePassword/{newPass}", method = RequestMethod.POST)
+	@ResponseBody
+	public void updatePassword(@PathVariable String newPass, HttpSession session, Model model,
+			HttpServletResponse response) throws IOException {
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword()) != null) {
+			staff.setPassword(newPass);
+			staffService.update(staff);
+			response.getWriter().append("1");
+			session.setAttribute("staff", staff);
+			session.setAttribute("passwordUpdated", 0);
+			System.out.println("staff::" + staff);
+		} else {
+			response.getWriter().append("0");
+			session.setAttribute("passwordUpdated", 1);
+		}
+	}
+
 	@RequestMapping(value = "transactionsList", method = RequestMethod.GET)
 	public ModelAndView transactionsList(Model model, HttpSession session) {
 		ModelAndView ret = new ModelAndView("admin/transactionsList");
@@ -164,7 +186,7 @@ public class StaffController {
 			System.out.println(staff.getId());
 			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
 			ret.addObject("transactions", transactions);
-		} 
+		}
 		return ret;
 	}
 
@@ -184,7 +206,7 @@ public class StaffController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findAll() {

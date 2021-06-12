@@ -9,18 +9,16 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style>
-.shortId {
-	text-overflow: ellipsis;
-}
-</style>
 <title>Transactions</title>
 </head>
 <body>
-	<button onclick="showAndHideTransactionId()" id="preview">Mostra/Nascondi ID transazioni</button>
+	 <jsp:include page="header.jsp"/> 
+	 <br/>
+	 
+	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideTransactionId()" id="preview">Mostra/Nascondi ID transazioni</button>
 	
 	<legend>Dettagli transazioni da Autorizzare</legend>
-	<fieldset>
+	<hr/>
 	<table>
 		<tr>
 			<th>ID</th>
@@ -49,7 +47,7 @@
 			<td>${transaction.customCode}</td>
 			
 			<c:set var="transactionId" value="${transaction.transactionId}"></c:set>
-	 		<td><label class="longId">${transaction.transactionId}</label><label class="shortId"> ${fn:substring(transactionId, 0, 14)}</label></td>
+	 		<td><label class="longId">${transaction.transactionId}</label><label class="shortId"> ${fn:substring(transactionId, 0, 14)}...</label></td>
 			
 			<td>${transaction.transactionStatus.title}</td>
 			<td><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></td>
@@ -65,7 +63,7 @@
 		</tr>
 	</c:forEach>
 	</table>
-	</fieldset>
+	<hr/>
 	<script>
 	$(document).ready(function(){
 	    $(".longId").toggle();

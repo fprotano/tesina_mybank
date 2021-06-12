@@ -14,7 +14,7 @@ body{
 	background-size: 100%;
 	background-repeat: repeat-y;
 	background-image: url('img/sfondo.jpg');
-	margin:8px;
+	margin:0px;
 	font-family: Georgia;
 	font-size:16px;
 	padding-top:2px;

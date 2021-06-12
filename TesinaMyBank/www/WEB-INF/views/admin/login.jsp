@@ -7,10 +7,11 @@
 <%
 String cp = request.getContextPath();
 %>
+<!-- // nel login voglio far apparire solo il login.  Una volta dentro, mostro l'header 
 <jsp:include page="../../../templates/header.jsp">
 <jsp:param value="Index" name="title"/>
 </jsp:include>
-
+ -->
 <form:form method="post" modelAttribute="staff" action="${pageContext.request.contextPath}/staff/login">
 
 <label>Email: </label>
