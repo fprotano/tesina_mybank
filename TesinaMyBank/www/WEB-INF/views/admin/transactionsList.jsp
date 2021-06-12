@@ -12,8 +12,9 @@
 <title>Transactions</title>
 </head>
 <body>
-	 <jsp:include page="header.jsp"/> 
-	 <br/>
+
+<jsp:include page="header.jsp"/> 
+<br/>
 	 
 	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideTransactionId()" id="preview">Mostra/Nascondi ID transazioni</button>
 	
