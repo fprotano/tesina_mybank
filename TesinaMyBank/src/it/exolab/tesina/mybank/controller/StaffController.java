@@ -1,6 +1,8 @@
 package it.exolab.tesina.mybank.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -127,10 +129,10 @@ public class StaffController {
 				|| staffRegistrato.getName() != null || staffRegistrato.getSurname() != null
 				|| staffRegistrato.getRoleId() != 0) {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			staffRegistrato.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusDays(1)));
 			staffService.insert(staffRegistrato);
 			ret.addObject("messaggio", "Membro dello staff inserito.");
 			return ret;
-
 		} else {
 			ret.addObject("messaggio", "Errore inserimento, staff non inserito.");
 			return ret;
