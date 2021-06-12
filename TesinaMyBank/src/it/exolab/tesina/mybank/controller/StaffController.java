@@ -30,6 +30,7 @@ import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
 import it.exolab.tesina.mybank.service.FaqService;
 import it.exolab.tesina.mybank.service.StaffService;
+import it.exolab.tesina.mybank.util.Util;
 
 @CrossOrigin
 @Controller
@@ -41,7 +42,8 @@ public class StaffController {
 	private HTTPResponse response;
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
 	private OtpEmailFactory otpemailfactory = new OtpEmailFactory();
-
+	private Util util = new Util();
+	
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
@@ -132,7 +134,7 @@ public class StaffController {
 	}
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
-	public ModelAndView registrazione(Staff staffRegistrato) {
+	public ModelAndView registrazione(Staff staffRegistrato, HttpSession session) {
 		ModelAndView ret = new ModelAndView("redirect:/staff/home");
 		if (staffRegistrato.getEmail() != null || staffRegistrato.getPassword() != null
 				|| staffRegistrato.getName() != null || staffRegistrato.getSurname() != null
@@ -140,13 +142,15 @@ public class StaffController {
 			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffRegistrato.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusDays(1)));
 			staffService.insert(staffRegistrato);
-			ret.addObject("messaggio", "Membro dello staff inserito.");
+			session.setAttribute("staffAdded", 0);
+//			ret.addObject("staffAdded", "Membro dello staff inserito.");
+			System.out.println(ret.toString());
 			return ret;
 		} else {
-			ret.addObject("messaggio", "Errore inserimento, staff non inserito.");
+			session.setAttribute("staffAdded", 1);
+//			ret.addObject("staffAdded", "Errore inserimento, staff non inserito.");
 			return ret;
 		}
-
 	}
 
 	// controlloOtp che comunica solo con angular - discontinuato
@@ -210,6 +214,28 @@ public class StaffController {
 		return ret;
 	}
 	
+	@RequestMapping(value = "addFaq", method = RequestMethod.GET)
+	public String addFaq(HttpSession session, Model model) {
+		Faq newFaq = new Faq();
+		model.addAttribute("newFaq", newFaq);
+		return "admin/faqAdd";
+	}
+	
+	@RequestMapping(value = "addFaq", method = RequestMethod.POST)
+	public ModelAndView addFaq(Faq newFaq, HttpSession session) {
+		ModelAndView ret = new ModelAndView("redirect:/staff/faqList");
+		if (newFaq != null) {
+			faqService.insert(newFaq);
+			session.setAttribute("faqAdded", 0);
+		//	ret.addObject("faqAdded", 0);
+			return ret;
+		} else {
+			session.setAttribute("faqAdded", 1);
+		//	ret.addObject("faqAdded", 1);
+			return ret;
+		}
+	}
+	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {
@@ -217,14 +243,11 @@ public class StaffController {
 		if (id != null) {
 			this.staffService.findById(id);
 			response = new HTTPResponse(id);
-
 			return response;
 		} else {
-
 			response = new HTTPResponse("errore", "01");
 			return response;
 		}
-
 	}
 
 	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

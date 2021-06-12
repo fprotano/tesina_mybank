@@ -3,6 +3,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,10 +13,21 @@
 <title>Admin Home</title>
 </head>
 <body>
-	
  	<jsp:include page="header.jsp"/> 
- 	
-	
+ 	<br/>
+ 	<c:if test="${staffAdded!=null}">
+	<c:choose>
+		<c:when test="${staffAdded==0}">
+			<c:out value="Nuovo staff registrato con successo."/>
+			<br/>
+		</c:when>
+		<c:when test="${staffAdded==1}">
+			<c:out value="Errore nell'inserimento, staff non inserito."/>
+			<br/>
+		</c:when>
+	</c:choose>
+	</c:if>
+	<br/>
 <fieldset>
 	<b>Nome: ${staff.name}</b>
 	<br>

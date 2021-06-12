@@ -1,14 +1,13 @@
  package it.exolab.tesina.mybank.util;
 
+import javax.servlet.http.HttpSession;
+
 public class Util {
 	
-	
-	
-	
-	
-	
-	private void syso() {
-		System.out.println("A me funziona ");
-		System.out.println("Che devo fare ?  ");
+	public HttpSession sessionCleaner(HttpSession session) {
+		session.removeAttribute("staffAdded");
+		session.removeAttribute("passwordUpdated");
+		session.removeAttribute("faqAdded");
+		return session;
 	}
 }
