@@ -104,6 +104,7 @@ public class StaffController {
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model) {
+		session=util.sessionCleanerFromHome(session);
 		model.addAttribute("staff", (Staff) session.getAttribute("staff"));
 		return "admin/homeAdmin";
 	}
@@ -129,6 +130,7 @@ public class StaffController {
 	@RequestMapping(value = "registrazione", method = RequestMethod.GET)
 	public String register(HttpSession session, Model model) {
 		Staff staffRegistrato = new Staff();
+		session=util.sessionCleanerFromRegistrazione(session);
 		model.addAttribute("staffRegistrato", staffRegistrato);
 		return "admin/registrazione";
 	}
@@ -195,6 +197,7 @@ public class StaffController {
 	@RequestMapping(value = "transactionsList", method = RequestMethod.GET)
 	public ModelAndView transactionsList(Model model, HttpSession session) {
 		ModelAndView ret = new ModelAndView("admin/transactionsList");
+		session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
 			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
@@ -216,6 +219,7 @@ public class StaffController {
 	
 	@RequestMapping(value = "addFaq", method = RequestMethod.GET)
 	public String addFaq(HttpSession session, Model model) {
+		session=util.sessionCleanerFromHome(session);
 		Faq newFaq = new Faq();
 		model.addAttribute("newFaq", newFaq);
 		return "admin/faqAdd";
