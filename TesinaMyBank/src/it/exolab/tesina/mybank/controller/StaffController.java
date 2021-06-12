@@ -24,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.factory.OtpEmailFactory;
 import it.exolab.tesina.mybank.model.ExternalTransaction;
+import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
+import it.exolab.tesina.mybank.service.FaqService;
 import it.exolab.tesina.mybank.service.StaffService;
 
 @CrossOrigin
@@ -34,6 +36,7 @@ import it.exolab.tesina.mybank.service.StaffService;
 @RequestMapping(value = "staff")
 public class StaffController {
 	private ExternalTransactionService externalTransactionService;
+	private FaqService faqService;
 	private StaffService staffService;
 	private HTTPResponse response;
 	private OtpCodeFactory otpfactory = new OtpCodeFactory();
@@ -47,6 +50,12 @@ public class StaffController {
 	@Autowired(required = true)
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
+	}
+	
+	
+	@Autowired(required = true)
+	public void setFaqService(FaqService faqService) {
+		this.faqService = faqService;
 	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
@@ -84,6 +93,12 @@ public class StaffController {
 			return ret2;
 		}
 	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(@ModelAttribute Staff staff, HttpSession session) {
+		session.invalidate();
+		return "admin/login";
+	}
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model) {
@@ -114,12 +129,6 @@ public class StaffController {
 		Staff staffRegistrato = new Staff();
 		model.addAttribute("staffRegistrato", staffRegistrato);
 		return "admin/registrazione";
-	}
-
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout(@ModelAttribute Staff staff, HttpSession session) {
-		session.invalidate();
-		return "admin/login";
 	}
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST)
@@ -184,13 +193,23 @@ public class StaffController {
 		ModelAndView ret = new ModelAndView("admin/transactionsList");
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
-			System.out.println(staff.getId());
 			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
 			ret.addObject("transactions", transactions);
 		}
 		return ret;
 	}
-
+	
+	@RequestMapping(value = "faqList", method = RequestMethod.GET)
+	public ModelAndView faqsList(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/faqList");
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			List<Faq> faqs = faqService.findAll();
+			ret.addObject("faqs", faqs);
+		}
+		return ret;
+	}
+	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {
