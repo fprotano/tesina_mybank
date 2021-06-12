@@ -171,7 +171,6 @@ public class StaffController {
 			response.getWriter().append("1");
 			session.setAttribute("staff", staff);
 			session.setAttribute("passwordUpdated", 0);
-			System.out.println("staff::" + staff);
 		} else {
 			response.getWriter().append("0");
 			session.setAttribute("passwordUpdated", 1);

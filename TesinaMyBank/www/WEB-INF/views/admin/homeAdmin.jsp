@@ -45,7 +45,7 @@
 <script>
 function newPassFunction() {
 	var newPass = prompt("Inserisci nuova password");
-	if(newPass.length>4){
+	if(newPass.length>4 && newPass.length<256){
 	$.ajax({
 		  type: "POST",
 		  url: "http://localhost:8080/TesinaMyBank/staff/updatePassword/"+newPass,
