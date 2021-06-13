@@ -11,19 +11,14 @@ import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.service.StaffService;
 
 public class HelpCenterFactory {
-
-	private StaffService staffService;
 	
-	@Autowired(required=true)
-	public void setStaffService(StaffService staffService) {
-		this.staffService = staffService;
-	}
-	
-	public HelpCenter fillHelpCenter(HelpCenter helpcenter, int id) {
+	public HelpCenter fillHelpCenter(HelpCenter helpcenter, int id, StaffService staffService) {
 		helpcenter.setFromAccountId(id); //id dell'utente
 		helpcenter.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-		List<Staff> staff = this.staffService.findAll();
-		int staffId = (int) (Math.random()*staff.size());
+		helpcenter.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+		List<Integer> staff = staffService.findbyStaffMinimum();
+		int numero = (int) (Math.random()*staff.size());
+		int staffId = staff.get(numero);
 		helpcenter.setAssignedToId(staffId);
 		return helpcenter;
 	}

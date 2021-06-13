@@ -29,14 +29,18 @@ import it.exolab.tesina.mybank.service.StaffService;
 public class HelpCenterController {
 	
 	private HelpCenterService helpCenterService;
-	private HelpCenterFactory helpCenterFactory;
+	private HelpCenterFactory helpCenterFactory = new HelpCenterFactory();
 	private HelpCenterThreadService helpCenterThreadService;
-	
-	
+	private StaffService staffService;
 	
 	@Autowired(required=true)
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
 		this.helpCenterService = helpCenterService;
+	}
+	
+	@Autowired(required=true)
+	public void setStaffService(StaffService staffService) {
+		this.staffService = staffService;
 	}
 	
 	@Autowired(required=true)
@@ -49,8 +53,8 @@ public class HelpCenterController {
 	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
-			helpCenterFactory.fillHelpCenter(helpCenter, id);
-			this.helpCenterService.insert(helpCenter);
+			helpCenterFactory.fillHelpCenter(helpCenter, id, staffService);
+			helpCenterService.insert(helpCenter);
 			response.setData(helpCenter);
 			response.setSuccess(true);
 			return response;
