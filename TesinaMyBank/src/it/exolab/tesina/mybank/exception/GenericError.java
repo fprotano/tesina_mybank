@@ -16,6 +16,7 @@ public class GenericError extends Exception {
 	public static final int D_001= 001;
 	public static final int D_002= 002;
 	public static final int D_003= 003;
+	public static final int B_005 = 005;
 	
 	private int code;
 	public GenericError(int code) {
@@ -36,6 +37,16 @@ public class GenericError extends Exception {
 
 		if(ex instanceof RequiredFieldError) {
 			RequiredFieldError rq = (RequiredFieldError) ex;
+			if(rq.getField().equals("password"))
+			return GenericError.A_001;
+			if(rq.getField().equals("email"))
+			return GenericError.B_001;
+			if(rq.getField().equals("name"))
+			return GenericError.C_001;
+			if(rq.getField().equals("surname"))
+			return GenericError.D_001;
+			
+				
 			
 		}
 		if(ex instanceof MaxLengthError) {
@@ -44,11 +55,17 @@ public class GenericError extends Exception {
 			   return GenericError.A_002;
 		   if(rq.getField().equals("email"))
 			   return GenericError.B_002;
+		   if(rq.getField().equals("name"))
+			   return GenericError.C_002;
+		   if(rq.getField().equals("surname"))
+			   return GenericError.D_002;
 			   
 		}
 		if(ex instanceof UniqueFieldError) {
 			UniqueFieldError rq = (UniqueFieldError) ex;
-		
+			if(rq.getField().equals("email"))
+				   return GenericError.B_005;
+		 
 		}
 		if(ex instanceof FormatError) {
 			FormatError rq = (FormatError) ex;
@@ -56,6 +73,14 @@ public class GenericError extends Exception {
 		}
 		if(ex instanceof MinLengthError) {
 			MinLengthError rq = (MinLengthError) ex;
+			 if(rq.getField().equals("password"))
+				   return GenericError.A_003;
+			   if(rq.getField().equals("email"))
+				   return GenericError.B_003;
+			   if(rq.getField().equals("name"))
+				   return GenericError.C_003;
+			   if(rq.getField().equals("surname"))
+				   return GenericError.D_003;
 		
 		}
 		if(ex instanceof MinValueError) {
@@ -64,11 +89,16 @@ public class GenericError extends Exception {
 		}
 		if(ex instanceof InvalidEmail ) {
 			InvalidEmail rq =  (InvalidEmail) ex;
+			 if(rq.getField().equals("email"))
+				   return GenericError.B_004;
 		
 
 		}
 		if(ex instanceof InvalidPassword) {
 			InvalidPassword rq = (InvalidPassword) ex;
+			 if(rq.getField().equals("password"))
+				   return GenericError.A_004;
+			  
 
 		}
 		

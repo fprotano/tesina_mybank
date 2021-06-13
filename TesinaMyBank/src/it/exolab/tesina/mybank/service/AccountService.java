@@ -50,6 +50,10 @@ public class AccountService {
 		return this.accountRepository.findByEmailAndPasswordAndOtpCode(email, password, OTP);
 	}
 	
+	public Account findByNameAndSurnameAndEmail(String name , String surname , String email) {
+		return this.accountRepository.findByNameAndSurnameAndEmail(name, surname, email);
+	}
+	
 	public void validateInsert(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword {
 		Validator.required("email", model.getEmail());
 		Validator.required("password", model.getPassword());
