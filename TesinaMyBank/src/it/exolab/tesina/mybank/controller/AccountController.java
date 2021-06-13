@@ -1,4 +1,4 @@
- package it.exolab.tesina.mybank.controller;
+package it.exolab.tesina.mybank.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,9 +26,9 @@ import it.exolab.tesina.mybank.service.AccountService;
 @Controller
 @RequestMapping(value = "account")
 public class AccountController {
-    private HTTPResponse response;
+	private HTTPResponse response;
 	private AccountService accountService;
-    
+
 	@Autowired
 	public void setAccountService(AccountService accountService) {
 		this.accountService = accountService;
@@ -38,19 +38,16 @@ public class AccountController {
 	@ResponseBody
 	public HTTPResponse login(@RequestBody Account account) {
 		HTTPResponse response = new HTTPResponse();
-		Account account_searched =  new Account();
-	
-		account_searched = this.accountService.findByEmailAndPassword(account.getEmail(),
-				account.getPassword()); 
+		Account account_searched = new Account();
+		account_searched = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 		account_searched.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		Long duration = Long.valueOf(((14 * 60) + 59) * 200);
 		Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 		account_searched.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 		this.accountService.update(account_searched);
-		
-		 System.out.println(account_searched.toString());
-		
-		
+
+		System.out.println(account_searched.toString());
+
 		if (account != null) {
 			response.setData(account_searched);
 			response.setSuccess(true);
@@ -76,7 +73,7 @@ public class AccountController {
 			}
 
 		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword e) {
-			return response = new HTTPResponse(e.getDescription(e),String.valueOf(GenericError.getCode(e)));
+			return response = new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
 		return response;
 
@@ -97,8 +94,7 @@ public class AccountController {
 			response.setErr_code("01");
 			return response;
 		}
-		
-		
+
 	}
 
 	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -128,52 +124,59 @@ public class AccountController {
 
 		}
 	}
-	
 
-	
-	//cofermaotp Angular
-	@RequestMapping(value="confermaOTP", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	// cofermaotp Angular
+	@RequestMapping(value = "confermaOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	
-	public HTTPResponse confermaOTP(@RequestBody Account account,	HTTPResponse response ) {
-		
 
-		if(accountService.findByEmailAndPasswordAndOtp(account.getEmail(), account.getPassword(), account.getOtpCode()) != null &&
-				!Timestamp.valueOf(LocalDateTime.now()).after(account.getOtpCodeExpiresAt())) {
+	public HTTPResponse confermaOTP(@RequestBody Account account, HTTPResponse response) {
+
+		if (accountService.findByEmailAndPasswordAndOtp(account.getEmail(), account.getPassword(),
+				account.getOtpCode()) != null
+				&& !Timestamp.valueOf(LocalDateTime.now()).after(account.getOtpCodeExpiresAt())) {
+
+			response.setData(account);
+			response.setSuccess(true);
+			return response;
+		} else {
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;
+
+		}
+	}
+
+	@RequestMapping(value="cambiaPassword", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
+		public HTTPResponse cambiaPassword(@RequestBody Account account,String newPassword) {
+			if(account != null) {
+			account = accountService.findByNameAndSurnameAndEmail(account.getName(), account.getSurname(), account.getEmail());
+		      account.setPassword(newPassword);
+		      accountService.update(account);
+			return new HTTPResponse(account);
 				
-				response.setData(account);
-				response.setSuccess(true);
-				return response;
-			} else
-			{
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-				return response;
-				
+			}else {
+			return	new HTTPResponse("errore", "01");
 			
-			}		
+			
 			
 		
 	
 	
 		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
-		
-		
-		
-		
 	
-		
-		
-				
-			
-		
-		
-		
-				
-		
-	
-	
-	
- 
+	}
