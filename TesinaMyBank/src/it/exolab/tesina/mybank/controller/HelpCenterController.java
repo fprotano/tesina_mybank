@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import it.exolab.tesina.mybank.factory.HelpCenterFactory;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
@@ -27,13 +29,10 @@ import it.exolab.tesina.mybank.service.StaffService;
 public class HelpCenterController {
 	
 	private HelpCenterService helpCenterService;
-	private StaffService staffService;
+	private HelpCenterFactory helpCenterFactory;
 	private HelpCenterThreadService helpCenterThreadService;
 	
-	@Autowired(required=true)
-	public void setStaffService(StaffService staffService) {
-		this.staffService = staffService;
-	}
+	
 	
 	@Autowired(required=true)
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
@@ -50,10 +49,10 @@ public class HelpCenterController {
 	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
-			List<Staff> staff = this.staffService.findAll();
-			LocalDateTime dataNow = LocalDateTime.now();
+			
+			helpCenterFactory.fillHelpCenter(helpCenter, id);
 			helpCenter.setFromAccountId(id); //id dell'utente
-			helpCenter.setCreatedAt(Timestamp.valueOf(dataNow));
+			helpCenter.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			this.helpCenterService.insert(helpCenter);
 			response.setData(helpCenter);
 			response.setSuccess(true);
