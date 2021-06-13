@@ -39,35 +39,38 @@ public class AccountController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse login(@RequestBody Account account,HTTPResponse response ) {
+	public HTTPResponse login(@RequestBody Account account, HTTPResponse response) {
 		try {
 			account = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			Long duration = Long.valueOf(((14 * 60) + 59) * 200);
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-		    account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 			this.accountService.update(account);
 			return new HTTPResponse(account);
-		} catch  (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | EntityNotFoundError e) {
-			  return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));	
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword
+				| EntityNotFoundError e) {
+			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
 	}
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody Account account,HTTPResponse response) {
+	public HTTPResponse register(@RequestBody Account account, HTTPResponse response) {
 		try {
-				OtpCodeFactory.setCreatedUpdatedAndOtp(account);
-				this.accountService.insert(account);
-				return new HTTPResponse(account);
-		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | UniqueFieldError e) {
+			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
+			this.accountService.insert(account);
+			return new HTTPResponse(account);
+			
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword
+				| UniqueFieldError e) {
 			return response = new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
 	}
 
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse findOne(@RequestBody Integer id,HTTPResponse response) {
+	public HTTPResponse findOne(@RequestBody Integer id, HTTPResponse response) {
 		if (id != null) {
 			this.accountService.find(id);
 			response.setData(id);
@@ -132,29 +135,21 @@ public class AccountController {
 		}
 	}
 
-	@RequestMapping(value="passwordDimenticata", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-		@ResponseBody
-		public HTTPResponse passwordDimenticata(@RequestBody Account account) {
-			
-			
-		    try {
-		    	account = accountService.findByNameAndSurnameAndEmail(account.getName(), account.getSurname(), account.getEmail());
-		    	accountService.update(account);
-				return new HTTPResponse(account);	
-			} catch (RequiredFieldError |  MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword |  EntityNotFoundError e) {
-			  return new HTTPResponse(((FieldError) e).getDescription(e), String.valueOf(GenericError.getCode(e)));
-			}
-			
-				
-	
-	
+	@RequestMapping(value ="passwordDimenticata", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse passwordDimenticata(@RequestBody Account account) {
+
+		try {
+			account = accountService.findByNameAndSurnameAndEmail(account.getName(), account.getSurname(),
+					account.getEmail());
+			accountService.update(account);
+			System.out.println(account);
+			return new HTTPResponse(account);
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword
+				| EntityNotFoundError e) {
+			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
-	
-	
-	
-	
-	
-	
+
 	}
-	
-	
+
+}
