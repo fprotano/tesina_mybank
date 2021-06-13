@@ -35,22 +35,14 @@ import it.exolab.tesina.mybank.util.Util;
 @Controller
 @RequestMapping(value = "staff")
 public class StaffController {
-	private FaqService faqService;
 	private StaffService staffService;
 	private HTTPResponse response;
-	private OtpCodeFactory otpfactory = new OtpCodeFactory();
-	private OtpEmailFactory otpemailfactory = new OtpEmailFactory();
 	private Util util = new Util();
 	
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
 	}	
-	
-	@Autowired(required = true)
-	public void setFaqService(FaqService faqService) {
-		this.faqService = faqService;
-	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index(@ModelAttribute Staff staff, Model model, HttpSession session) {
@@ -101,24 +93,6 @@ public class StaffController {
 		return "admin/homeAdmin";
 	}
 
-	// @RequestMapping(value = "login", method = RequestMethod.POST, consumes =
-	// MediaType.APPLICATION_JSON_VALUE)
-	// @ResponseBody
-	// public HTTPResponse login(@RequestBody Staff staff) {
-	// if (staff.getEmail()!=null || staff.getPassword()!=null) {
-	// staff = staffService.findByEmailAndPassword(staff.getEmail(),
-	// staff.getPassword());
-	// otpfactory.setNewOtpUpdate(staff);
-	// staffService.update(staff);
-	// otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
-	// response = new HTTPResponse(staff);
-	// return response;
-	// }
-	// response = new HTTPResponse("err", "errore");
-	// return response;
-	//
-	// }
-
 	@RequestMapping(value = "registrazione", method = RequestMethod.GET)
 	public String register(HttpSession session, Model model) {
 		Staff staffRegistrato = new Staff();
@@ -133,7 +107,7 @@ public class StaffController {
 		if (staffRegistrato.getEmail() != null || staffRegistrato.getPassword() != null
 				|| staffRegistrato.getName() != null || staffRegistrato.getSurname() != null
 				|| staffRegistrato.getRoleId() != 0) {
-			otpfactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			OtpCodeFactory.setCreatedUpdatedAndOtp(staffRegistrato);
 			staffRegistrato.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusDays(1)));
 			staffService.insert(staffRegistrato);
 			session.setAttribute("staffAdded", 0);
@@ -146,28 +120,6 @@ public class StaffController {
 			return ret;
 		}
 	}
-
-	// controlloOtp che comunica solo con angular - discontinuato
-	// @RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes
-	// = MediaType.APPLICATION_JSON_VALUE)
-	// @ResponseBody
-	// public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
-	//
-	// if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(),
-	// staffOTP.getPassword(),
-	// staffOTP.getOtpCode()) != null
-	// &&
-	// !Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt()))
-	// {
-	// boolean data = true;
-	// HTTPResponse risposta = new HTTPResponse(data);
-	// return risposta;
-	// } else {
-	// HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
-	// return risposta;
-	// }
-	//
-	// }
 
 	@RequestMapping(value = "updatePassword/{newPass}", method = RequestMethod.POST)
 	@ResponseBody
@@ -186,49 +138,112 @@ public class StaffController {
 		}
 	}
 	
-	
-	
-	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse findOne(@RequestBody Integer id) {
-
-		if (id != null) {
-			this.staffService.findById(id);
-			response = new HTTPResponse(id);
-			return response;
-		} else {
-			response = new HTTPResponse("errore", "01");
-			return response;
+	@RequestMapping(value = "staffList", method = RequestMethod.GET)
+	public ModelAndView staffList(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/staffList");
+		// da creare
+//		session=util.sessionCleanerFromTransactions(session);
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			List<Staff> staffList = this.staffService.findAll();
+			ret.addObject("staffList",staffList);
 		}
+		return ret;
 	}
-
-	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse findAll() {
-
-		List<Staff> staff = this.staffService.findAll();
-		response = new HTTPResponse(staff);
-		return response;
-
-	}
-
-	@RequestMapping(value = "delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse delete(@RequestBody Integer id) {
-		HTTPResponse response = new HTTPResponse();
-		if (id != null) {
-			this.staffService.delete(id);
-			response.setData(id);
-			response.setSuccess(true);
-			return response;
+	
+	@RequestMapping(value = "staffUpdate/{id}", method = RequestMethod.GET)
+	public ModelAndView staffUpdate(@PathVariable String id, HttpSession session, Model model) throws IOException {
+		ModelAndView ret = new ModelAndView("admin/staffUpdate");
+		Staff staffToUpdate = staffService.findById(Integer.valueOf(id));
+		if (staffToUpdate != null) {
+			ret.addObject("staffToUpdate", staffToUpdate);
+//			session.setAttribute("staffToUpdate", staffToUpdate);
 		} else {
-			response.setSuccess(false);
-			response.setErr("Errore");
-			response.setErr_code("01");
-			return response;
-
+			ret.addObject("idNotFound", 1);
+//			session.setAttribute("idNotFound", 1);
 		}
+		return ret;
 	}
+	
+	// qui sotto dialogo con angular - deprecato
+//	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse findOne(@RequestBody Integer id) {
+//
+//		if (id != null) {
+//			this.staffService.findById(id);
+//			response = new HTTPResponse(id);
+//			return response;
+//		} else {
+//			response = new HTTPResponse("errore", "01");
+//			return response;
+//		}
+//	}
+
+//	 @RequestMapping(value = "login", method = RequestMethod.POST, consumes =
+//	 MediaType.APPLICATION_JSON_VALUE)
+//	 @ResponseBody
+//	 public HTTPResponse login(@RequestBody Staff staff) {
+//		 if (staff.getEmail()!=null || staff.getPassword()!=null) {
+//		 staff = staffService.findByEmailAndPassword(staff.getEmail(),
+//			 staff.getPassword());
+//	 		otpfactory.setNewOtpUpdate(staff);
+//	 		staffService.update(staff);
+//	 		otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
+//	 		response = new HTTPResponse(staff);
+//	 		return response;
+//	 	}
+//	 	response = new HTTPResponse("err", "errore");
+//	 	return response;
+//	
+//	 }
+
+	// controlloOtp che comunica solo con angular - discontinuato
+//	 @RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes
+//	 	= MediaType.APPLICATION_JSON_VALUE)
+//	 @ResponseBody
+//	 public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
+//	
+//	 if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(),
+//	 	staffOTP.getPassword(),
+//	 	staffOTP.getOtpCode()) != null
+//	 	&&
+//	 	!Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt()))
+//	 	{
+//	 		boolean data = true;
+//	 		HTTPResponse risposta = new HTTPResponse(data);
+//	 		return risposta;
+//	 	} else {
+//	 		HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
+//	 		return risposta;
+//	 	}
+//	
+//	 }
+	
+//	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse findAll() {
+//		List<Staff> staff = this.staffService.findAll();
+//		response = new HTTPResponse(staff);
+//		return response;
+//	}
+//
+//	@RequestMapping(value = "delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse delete(@RequestBody Integer id) {
+//		HTTPResponse response = new HTTPResponse();
+//		if (id != null) {
+//			this.staffService.delete(id);
+//			response.setData(id);
+//			response.setSuccess(true);
+//			return response;
+//		} else {
+//			response.setSuccess(false);
+//			response.setErr("Errore");
+//			response.setErr_code("01");
+//			return response;
+//		}
+//	}
 
 	// @RequestMapping(value="update", method=RequestMethod.POST,consumes =
 	// MediaType.APPLICATION_JSON_VALUE)

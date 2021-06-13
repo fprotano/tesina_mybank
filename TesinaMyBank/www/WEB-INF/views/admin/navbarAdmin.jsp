@@ -11,6 +11,8 @@
 
 <a href="${pageContext.request.contextPath}/externalTransaction/transactionsHistory"><button class="btn btn-sm btn-outline-secondary" type="button">Storico transazioni</button></a>
 
+<a href="${pageContext.request.contextPath}/staff/staffList"><button class="btn btn-sm btn-outline-secondary" type="button">Elenco Staff</button></a>
+
 
 
 
