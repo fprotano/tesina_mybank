@@ -23,6 +23,8 @@ public class HelpCenterFactory {
 		helpcenter.setFromAccountId(id); //id dell'utente
 		helpcenter.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		List<Staff> staff = this.staffService.findAll();
+		int staffId = (int) (Math.random()*staff.size());
+		helpcenter.setAssignedToId(staffId);
 		return helpcenter;
 	}
 }

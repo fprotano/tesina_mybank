@@ -49,10 +49,7 @@ public class HelpCenterController {
 	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
-			
 			helpCenterFactory.fillHelpCenter(helpCenter, id);
-			helpCenter.setFromAccountId(id); //id dell'utente
-			helpCenter.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			this.helpCenterService.insert(helpCenter);
 			response.setData(helpCenter);
 			response.setSuccess(true);
