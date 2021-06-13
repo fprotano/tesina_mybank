@@ -101,11 +101,14 @@
 		if(refuseDescription.length>1 && refuseDescription.length<256){
 		$.ajax({
 			  type: "POST",
-			  url: "http://localhost:8080/TesinaMyBank/externalTransaction/refuseTransaction/"+transactionId+refuseDescription,
+			  url: "http://localhost:8080/TesinaMyBank/externalTransaction/refuseTransaction/"+transactionId+"/"+refuseDescription,
 			  success: function(response){
 				  console.log(response);
-				  if(response==1) {
+				  if(response==0) {
 					  window.location.href="http://localhost:8080/TesinaMyBank/externalTransaction/transactionsList";  
+				  }
+				  if(response==1) {
+					  alert("Non è stato possibile aggiornare la transazione. Controllare la connessione.");  
 				  }
 			  }
 		})} else {

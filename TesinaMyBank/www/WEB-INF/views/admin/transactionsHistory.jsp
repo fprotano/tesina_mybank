@@ -27,6 +27,7 @@
 			<th><label style="width: 112px;">Custom Code</label></th>
 			<th><label style="width: 130px;">ID Transazione</label></th>
 			<th><label>Stato</label></th>
+			<th><label>Descrizione Stato</label></th>
 			<th><label>Importo</label></th>
 			<th><label style="width: 92px;">Da: Nome</label></th>
 			<th><label>Cognome</label></th>
@@ -53,6 +54,12 @@
 	 		<td><label class="longId">${transaction.transactionId}</label><label class="shortId"> ${fn:substring(transactionId, 0, 14)}<c:if test="${fn:length(transaction.transactionId) gt 14}">...</c:if></label></td>
 			
 			<td>${transaction.transactionStatus.title}</td>
+			
+			<c:set var="tErrorReason" value="${transaction.transactionErrorReason}"></c:set>
+	 		<td><label class="longReason">${transaction.transactionErrorReason}</label><label class="shortReason"> ${fn:substring(transactionErrorReason, 0, 22)}<c:if test="${fn:length(transaction.transactionErrorReason) gt 22}">...</c:if></label></td>
+			
+			<%-- <td>${transaction.transactionStatus.transactionErrorReason}</td>
+			 --%>
 			<td><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></td>
 			<td>${transaction.customerName}</td>
 			<td>${transaction.customerSurname}</td>
@@ -71,14 +78,20 @@
 	$(document).ready(function(){
 	    $(".longId").toggle();
 	    $(".longCode").toggle();
+	    $(".longReason").toggle();
 	    showAndHideLongParameters = function()
 	    {
 	        $(".shortId").toggle();
 	        $(".shortCode").toggle();
+	        $(".shortReason").toggle();
+	        
 	        $(".shortId").toggleClass("component");
 	        $(".shortCode").toggleClass("component");
+	        $(".shortReason").toggleClass("component");
+	        
 	        $(".longId").toggle();
 	        $(".longCode").toggle();
+	        $(".longReason").toggle();
 	    }
 
 	});

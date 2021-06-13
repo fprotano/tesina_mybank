@@ -32,19 +32,28 @@ private ExternalTransactionRepository externalTransactionRepository;
 		externalTransactionRepository.save(externalTransaction);
 	}
 	
-	
-	
 	public void delete(int id) {
 		externalTransactionRepository.delete(id);
 	}
-	
-	
 	
 	public ExternalTransaction find(int id) {
 		return externalTransactionRepository.findOne(id);
 	}
 	
-	public List<ExternalTransaction> findAllByStaffId(Integer id){
-		return (List<ExternalTransaction>) externalTransactionRepository.findByVerifyAssignedTo(id);
+	//da deprecare
+//	public List<ExternalTransaction> findAllByStaffId(Integer id){
+//		return (List<ExternalTransaction>) externalTransactionRepository.findByVerifyAssignedTo(id);
+//	}
+	
+	public List<ExternalTransaction> findByStatePendingAssignedToId(Integer id){
+		return (List<ExternalTransaction>) externalTransactionRepository.findByStatePendingAssignedToId(id);
+	}
+	
+	public List<ExternalTransaction> findByStateProcessedAssignedToId(Integer id){
+		return (List<ExternalTransaction>) externalTransactionRepository.findByStateProcessedAssignedToId(id);
+	}
+	
+	public List<ExternalTransaction> findBytoAccountId(Integer id){
+		return (List<ExternalTransaction>) externalTransactionRepository.findBytoAccountId(id);
 	}
 }

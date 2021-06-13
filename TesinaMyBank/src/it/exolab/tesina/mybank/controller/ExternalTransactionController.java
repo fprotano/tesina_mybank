@@ -60,10 +60,10 @@ public class ExternalTransactionController {
 			response.setSuccess(true);
 			return response;
 		} else {
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-					return response;
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;
 		}
 	}
 	
@@ -77,10 +77,10 @@ public class ExternalTransactionController {
 			response.setSuccess(true);
 			return response;
 		} else {
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-					return response;
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;
 		}
 	}
 	
@@ -92,7 +92,6 @@ public class ExternalTransactionController {
 			response.setData(transazioni);
 			response.setSuccess(true);
 			return response;
-		
 	}
 	
 	@RequestMapping(value="delete", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -105,10 +104,10 @@ public class ExternalTransactionController {
 			response.setSuccess(true);
 			return response;
 		} else {
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-				return response;		
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;		
 		}
 	}
 	
@@ -118,7 +117,19 @@ public class ExternalTransactionController {
 		session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
-			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
+			List<ExternalTransaction> transactions = externalTransactionService.findByStatePendingAssignedToId(staff.getId());
+			ret.addObject("transactions", transactions);
+		}
+		return ret;
+	}
+	
+	@RequestMapping(value = "transactionsHistory", method = RequestMethod.GET)
+	public ModelAndView transactionsHistory(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/transactionsHistory");
+		session=util.sessionCleanerFromTransactions(session);
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			List<ExternalTransaction> transactions = externalTransactionService.findByStateProcessedAssignedToId(staff.getId());
 			ret.addObject("transactions", transactions);
 		}
 		return ret;
@@ -138,23 +149,39 @@ public class ExternalTransactionController {
 		return "redirect:/externalTransaction/transactionsList";
 	}
 	
-	//inizio query composite
-	@RequestMapping(value="findAllByStaffId", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public HTTPResponse findAll(@RequestBody Integer id) {
-			HTTPResponse response = new HTTPResponse();
-			List<ExternalTransaction> transazioni = this.externalTransactionService.findAllByStaffId(id);
-			if(transazioni.size()>0) {
-			response.setData(transazioni);
-			response.setSuccess(true);
-			return response;
-			} else {
-				response.setSuccess(false);
-				response.setErr("Errore");
-				response.setErr_code("01");
-				return response;
-			}
-		
+	// doppio path variabile: la chiamata ajax è costruita come ${transactionId}+"/"+${refuseDescription}
+	@RequestMapping(value = "refuseTransaction/{transactionId}/{refuseDescription}", method = RequestMethod.POST)
+	public void refuseTransaction(@PathVariable String transactionId, @PathVariable String refuseDescription, HttpSession session, Model model,
+			HttpServletResponse response) throws IOException {
+		ExternalTransaction transaction=externalTransactionService.find(Integer.valueOf(transactionId));
+		if (transaction != null) {
+			transaction.setTransactionStatusId(2);
+			transaction.setTransactionErrorReason(refuseDescription);
+			externalTransactionService.update(transaction);
+			session.setAttribute("transactionRefused", 0);
+			response.getWriter().append("0");
+		} else {
+			session.setAttribute("transactionRefused", 1);
+			response.getWriter().append("1");
+		}
 	}
+	
+	// da deprecare
+//	@RequestMapping(value="findAllByStaffId", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public HTTPResponse findAll(@RequestBody Integer id) {
+//			HTTPResponse response = new HTTPResponse();
+//			List<ExternalTransaction> transazioni = this.externalTransactionService.findAllByStaffId(id);
+//			if(transazioni.size()>0) {
+//				response.setData(transazioni);
+//				response.setSuccess(true);
+//				return response;
+//			} else {
+//				response.setSuccess(false);
+//				response.setErr("Errore");
+//				response.setErr_code("01");
+//				return response;
+//			}
+//	}
 
 }
