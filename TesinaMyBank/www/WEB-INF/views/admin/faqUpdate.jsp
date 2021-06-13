@@ -16,7 +16,7 @@
 	<jsp:include page="header.jsp"/>
 <br/>
 
-<form:form method="post" modelAttribute="faqToUpdate" action="${pageContext.request.contextPath}/staff/updateFaq">
+<form:form method="post" modelAttribute="faqToUpdate" action="${pageContext.request.contextPath}/faq/updateFaq">
 
 <h4>Stai modificando la FAQ con ID: ${faqToUpdate.id}</h4>
 <div style="margin: auto;width: 100%;">

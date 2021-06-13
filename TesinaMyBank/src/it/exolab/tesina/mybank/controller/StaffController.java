@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.factory.OtpEmailFactory;
-import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
@@ -36,7 +35,6 @@ import it.exolab.tesina.mybank.util.Util;
 @Controller
 @RequestMapping(value = "staff")
 public class StaffController {
-	private ExternalTransactionService externalTransactionService;
 	private FaqService faqService;
 	private StaffService staffService;
 	private HTTPResponse response;
@@ -47,13 +45,7 @@ public class StaffController {
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
-	}
-
-	@Autowired(required = true)
-	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
-		this.externalTransactionService = externalTransactionService;
-	}
-	
+	}	
 	
 	@Autowired(required = true)
 	public void setFaqService(FaqService faqService) {
@@ -193,89 +185,8 @@ public class StaffController {
 			session.setAttribute("passwordUpdated", 1);
 		}
 	}
-
-	@RequestMapping(value = "transactionsList", method = RequestMethod.GET)
-	public ModelAndView transactionsList(Model model, HttpSession session) {
-		ModelAndView ret = new ModelAndView("admin/transactionsList");
-		session=util.sessionCleanerFromTransactions(session);
-		Staff staff = (Staff) session.getAttribute("staff");
-		if (staff != null) {
-			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
-			ret.addObject("transactions", transactions);
-		}
-		return ret;
-	}
 	
-	@RequestMapping(value = "faqList", method = RequestMethod.GET)
-	public ModelAndView faqsList(Model model, HttpSession session) {
-		ModelAndView ret = new ModelAndView("admin/faqList");
-		Staff staff = (Staff) session.getAttribute("staff");
-		if (staff != null) {
-			List<Faq> faqs = faqService.findAll();
-			ret.addObject("faqs", faqs);
-		}
-		return ret;
-	}
 	
-	@RequestMapping(value = "addFaq", method = RequestMethod.GET)
-	public String addFaq(HttpSession session, Model model) {
-		session=util.sessionCleanerFromHome(session);
-		Faq newFaq = new Faq();
-		model.addAttribute("newFaq", newFaq);
-		return "admin/faqAdd";
-	}
-	
-	@RequestMapping(value = "addFaq", method = RequestMethod.POST)
-	public ModelAndView addFaq(Faq newFaq, HttpSession session) {
-		ModelAndView ret = new ModelAndView("redirect:/staff/faqList");
-		if (newFaq != null) {
-			faqService.insert(newFaq);
-			session.setAttribute("faqAdded", 0);
-		//	ret.addObject("faqAdded", 0);
-			return ret;
-		} else {
-			session.setAttribute("faqAdded", 1);
-		//	ret.addObject("faqAdded", 1);
-			return ret;
-		}
-	}
-	
-	@RequestMapping(value = "updateFaq/{faqId}", method = RequestMethod.GET)
-	public ModelAndView updateFaq(@PathVariable String faqId, HttpSession session, Model model,
-		HttpServletResponse response) throws IOException {
-		Faq faqToUpdate = faqService.find(Integer.valueOf(faqId));
-		// ritorno un ModelAndView composto da: stringa view, ossia indirizzo della pagina
-		// secondo parametro nome del modello, terzo parametro il modello
-		return new ModelAndView("admin/faqUpdate","faqToUpdate",faqToUpdate);
-	}
-	
-	@RequestMapping(value = "updateFaq", method = RequestMethod.POST)
-	public ModelAndView updateFaq(Faq faqToUpdate, HttpSession session) {
-		ModelAndView ret = new ModelAndView("redirect:/staff/faqList");
-		if (faqToUpdate != null) {
-			faqService.update(faqToUpdate);
-			session.setAttribute("faqUpdated", 0);
-		//	ret.addObject("faqAdded", 0);
-			return ret;
-		} else {
-			session.setAttribute("faqUpdated", 1);
-		//	ret.addObject("faqAdded", 1);
-			return ret;
-		}
-	}
-	
-	@RequestMapping(value = "deleteFaq/{faqId}", method = RequestMethod.GET)
-	public String deleteFaq(@PathVariable String faqId, HttpSession session, Model model,
-			HttpServletResponse response) throws IOException {
-		Faq faqToDelete=faqService.find(Integer.valueOf(faqId));
-		if (faqToDelete != null) {
-			faqService.delete(faqToDelete.getId());
-			session.setAttribute("faqDeleted", 0);
-		} else {
-			session.setAttribute("faqDeleted", 1);
-		}
-		return "redirect:/staff/faqList";
-	}
 	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

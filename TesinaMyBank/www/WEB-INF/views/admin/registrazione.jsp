@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/> 
+<jsp:include page="header.jsp"/>
 <br/>
 
 <form:form method="post" modelAttribute="staffRegistrato" action="${pageContext.request.contextPath}/staff/registrazione">

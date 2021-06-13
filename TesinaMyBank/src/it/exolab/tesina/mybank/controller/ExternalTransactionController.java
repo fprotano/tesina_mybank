@@ -1,22 +1,31 @@
 package it.exolab.tesina.mybank.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
+import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
+import it.exolab.tesina.mybank.util.Util;
 
 @CrossOrigin
 @Controller
@@ -26,6 +35,7 @@ public class ExternalTransactionController {
 	private ExternalTransactionService externalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
 	private TransactionUniqueIdFactory transactionUniqueIdFactory;
+	private Util util = new Util();
 	
 	@Autowired(required=true)
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
@@ -98,9 +108,34 @@ public class ExternalTransactionController {
 				response.setSuccess(false);
 				response.setErr("Errore");
 				response.setErr_code("01");
-					return response;
-					
+				return response;		
 		}
+	}
+	
+	@RequestMapping(value = "transactionsList", method = RequestMethod.GET)
+	public ModelAndView transactionsList(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/transactionsList");
+		session=util.sessionCleanerFromTransactions(session);
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			List<ExternalTransaction> transactions = externalTransactionService.findAllByStaffId(staff.getId());
+			ret.addObject("transactions", transactions);
+		}
+		return ret;
+	}
+	
+	@RequestMapping(value = "acceptTransaction/{transactionId}", method = RequestMethod.GET)
+	public String acceptTransaction(@PathVariable String transactionId, HttpSession session, Model model,
+			HttpServletResponse response) throws IOException {
+		ExternalTransaction transaction=externalTransactionService.find(Integer.valueOf(transactionId));
+		if (transaction != null) {
+			transaction.setTransactionStatusId(3);
+			externalTransactionService.update(transaction);
+			session.setAttribute("transactionAccepted", 0);
+		} else {
+			session.setAttribute("transactionAccepted", 1);
+		}
+		return "redirect:/externalTransaction/transactionsList";
 	}
 	
 	//inizio query composite

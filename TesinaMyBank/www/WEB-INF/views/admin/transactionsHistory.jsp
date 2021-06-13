@@ -23,7 +23,6 @@
 	<table>
 		<tr>
 			<th><label style="width: 28px;">ID</label></th>
-			<th colspan="2"><label>Gestisci transazioni</label></th>
 			<th><label style="width: 120px;">Creata in data</label></th>
 			<th><label style="width: 112px;">Custom Code</label></th>
 			<th><label style="width: 130px;">ID Transazione</label></th>
@@ -43,17 +42,6 @@
 	<c:forEach items="${transactions}" var="transaction" varStatus="loop">
 		<tr>
 			<td>${transaction.id}</td>
-			
-			
-			<td>
-				<a href="${pageContext.request.contextPath}/externalTransaction/acceptTransaction/${transaction.id}"><button class="btn btn-sm btn-outline-success" type="button">Accetta</button></a>
-			</td>
-			<td>
-				<%-- <a href="${pageContext.request.contextPath}/staff/refuseTransaction/${transaction.id}"><button class="btn btn-sm btn-outline-danger" type="button">Rifiuta</button></a> --%>
-				<button class="btn btn-sm btn-outline-danger" type="button" onclick="addRefuseDescription(${transaction.id})">Rifiuta</button>
-			</td>
-			
-			
 			<!-- setLocale non fa niente perché la springservlet in questo caso ha la priorità e gestisce il locale -->
 			<fmt:setLocale value="it_IT" /> 
 			<td><label style="width: 204px;"><fmt:formatDate type="both" value="${transaction.createdAt}" pattern="E, dd/MM/yyyy, HH:mm:ss" /></label></td>
@@ -94,24 +82,6 @@
 	    }
 
 	});
-	</script>
-	<script>
-	function addRefuseDescription(transactionId) {
-		var refuseDescription = prompt("Inserisci il motivo del rifiuto della transazione:");
-		if(refuseDescription.length>1 && refuseDescription.length<256){
-		$.ajax({
-			  type: "POST",
-			  url: "http://localhost:8080/TesinaMyBank/externalTransaction/refuseTransaction/"+transactionId+refuseDescription,
-			  success: function(response){
-				  console.log(response);
-				  if(response==1) {
-					  window.location.href="http://localhost:8080/TesinaMyBank/externalTransaction/transactionsList";  
-				  }
-			  }
-		})} else {
-			alert("Inserisci una descrizione non vuota di massimo 255 caratteri");
-		};
-	}
 	</script>
 </body>
 </html>

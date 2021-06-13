@@ -1,7 +1,5 @@
 package it.exolab.tesina.mybank.controller;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import it.exolab.tesina.mybank.factory.HelpCenterFactory;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
-import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.service.HelpCenterService;
 import it.exolab.tesina.mybank.service.HelpCenterThreadService;
 import it.exolab.tesina.mybank.service.StaffService;
@@ -29,18 +26,14 @@ import it.exolab.tesina.mybank.service.StaffService;
 public class HelpCenterController {
 	
 	private HelpCenterService helpCenterService;
-	private HelpCenterFactory helpCenterFactory = new HelpCenterFactory();
+	private HelpCenterFactory helpCenterFactory;
 	private HelpCenterThreadService helpCenterThreadService;
-	private StaffService staffService;
+	
+	
 	
 	@Autowired(required=true)
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
 		this.helpCenterService = helpCenterService;
-	}
-	
-	@Autowired(required=true)
-	public void setStaffService(StaffService staffService) {
-		this.staffService = staffService;
 	}
 	
 	@Autowired(required=true)
@@ -50,7 +43,7 @@ public class HelpCenterController {
 	 
 	@RequestMapping(value = "insert/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
+	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id, StaffService staffService) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
 			helpCenterFactory.fillHelpCenter(helpCenter, id, staffService);

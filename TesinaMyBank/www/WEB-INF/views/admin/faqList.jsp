@@ -13,13 +13,12 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/> 
-<br/>
+<jsp:include page="header.jsp"/>
 
 	<div style="margin:6px;">
 	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
 	
-	<a href="${pageContext.request.contextPath}/staff/addFaq"><button class="btn btn-sm btn-outline-primary" type="button">Aggiungi FAQ</button></a>
+	<a href="${pageContext.request.contextPath}/faq/addFaq"><button class="btn btn-sm btn-outline-primary" type="button">Aggiungi FAQ</button></a>
 	<br/>
 	<c:if test="${faqAdded!=null}">
 	<c:choose>
@@ -32,8 +31,8 @@
 			<br/>
 		</c:when>
 	</c:choose>
-	</c:if>
 	<br/>
+	</c:if>
 	<c:if test="${faqUpdated!=null}">
 	<c:choose>
 		<c:when test="${faqUpdated==0}">
@@ -45,8 +44,21 @@
 			<br/>
 		</c:when>
 	</c:choose>
-	</c:if>
 	<br/>
+	</c:if>
+	<c:if test="${faqDeleted!=null}">
+	<c:choose>
+		<c:when test="${faqDeleted==0}">
+			<c:out value="FAQ cancellata con successo."/>
+			<br/>
+		</c:when>
+		<c:when test="${faqDeleted==1}">
+			<c:out value="Errore nell'eliminazione della FAQ."/>
+			<br/>
+		</c:when>
+	</c:choose>
+	<br/>
+	</c:if>
 	<legend>Elenco FAQs</legend>
 	<hr/>
 	<table>
@@ -62,10 +74,10 @@
 		<tr>
 			<td>${faq.id}</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/staff/updateFaq/${faq.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Modifica</button></a>
+				<a href="${pageContext.request.contextPath}/faq/updateFaq/${faq.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Modifica</button></a>
 			</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/staff/deleteFaq/${faq.id}"><button class="btn btn-sm btn-outline-danger" type="button">Cancella</button></a>
+				<a href="${pageContext.request.contextPath}/faq/deleteFaq/${faq.id}"><button class="btn btn-sm btn-outline-danger" type="button">Cancella</button></a>
 			</td>
 			
 			<c:set var="questionVar" value="${faq.question}"></c:set>

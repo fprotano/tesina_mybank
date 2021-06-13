@@ -16,7 +16,7 @@
 	<jsp:include page="header.jsp"/>
 <br/>
 
-<form:form method="post" modelAttribute="newFaq" action="${pageContext.request.contextPath}/staff/addFaq">
+<form:form method="post" modelAttribute="newFaq" action="${pageContext.request.contextPath}/faq/addFaq">
 
 <h4>Aggiungi una nuova FAQ:</h4>
 <div style="margin: auto;width: 100%;">
