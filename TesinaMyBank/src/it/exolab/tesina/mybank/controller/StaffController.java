@@ -240,6 +240,43 @@ public class StaffController {
 		}
 	}
 	
+	@RequestMapping(value = "updateFaq/{faqId}", method = RequestMethod.GET)
+	public ModelAndView updateFaq(@PathVariable String faqId, HttpSession session, Model model,
+		HttpServletResponse response) throws IOException {
+		Faq faqToUpdate = faqService.find(Integer.valueOf(faqId));
+		// ritorno un ModelAndView composto da: stringa view, ossia indirizzo della pagina
+		// secondo parametro nome del modello, terzo parametro il modello
+		return new ModelAndView("admin/faqUpdate","faqToUpdate",faqToUpdate);
+	}
+	
+	@RequestMapping(value = "updateFaq", method = RequestMethod.POST)
+	public ModelAndView updateFaq(Faq faqToUpdate, HttpSession session) {
+		ModelAndView ret = new ModelAndView("redirect:/staff/faqList");
+		if (faqToUpdate != null) {
+			faqService.update(faqToUpdate);
+			session.setAttribute("faqUpdated", 0);
+		//	ret.addObject("faqAdded", 0);
+			return ret;
+		} else {
+			session.setAttribute("faqUpdated", 1);
+		//	ret.addObject("faqAdded", 1);
+			return ret;
+		}
+	}
+	
+	@RequestMapping(value = "deleteFaq/{faqId}", method = RequestMethod.GET)
+	public String deleteFaq(@PathVariable String faqId, HttpSession session, Model model,
+			HttpServletResponse response) throws IOException {
+		Faq faqToDelete=faqService.find(Integer.valueOf(faqId));
+		if (faqToDelete != null) {
+			faqService.delete(faqToDelete.getId());
+			session.setAttribute("faqDeleted", 0);
+		} else {
+			session.setAttribute("faqDeleted", 1);
+		}
+		return "redirect:/staff/faqList";
+	}
+	
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findOne(@RequestBody Integer id) {

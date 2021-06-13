@@ -15,8 +15,8 @@
 
 <jsp:include page="header.jsp"/> 
 <br/>
-	 
-	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi ID transazioni</button>
+	
+	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
 	
 	<legend>Dettagli transazioni da Autorizzare</legend>
 	<hr/>

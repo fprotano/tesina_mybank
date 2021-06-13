@@ -15,6 +15,10 @@
 
 <jsp:include page="header.jsp"/> 
 <br/>
+
+	<div style="margin:6px;">
+	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
+	
 	<a href="${pageContext.request.contextPath}/staff/addFaq"><button class="btn btn-sm btn-outline-primary" type="button">Aggiungi FAQ</button></a>
 	<br/>
 	<c:if test="${faqAdded!=null}">
@@ -30,11 +34,26 @@
 	</c:choose>
 	</c:if>
 	<br/>
+	<c:if test="${faqUpdated!=null}">
+	<c:choose>
+		<c:when test="${faqUpdated==0}">
+			<c:out value="FAQ modificata con successo."/>
+			<br/>
+		</c:when>
+		<c:when test="${faqUpdated==1}">
+			<c:out value="Errore nell'update, FAQ non salvata."/>
+			<br/>
+		</c:when>
+	</c:choose>
+	</c:if>
+	<br/>
 	<legend>Elenco FAQs</legend>
 	<hr/>
 	<table>
 		<tr>
 			<th>ID</th>
+			<th></th>
+			<th></th>
 			<th>Domanda</th>
 			<th>Risposta</th>
 			
@@ -42,11 +61,38 @@
 	<c:forEach items="${faqs}" var="faq" varStatus="loop">
 		<tr>
 			<td>${faq.id}</td>
-			<td>${faq.question}</td>
-			<td>${faq.answer}</td>
+			<td>
+				<a href="${pageContext.request.contextPath}/staff/updateFaq/${faq.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Modifica</button></a>
+			</td>
+			<td>
+				<a href="${pageContext.request.contextPath}/staff/deleteFaq/${faq.id}"><button class="btn btn-sm btn-outline-danger" type="button">Cancella</button></a>
+			</td>
+			
+			<c:set var="questionVar" value="${faq.question}"></c:set>
+			<td><label class="longQ">${faq.question}</label><label class="shortQ"> ${fn:substring(questionVar, 0, 56)}<c:if test="${fn:length(faq.question) gt 56}">...</c:if></label></td>
+			
+			<c:set var="answerVar" value="${faq.answer}"></c:set>
+			<td><label class="longA">${faq.answer}</label><label class="shortA"> ${fn:substring(answerVar, 0, 56)}<c:if test="${fn:length(faq.answer) gt 56}">...</c:if></label></td>
 		</tr>
 	</c:forEach>
 	</table>
 	<hr/>
+	</div>
+	<script>
+	$(document).ready(function(){
+	    $(".longQ").toggle();
+	    $(".longA").toggle();
+	    showAndHideLongParameters = function()
+	    {
+	        $(".shortQ").toggle();
+	        $(".shortA").toggle();
+	        $(".shortQ").toggleClass("component");
+	        $(".shortA").toggleClass("component");
+	        $(".longQ").toggle();
+	        $(".longA").toggle();
+	    }
+
+	});
+	</script>
 </body>
 </html>
