@@ -35,6 +35,10 @@ public class FieldError extends Exception {
 			MinValueError rq = (MinValueError) ex;
 			return "Per  campo " + rq.getField()+ " inserire un valore minimo di "+ rq.getMin();
 		}
+		if(ex instanceof EntityNotFoundError) {
+			EntityNotFoundError rq = (EntityNotFoundError) ex;
+			return   rq.getField()+ " non trovato ";
+		}
 		// MANCANO I CASI DI EMAIL E PASSWORD
 		return "";
 
