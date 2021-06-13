@@ -13,20 +13,20 @@
 <title>Aggiungi FAQ</title>
 </head>
 <body>
-	<jsp:include page="header.jsp"/> 
+	<jsp:include page="header.jsp"/>
 <br/>
 
 <form:form method="post" modelAttribute="newFaq" action="${pageContext.request.contextPath}/staff/addFaq">
 
 <h4>Aggiungi una nuova FAQ:</h4>
-<div style="margin:8px;";>
+<div style="margin: auto;width: 100%;">
 	<label>Domanda:</label>
 	<br/>
-	<form:input path="question" />
+	<form:textarea style="width:50%; height:120px;" path="question" />
 	<br/>
 	<label>Risposta:</label>
 	<br/>
-	<form:input path="answer" />
+	<form:textarea style="width:50%; height:320px;" path="answer" />
 	<hr/>
 	<input type="submit" value="Registra">
 	</form:form>

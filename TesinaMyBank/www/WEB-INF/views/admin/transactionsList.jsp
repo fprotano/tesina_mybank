@@ -16,27 +16,27 @@
 <jsp:include page="header.jsp"/> 
 <br/>
 	 
-	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideTransactionId()" id="preview">Mostra/Nascondi ID transazioni</button>
+	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi ID transazioni</button>
 	
 	<legend>Dettagli transazioni da Autorizzare</legend>
 	<hr/>
 	<table>
 		<tr>
-			<th>ID</th>
-			<th>Creata in data</th>
-			<th>customCode</th>
-			<th>transactionId</th>
-			<th>Stato</th>
-			<th>Importo</th>
-			<th>Richied. Nome</th>
-			<th>Cognome</th>
-			<th>Numero Carta</th>
-			<th>CIN Carta</th>
-			<th>Scadenza</th>
-			<th>Benef. Id</th>
-			<th>Nome</th>
-			<th>Cognome</th>
-			<th>Email</th>
+			<th><label style="width: 28px;">ID</label></th>
+			<th><label style="width: 120px;">Creata in data</label></th>
+			<th><label style="width: 112px;">Custom Code</label></th>
+			<th><label style="width: 130px;">ID Transazione</label></th>
+			<th><label>Stato</label></th>
+			<th><label>Importo</label></th>
+			<th><label style="width: 92px;">Da: Nome</label></th>
+			<th><label>Cognome</label></th>
+			<th><label style="width: 120px;">Numero Carta</label></th>
+			<th><label style="width: 40px;">CIN</label></th>
+			<th><label>Scadenza</label></th>
+			<th><label style="width: 124px;">Id beneficiario</label></th>
+			<th><label>Nome</label></th>
+			<th><label>Cognome</label></th>
+			<th><label>Email</label></th>
 			
 		</tr>
 	<c:forEach items="${transactions}" var="transaction" varStatus="loop">
@@ -44,11 +44,13 @@
 			<td>${transaction.id}</td>
 			<!-- setLocale non fa niente perché la springservlet in questo caso ha la priorità e gestisce il locale -->
 			<fmt:setLocale value="it_IT" /> 
-			<td><fmt:formatDate type="both" value="${transaction.createdAt}" pattern="E, dd-MMM-yyyy, HH:mm:ss" /></td>
-			<td>${transaction.customCode}</td>
+			<td><label style="width: 204px;"><fmt:formatDate type="both" value="${transaction.createdAt}" pattern="E, dd/MM/yyyy, HH:mm:ss" /></label></td>
+			
+			<c:set var="customCode" value="${transaction.customCode}"></c:set>
+	 		<td><label class="longCode">${transaction.customCode}</label><label class="shortCode"> ${fn:substring(customCode, 0, 14)}<c:if test="${fn:length(transaction.customCode) gt 14}">...</c:if></label></td>
 			
 			<c:set var="transactionId" value="${transaction.transactionId}"></c:set>
-	 		<td><label class="longId">${transaction.transactionId}</label><label class="shortId"> ${fn:substring(transactionId, 0, 14)}...</label></td>
+	 		<td><label class="longId">${transaction.transactionId}</label><label class="shortId"> ${fn:substring(transactionId, 0, 14)}<c:if test="${fn:length(transaction.transactionId) gt 14}">...</c:if></label></td>
 			
 			<td>${transaction.transactionStatus.title}</td>
 			<td><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></td>
@@ -68,11 +70,15 @@
 	<script>
 	$(document).ready(function(){
 	    $(".longId").toggle();
-	    showAndHideTransactionId = function()
+	    $(".longCode").toggle();
+	    showAndHideLongParameters = function()
 	    {
 	        $(".shortId").toggle();
+	        $(".shortCode").toggle();
 	        $(".shortId").toggleClass("component");
+	        $(".shortCode").toggleClass("component");
 	        $(".longId").toggle();
+	        $(".longCode").toggle();
 	    }
 
 	});
