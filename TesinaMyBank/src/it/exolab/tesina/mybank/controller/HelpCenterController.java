@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenter;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
+import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.service.HelpCenterService;
 import it.exolab.tesina.mybank.service.HelpCenterThreadService;
+import it.exolab.tesina.mybank.service.StaffService;
 
 @CrossOrigin
 @Controller
@@ -25,8 +27,13 @@ import it.exolab.tesina.mybank.service.HelpCenterThreadService;
 public class HelpCenterController {
 	
 	private HelpCenterService helpCenterService;
-	
+	private StaffService staffService;
 	private HelpCenterThreadService helpCenterThreadService;
+	
+	@Autowired(required=true)
+	public void setStaffService(StaffService staffService) {
+		this.staffService = staffService;
+	}
 	
 	@Autowired(required=true)
 	public void setHelpCenterService(HelpCenterService helpCenterService) {
@@ -40,10 +47,10 @@ public class HelpCenterController {
 	 
 	@RequestMapping(value = "insert/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
+	public HTTPResponse insert(@RequestBody HelpCenter helpCenter, @PathVariable int id) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenter != null) {
-			
+			List<Staff> staff = this.staffService.findAll();
 			LocalDateTime dataNow = LocalDateTime.now();
 			helpCenter.setFromAccountId(id); //id dell'utente
 			helpCenter.setCreatedAt(Timestamp.valueOf(dataNow));
