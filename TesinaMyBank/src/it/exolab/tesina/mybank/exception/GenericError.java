@@ -16,6 +16,7 @@ public class GenericError extends Exception {
 	public static final int D_001= 001;
 	public static final int D_002= 002;
 	public static final int D_003= 003;
+	public static final int B_005 = 005;
 	
 	private int code;
 	public GenericError(int code) {
@@ -62,6 +63,8 @@ public class GenericError extends Exception {
 		}
 		if(ex instanceof UniqueFieldError) {
 			UniqueFieldError rq = (UniqueFieldError) ex;
+			if(rq.getField().equals("email"))
+				   return GenericError.B_005;
 		 
 		}
 		if(ex instanceof FormatError) {

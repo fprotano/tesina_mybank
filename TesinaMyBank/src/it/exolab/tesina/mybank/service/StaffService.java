@@ -27,7 +27,7 @@ public class StaffService {
 	public List<Staff> findAll() {
 		return (List<Staff>) this.staffRepository.findAll();
 	}
-	public void insert(Staff model) {
+	public void insert(Staff model){
 		this.staffRepository.save(model);
 	}
 	public void update(Staff model) {
@@ -51,23 +51,24 @@ public class StaffService {
 	 }
 	 private void validateInsertOrUpdate(Staff model) throws RequiredFieldError, MaxLengthError, InvalidEmail, InvalidPassword {
 		 
-		Validator.required("data creazione", model.getCreatedAt());
-		Validator.required("data aggiornamento", model.getUpdatedAt());
-		Validator.required("email", model.getEmail());
-	    Validator.maxLength("email", model.getEmail(),70);
-		Validator.required("password", model.getPassword());
-		Validator.maxLength("password", model.getPassword(),255);
-		Validator.required("name", model.getName());
-		Validator.maxLength("name", model.getName(),30);
-		Validator.required("surname", model.getSurname());
-		Validator.maxLength("surname", model.getSurname(),40);
-		Validator.required("role id", model.getRoleId());
-		Validator.maxLength("role id", model.getRoleId(),10);
-		Validator.required("next otp code after date ", model.getNextOtpCodeAfterDate());
-		Validator.validateEmail("email", model.getEmail());
-		Validator.validatePassword("password",  model.getPassword());
+			Validator.required("data creazione", model.getCreatedAt());
+			Validator.required("data aggiornamento", model.getUpdatedAt());
+			Validator.required("email", model.getEmail());
+		    Validator.maxLength("email", model.getEmail(),70);
+			Validator.required("password", model.getPassword());
+			Validator.maxLength("password", model.getPassword(),255);
+			Validator.required("name", model.getName());
+			Validator.maxLength("name", model.getName(),30);
+			Validator.required("surname", model.getSurname());
+			Validator.maxLength("surname", model.getSurname(),40);
+			Validator.required("role id", model.getRoleId());
+			Validator.maxLength("role id", model.getRoleId(),10);
+			Validator.required("next otp code after date ", model.getNextOtpCodeAfterDate());
+			Validator.validateEmail("email", model.getEmail());
+			Validator.validatePassword("password",  model.getPassword());
+		 }
+	
 		 
-	 }
 	 
 	
 	
