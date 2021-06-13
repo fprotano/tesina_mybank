@@ -166,7 +166,7 @@ public class ExternalTransactionController {
 		}
 	}
 	
-	// da deprecare
+	// da deprecare 
 //	@RequestMapping(value="findAllByStaffId", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseBody
 //	public HTTPResponse findAll(@RequestBody Integer id) {

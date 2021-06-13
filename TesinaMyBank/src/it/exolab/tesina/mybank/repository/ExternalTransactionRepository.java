@@ -14,7 +14,7 @@ import it.exolab.tesina.mybank.model.dto.ExternalTransactionDTO;
 
 public interface ExternalTransactionRepository extends CrudRepository<ExternalTransaction, Integer> {
 	
-	// da deprecare
+	// da deprecare 
 //	public List<ExternalTransaction> findByVerifyAssignedTo(Integer id);
 	
 	@Modifying

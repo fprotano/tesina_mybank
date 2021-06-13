@@ -40,7 +40,7 @@ private ExternalTransactionRepository externalTransactionRepository;
 		return externalTransactionRepository.findOne(id);
 	}
 	
-	//da deprecare
+	//da deprecare 
 //	public List<ExternalTransaction> findAllByStaffId(Integer id){
 //		return (List<ExternalTransaction>) externalTransactionRepository.findByVerifyAssignedTo(id);
 //	}
