@@ -17,8 +17,6 @@ import it.exolab.tesina.mybank.service.RoleService;
 @Controller
 @RequestMapping(value="role")
 public class RoleController {
-	 
-	
 	private RoleService roleService;
 	
 	@Autowired
