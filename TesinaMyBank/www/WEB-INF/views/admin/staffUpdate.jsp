@@ -21,9 +21,7 @@
 
 <h4>Modifica dati del personale dello Staff</h4>
 <div style="margin:8px;";>
-	<label>ID</label>
-	<br/>
-	<label>${staffToUpdate.id}</label>
+	<label>ID: ${staffToUpdate.id}</label>
 	<form:input hidden="hidden" path="id" />
 	<br/>
 	<label>Nome</label>
@@ -37,14 +35,23 @@
 	<label>Email: </label>
 	<br/>
 	<form:input path="email" />
-	
 	<form:input hidden="hidden" path="password" />
+	<table>
+	<thead></thead>
+		<tr>
+			<td><form:radiobutton path="roleId" value="1"/></td>
+			<td><c:out value="Amministratore"/></td>
+	    </tr>
+	    <tr>
+			<td><form:radiobutton path="roleId" value="2"/></td>
+			<td><c:out value="Validatore"/></td>
+	    </tr>
+	    <tr>
+			<td><form:radiobutton path="roleId" value="3"/></td>
+			<td><c:out value="Help Center"/></td>
+	    </tr>
+	</table>
 	<hr/>
-	<form:select path="roleId">
-	<option value='1'> Amministratore </option>
-	<option value='2'>Verificatore</option>
-	<option value='3'>Help Desk</option>
-	</form:select>
 	<input type="submit" value="Modifica">
 	</form:form>
 </div>

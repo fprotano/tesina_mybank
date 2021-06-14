@@ -52,7 +52,6 @@ public class StaffController {
 		return "admin/login";
 	}
 
-	// controlloOtp per le jsp
 	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)
 	@ResponseBody
 	public void confermaOTP(@PathVariable String OTP, HttpSession session, Model model, HttpServletResponse response)
@@ -112,7 +111,6 @@ public class StaffController {
 			staffService.insert(staffRegistrato);
 			session.setAttribute("staffAdded", 0);
 //			ret.addObject("staffAdded", "Membro dello staff inserito.");
-			System.out.println(ret.toString());
 			return ret;
 		} else {
 			session.setAttribute("staffAdded", 1);
@@ -163,6 +161,24 @@ public class StaffController {
 //			session.setAttribute("idNotFound", 1);
 		}
 		return ret;
+	}
+	
+	@RequestMapping(value = "staffUpdate", method = RequestMethod.POST)
+	public ModelAndView staffUpdate(Staff staffToUpdate, HttpSession session) {
+		ModelAndView ret = new ModelAndView("redirect:/staff/staffList");
+		if (staffToUpdate.getEmail() != null || staffToUpdate.getPassword() != null
+				|| staffToUpdate.getName() != null || staffToUpdate.getSurname() != null
+				|| staffToUpdate.getRoleId() != 0) {
+			staffToUpdate.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now()));
+			staffService.update(staffToUpdate);
+			session.setAttribute("staffUpdated", 0);
+//			ret.addObject("staffUpdated", "Membro dello staff inserito.");
+			return ret;
+		} else {
+			session.setAttribute("staffUpdated", 1);
+//			ret.addObject("staffUpdated", "Errore inserimento, staff non inserito.");
+			return ret;
+		}
 	}
 	
 	// qui sotto dialogo con angular - deprecato
