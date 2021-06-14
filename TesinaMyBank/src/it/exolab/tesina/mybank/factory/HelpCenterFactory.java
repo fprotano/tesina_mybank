@@ -14,9 +14,9 @@ public class HelpCenterFactory {
 	
 	public HelpCenter fillHelpCenter(HelpCenter helpcenter, int id, StaffService staffService) {
 		helpcenter.setFromAccountId(id); //id dell'utente
+		List<Integer> staff = staffService.findbyStaffMinimum();
 		helpcenter.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		helpcenter.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-		List<Integer> staff = staffService.findbyStaffMinimum();
 		int numero = (int) (Math.random()*staff.size());
 		int staffId = staff.get(numero);
 		helpcenter.setAssignedToId(staffId);
