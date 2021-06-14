@@ -17,5 +17,9 @@ public class PaymentService {
 	public void insert(Payment Payment) {
 		paymentRepository.save(Payment);
 	}
+	
+	public Payment findByEmail(String email) {
+		return paymentRepository.findByEmail(email);
+	}
 
 }
