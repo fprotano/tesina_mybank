@@ -103,6 +103,7 @@ incontrerà la parola assets, dovrà ricercare le risorse all'interno di "/WEB-I
    <bean  class="it.exolab.tesina.mybank.service.StaffService"/>
    <bean  class="it.exolab.tesina.mybank.service.TransactionStatusService"/>
    <bean  class="it.exolab.tesina.mybank.service.TransactionUniqueIdService"/>
+   <bean  class="it.exolab.tesina.mybank.service.PaymentService"/>
     
   <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
