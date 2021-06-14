@@ -157,7 +157,9 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `email` varchar(255) NOT NULL DEFAULT '0',
   `custom_code` varchar(255) NOT NULL DEFAULT '0',
   `transaction_id` varchar(255) NOT NULL DEFAULT '0',
-  `url` varchar(255) NOT NULL DEFAULT '0',
+  `urlUnDo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `urlSuccess` varchar(255) NOT NULL DEFAULT '0',
+  `urlNotify` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
