@@ -159,7 +159,7 @@ public class HelpCenterController {
 	
 	@RequestMapping(value = "helpcenterHistory", method = RequestMethod.GET)
 	public ModelAndView helpcenterHistory(Model model, HttpSession session) {
-		ModelAndView ret = new ModelAndView("admin/helpcenterHistory");
+		ModelAndView ret = new ModelAndView("admin/helpcenterList");
 		// da creare
 //		session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
