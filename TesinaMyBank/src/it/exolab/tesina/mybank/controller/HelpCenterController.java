@@ -37,7 +37,7 @@ public class HelpCenterController {
 		this.helpCenterService = helpCenterService;
 	}
 
-	@Autowired(required = true)
+	@Autowired(required = true) 
 	public void setHelpCenterThreadService(HelpCenterThreadService helpCenterThreadService) {
 		this.helpCenterThreadService = helpCenterThreadService;
 	}
