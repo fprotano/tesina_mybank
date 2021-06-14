@@ -52,6 +52,14 @@ public class AccountController {
 			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
 	}
+	
+	@RequestMapping(value = "loginPagamento", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String loginPagamento() {
+		
+		return "redirect: ";
+		}
+	
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

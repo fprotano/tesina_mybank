@@ -1,6 +1,7 @@
 package it.exolab.tesina.mybank.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,16 +31,16 @@ public class PaymentController {
 	
 	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-	public String pay(@ModelAttribute Payment payment, HttpServletRequest request) {
-		payment.setEmail(request.getParameter("mail"));
+	public String pay(@ModelAttribute Payment payment, HttpServletRequest request, HttpSession session) {
+		payment.setEmail(request.getParameter("email"));
 		payment.setAmount(Double.valueOf(request.getParameter("amount")));
 		payment.setCustomCode(request.getParameter("customCode"));
 		payment.setUrlSuccess(request.getParameter("urlSuccess"));
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
 		paymentService.insert(payment);
-		System.out.println("Sono arrivato nel metodo della banca ");
-		return "redirect:/account/login";
+		session.setAttribute("payment", payment);
+		return "redirect: http://localhost:59718/";
 		
 
 	}
