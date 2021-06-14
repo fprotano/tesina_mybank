@@ -28,6 +28,7 @@ public class PaymentController {
 	}
 
 	
+	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String pay(@ModelAttribute Payment payment, HttpServletRequest request) {
 		payment.setEmail(request.getParameter("mail"));
