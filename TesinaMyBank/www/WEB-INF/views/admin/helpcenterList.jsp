@@ -20,20 +20,20 @@
 			<th colspan="2"></th>
 			<th><label>Creato</label></th>
 			<th><label>Aggiornato</label></th>
-			<th><label>ID</label></th>
+			<th><label style="width: 28px;">ID</label></th>
 			<th><label>Nome</label></th>
 			<th><label>Cognome</label></th>
 			<th><label>Domanda</label></th>
 		</tr>
 	<c:forEach items="${helpCenterList}" var="helpcenter" varStatus="loop">
 		<tr>
+			<td>${helpcenter.id}</td>
 			<td>
 				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Apri</button></a>
 			</td>
 			<td>
 				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-danger" type="button">Archivia</button></a>
 			</td>
-			<td>${helpcenter.id}</td>
 			<td>${helpcenter.createdAt}</td>
 			<td>${helpcenter.updatedAt}</td>
 			<td>${helpcenter.fromAccountId}</td>

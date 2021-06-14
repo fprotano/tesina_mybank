@@ -12,7 +12,7 @@
 	<jsp:include page="header.jsp"/> 
 <br/>
 	
-	<legend>Elenco dei thread aperti:</legend>
+	<legend>Storico dei thread:</legend>
 	<hr/>
 	<table>
 		<tr>
@@ -20,7 +20,7 @@
 			<th><label>Creato</label></th>
 			<th><label>Aggiornato</label></th>
 			<th><label>Chiuso</label></th>
-			<th><label>ID</label></th>
+			<th><label style="width: 28px;">ID</label></th>
 			<th><label>Nome</label></th>
 			<th><label>Cognome</label></th>
 			<th><label>Domanda</label></th>

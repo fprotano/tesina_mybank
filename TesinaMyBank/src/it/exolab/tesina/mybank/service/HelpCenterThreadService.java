@@ -38,4 +38,8 @@ public class HelpCenterThreadService {
 	public List<HelpCenterThread> findbyFromAccountId(Integer id){
 		return (List<HelpCenterThread>) helpCenterThreadRepository.findbyFromAccountId(id);
 	}
+	
+	public List<HelpCenterThread> findByStaffIdAndAccountId(int staffId, int accountId){
+		return (List<HelpCenterThread>) helpCenterThreadRepository.findByStaffIdAndAccountId(staffId,accountId);
+	}
 }
