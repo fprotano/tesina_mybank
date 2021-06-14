@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +29,7 @@ public class PaymentController {
 
 	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String pay(@RequestBody String model, HttpServletRequest request) {
-		Payment payment = new Payment();
+	public String pay(@ModelAttribute Payment payment, HttpServletRequest request) {
 		payment.setEmail(request.getParameter("mail"));
 		payment.setAmount(Double.valueOf(request.getParameter("amount")));
 		payment.setCustomCode(request.getParameter("customCode"));
@@ -38,7 +38,6 @@ public class PaymentController {
 		payment.setUrlNotify(request.getParameter("urlNotify"));
 		paymentService.insert(payment);
 		System.out.println("Sono arrivato nel metodo della banca ");
-		System.out.println(model);
 		return "redirect:/account/login";
 		
 
