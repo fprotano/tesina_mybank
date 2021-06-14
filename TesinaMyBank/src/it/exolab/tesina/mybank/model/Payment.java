@@ -69,6 +69,9 @@ public class Payment {
 				+ ", transactionId=" + transactionId + ", urlUnDo=" + urlUnDo + ", urlSuccess=" + urlSuccess
 				+ ", urlNotify=" + urlNotify + "]";
 	}
+	public Payment() {
+		super();
+	}
 	
 	
 	
