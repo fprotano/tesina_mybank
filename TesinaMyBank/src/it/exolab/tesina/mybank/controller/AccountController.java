@@ -39,7 +39,7 @@ public class AccountController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse login(@RequestBody Account account, HTTPResponse response) {
+	public HTTPResponse login(@RequestBody Account account, HTTPResponse response) throws EntityNotFoundError {
 		try {
 			account = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
@@ -48,8 +48,7 @@ public class AccountController {
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 			this.accountService.update(account);
 			return new HTTPResponse(account);
-		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword
-				| EntityNotFoundError e) {
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | UniqueFieldError e) {
 			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
 		}
 	}
@@ -135,19 +134,16 @@ public class AccountController {
 		}
 	}
 
-	@RequestMapping(value ="passwordDimenticata", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ="pswD", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse passwordDimenticata(@RequestBody Account account) {
-
-		try {
-			account = accountService.findByNameAndSurnameAndEmail(account.getName(), account.getSurname(),
-					account.getEmail());
-			accountService.update(account);
-			System.out.println(account);
+	public HTTPResponse passwordDimenticata(@RequestBody Account account, HTTPResponse response)  {
+		try {		
+			System.out.println(account.toString());
+			accountService.updatePassword(account);
 			return new HTTPResponse(account);
-		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword
-				| EntityNotFoundError e) {
+		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | UniqueFieldError e) {
 			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
+		}
 		}
 
 	}

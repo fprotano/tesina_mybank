@@ -35,10 +35,14 @@ public class AccountService {
 		this.accountRepository.save(model);
 	}
 
-	public void update(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword,  EntityNotFoundError{
+	public void update(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword, UniqueFieldError{
 		validateUpdate(model);
 		this.accountRepository.save(model);
 	}
+	public void updatePassword(Account model) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword, UniqueFieldError {
+		validateUpdate(model);
+		this.accountRepository.updateForNewPassword(model.getName(), model.getSurname(), model.getEmail(),model.getPassword());
+		}
 
 	public void delete(int id) {
 		this.accountRepository.delete(id);
@@ -88,11 +92,11 @@ public class AccountService {
 	}
 
 	private void validateUpdate(Account model)
-		throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword, EntityNotFoundError {
+		throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword, UniqueFieldError {
 		validateInsertOrUpdate(model);
-		Account ret = this.accountRepository.findByNameAndSurnameAndEmail(model.getName(), model.getSurname(),model.getEmail());
-		if (ret == null)
-			throw new EntityNotFoundError("account");
+	Account	ret = this.accountRepository.findByNameAndSurnameAndEmail(model.getName(), model.getSurname(), model.getEmail());
+		if(ret == null)
+			throw new UniqueFieldError("Campo Già esistente");
 	}
 
 }
