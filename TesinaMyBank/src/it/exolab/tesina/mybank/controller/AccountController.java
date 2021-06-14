@@ -65,7 +65,7 @@ public class AccountController {
 	@ResponseBody
 	public HTTPResponse register(@RequestBody Account account, HTTPResponse response) {
 		try {
-			OtpCodeFactory.setCreatedUpdatedAndOtp(account);
+			OtpCodeFactory.CreateAccountOrStaff(account);
 			this.accountService.insert(account);
 			return new HTTPResponse(account);
 			

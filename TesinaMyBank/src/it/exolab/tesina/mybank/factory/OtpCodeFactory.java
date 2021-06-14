@@ -44,7 +44,7 @@ public  class OtpCodeFactory {
 	
 	
 	
-	public static void setCreatedUpdatedAndOtp(Object registrato) {
+	public static void CreateAccountOrStaff(Object registrato) {
 		if(registrato instanceof Staff) {
 			Staff staff = (Staff) registrato;
 			staff.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));

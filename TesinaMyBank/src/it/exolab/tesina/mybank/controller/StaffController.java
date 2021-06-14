@@ -106,7 +106,7 @@ public class StaffController {
 		if (staffRegistrato.getEmail() != null || staffRegistrato.getPassword() != null
 				|| staffRegistrato.getName() != null || staffRegistrato.getSurname() != null
 				|| staffRegistrato.getRoleId() != 0) {
-			OtpCodeFactory.setCreatedUpdatedAndOtp(staffRegistrato);
+			OtpCodeFactory.CreateAccountOrStaff(staffRegistrato);
 			staffRegistrato.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusDays(1)));
 			staffService.insert(staffRegistrato);
 			session.setAttribute("staffAdded", 0);
