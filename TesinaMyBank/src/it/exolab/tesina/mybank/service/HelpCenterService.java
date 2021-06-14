@@ -43,5 +43,15 @@ public class HelpCenterService {
 		return this.helpCenterRepository.findByFromAccountId(fromAccountId);	
 	}
 
+	public List<HelpCenter> findByAssignedToId (int id){
+		return this.helpCenterRepository.findByAssignedToId(id);
+	}
 	
+	public List<HelpCenter> findByAssignedToIdAndIsOpen(int id){
+		return this.helpCenterRepository.findByAssignedToIdAndIsOpen(id);
+	}
+	
+	public List<HelpCenter> findByAssignedToIdAndIsClosed(int id){
+		return this.helpCenterRepository.findByAssignedToIdAndIsClosed(id);
+	}
 }

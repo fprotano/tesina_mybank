@@ -23,7 +23,7 @@
 			<th><label>Chiuso</label></th>
 			<th><label>ID</label></th>
 		</tr>
-	<c:forEach items="${helpCenterList}" var="helpcenter" varStatus="loop">
+	<c:forEach items="${helpcenterList}" var="helpcenter" varStatus="loop">
 		<tr>
 			<td>${helpcenter.id}</td>
 			

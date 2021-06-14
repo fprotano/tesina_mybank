@@ -1,10 +1,34 @@
 package it.exolab.tesina.mybank.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="payment")
 public class Payment {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Column(name="amount")
 	private Double amount;
-	private String email, customCode, transactionId, urlUnDo, urlSuccess, urlNotify;
+	@Column(name="email")
+	private String email;
+	@Column(name="custom_code")
+	private String customCode;
+	@Column(name="transaction_id")
+	private String transactionId;
+	@Column(name="url_undo")
+	private String urlUnDo;
+	@Column(name="url_success")
+	private String urlSuccess;
+	@Column(name="url_notify")
+	private String urlNotify;
+	
 	public int getId() {
 		return id;
 	}
