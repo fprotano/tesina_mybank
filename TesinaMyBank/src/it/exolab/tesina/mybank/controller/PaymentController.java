@@ -19,10 +19,11 @@ public class PaymentController {
 
 	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-	@ResponseBody
-	public String pay(@RequestBody Payment payment, HttpSession session) {
-		session.setAttribute("payment", payment);
-		return "account/login";
+	
+	public String pay(@RequestBody String model) {
+		System.out.println("Sono arrivato nel cazzo di metodo della banca ");
+		System.out.println(model);
+		return "redirect:/account/login";
 
 	}
 }
