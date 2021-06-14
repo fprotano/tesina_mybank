@@ -19,7 +19,6 @@ import it.exolab.tesina.mybank.service.RoleService;
 public class RoleController {
 	private RoleService roleService;
 	@Autowired
-	
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
