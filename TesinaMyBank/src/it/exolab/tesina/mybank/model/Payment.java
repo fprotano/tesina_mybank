@@ -2,11 +2,12 @@ package it.exolab.tesina.mybank.model;
 
 public class Payment {
 	
-	public double amount;
-	public String email;
-	public String custom_code;
-	public String transaction_id;
-	public String url;
+	private int id;
+	private double amount;
+	private String email;
+	private String custom_code;
+	private String transaction_id;
+	private String url;
 	
 	public String getUrl() {
 		return url;

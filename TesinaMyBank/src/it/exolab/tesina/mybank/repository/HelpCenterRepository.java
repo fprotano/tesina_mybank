@@ -7,5 +7,5 @@ import it.exolab.tesina.mybank.model.dto.HelpCenterDTO;
 
 public interface HelpCenterRepository extends CrudRepository<HelpCenter, Integer>{
 	
-
+ public HelpCenter findByFromAccountId (int fromAccountId);
 }
