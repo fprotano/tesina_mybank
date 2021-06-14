@@ -162,12 +162,25 @@ public class HelpCenterController {
 //		session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
-			List<HelpCenter> helpCenterList = helpCenterService.findAll();
+			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsOpen(staff.getId());
+			System.out.println("::::"+helpCenterList);
 			ret.addObject("helpCenterList", helpCenterList);
 		}
 		return ret;
 	}
 	
+	@RequestMapping(value = "helpcenterHistory", method = RequestMethod.GET)
+	public ModelAndView helpcenterHistory(Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/helpcenterHistory");
+		// da creare
+//		session=util.sessionCleanerFromTransactions(session);
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsClosed(staff.getId());
+			ret.addObject("helpCenterList", helpCenterList);
+		}
+		return ret;
+	}
 
 }
 	
