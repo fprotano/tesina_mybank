@@ -5,7 +5,7 @@
 
 <a href="${pageContext.request.contextPath}/faq/faqList"><button class="btn btn-sm btn-outline-secondary" type="button">Gestione faq</button></a>
 
-<a href="${pageContext.request.contextPath}/helpCenter/helpdesk"><button class="btn btn-sm btn-outline-secondary" type="button">Elenco Richieste - Help Desk</button></a>
+<a href="${pageContext.request.contextPath}/helpCenter/helpcenterList"><button class="btn btn-sm btn-outline-secondary" type="button">Help Desk </button></a>
 
 <a href="${pageContext.request.contextPath}/externalTransaction/transactionsList"><button class="btn btn-sm btn-outline-secondary" type="button">Elenco transazioni da evadere</button></a>
 
