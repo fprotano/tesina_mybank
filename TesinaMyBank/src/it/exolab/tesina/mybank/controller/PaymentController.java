@@ -40,7 +40,7 @@ public class PaymentController {
 		payment.setUrlNotify(request.getParameter("urlNotify"));
 		paymentService.insert(payment);
 		session.setAttribute("payment", payment);
-		return "redirect: http://localhost:59718/";
+		return "redirect: http://localhost:4201/";
 		
 
 	}
