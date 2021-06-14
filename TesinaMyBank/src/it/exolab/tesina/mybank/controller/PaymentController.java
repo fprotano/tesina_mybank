@@ -40,6 +40,7 @@ public class PaymentController {
 		System.out.println("Sono arrivato nel metodo della banca ");
 		System.out.println(model);
 		return "redirect:/account/login";
+		
 
 	}
 }
