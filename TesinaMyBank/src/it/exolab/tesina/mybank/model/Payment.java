@@ -4,7 +4,7 @@ public class Payment {
 	
 	private int id;
 	private Double amount;
-	private String email, customCode, transactionId, urlAngular, urlServlet, urlBank;
+	private String email, customCode, transactionId, urlUnDo, urlSuccess, urlNotify;
 	public int getId() {
 		return id;
 	}
@@ -35,52 +35,42 @@ public class Payment {
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
-	public String getUrlAngular() {
-		return urlAngular;
+	public String getUrlUnDo() {
+		return urlUnDo;
 	}
-	public void setUrlAngular(String urlAngular) {
-		this.urlAngular = urlAngular;
+	public void setUrlUnDo(String urlUnDo) {
+		this.urlUnDo = urlUnDo;
 	}
-	public String getUrlServlet() {
-		return urlServlet;
+	public String getUrlSuccess() {
+		return urlSuccess;
 	}
-	public void setUrlServlet(String urlServlet) {
-		this.urlServlet = urlServlet;
+	public void setUrlSuccess(String urlSuccess) {
+		this.urlSuccess = urlSuccess;
 	}
-	public String getUrlBank() {
-		return urlBank;
+	public String getUrlNotify() {
+		return urlNotify;
 	}
-	public void setUrlBank(String urlBank) {
-		this.urlBank = urlBank;
+	public void setUrlNotify(String urlNotify) {
+		this.urlNotify = urlNotify;
+	}
+	public Payment(Double amount, String email, String customCode, String urlUnDo, String urlSuccess,
+			String urlNotify) {
+		super();
+		this.amount = amount;
+		this.email = email;
+		this.customCode = customCode;
+		this.urlUnDo = urlUnDo;
+		this.urlSuccess = urlSuccess;
+		this.urlNotify = urlNotify;
 	}
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", amount=" + amount + ", email=" + email + ", customCode=" + customCode
-				+ ", transactionId=" + transactionId + ", urlAngular=" + urlAngular + ", urlServlet=" + urlServlet
-				+ ", urlBank=" + urlBank + "]";
+				+ ", transactionId=" + transactionId + ", urlUnDo=" + urlUnDo + ", urlSuccess=" + urlSuccess
+				+ ", urlNotify=" + urlNotify + "]";
 	}
-	public Payment() {
-		super();
-	}
-	public Payment(Double amount, String email, String customCode, String transactionId, String urlAngular,
-			String urlServlet, String urlBank) {
-		super();
-		this.amount = amount;
-		this.email = email;
-		this.customCode = customCode;
-		this.transactionId = transactionId;
-		this.urlAngular = urlAngular;
-		this.urlServlet = urlServlet;
-		this.urlBank = urlBank;
-	}
-	public Payment(Double amount, String email, String customCode, String urlAngular, String urlServlet) {
-		super();
-		this.amount = amount;
-		this.email = email;
-		this.customCode = customCode;
-		this.urlAngular = urlAngular;
-		this.urlServlet = urlServlet;
-	}
+	
+	
 	
 	
 	
