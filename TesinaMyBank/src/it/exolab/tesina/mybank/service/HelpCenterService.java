@@ -39,7 +39,7 @@ public class HelpCenterService {
 		return helpCenterRepository.findOne(id);
 	}
 	
-	public HelpCenter findByFromAccountId (int fromAccountId) {
+	public List<HelpCenter> findByFromAccountId (int fromAccountId) {
 		return this.helpCenterRepository.findByFromAccountId(fromAccountId);	
 	}
 
