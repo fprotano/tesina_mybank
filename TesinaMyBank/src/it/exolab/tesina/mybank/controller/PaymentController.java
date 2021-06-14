@@ -18,7 +18,7 @@ import it.exolab.tesina.mybank.model.Payment;
 public class PaymentController {
 
 	
-	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
 	@ResponseBody
 	public String pay(@RequestBody Payment payment, HttpSession session) {
 		session.setAttribute("payment", payment);
