@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.iban4j.Iban;
 
@@ -43,7 +44,8 @@ public class Account {
 	private String creditCardCin;
 	@Column(name="credit_card_expires_at")
 	private String creditCardExpiresAt;
-	
+	@Transient
+	private Payment payment;
 //	// OneToMany per HelpCenter
 //	@OneToMany(mappedBy="account")
 ////	@Transient
