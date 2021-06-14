@@ -18,11 +18,12 @@ import it.exolab.tesina.mybank.model.Payment;
 public class PaymentController {
 
 	
-	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public String pay(@RequestBody Payment payment, HttpSession session) {
-		session.setAttribute("payment", payment);
-		return "account/login";
+	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+	
+	public String pay(@RequestBody String model) {
+		System.out.println("Sono arrivato nel metodo della banca ");
+		System.out.println(model);
+		return "redirect:/account/login";
 
 	}
 }
