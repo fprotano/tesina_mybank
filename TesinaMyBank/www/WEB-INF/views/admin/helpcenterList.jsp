@@ -29,10 +29,10 @@
 		<tr>
 			<td>${helpcenter.id}</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Apri</button></a>
+				<a href="${pageContext.request.contextPath}/helpCenterThread/helpcenterThreadList/${helpcenter.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Apri</button></a>
 			</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-danger" type="button">Archivia</button></a>
+				<a href="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadArchiveThread/${helpcenter.id}"><button class="btn btn-sm btn-outline-danger" type="button">Archivia</button></a>
 			</td>
 			<td>${helpcenter.createdAt}</td>
 			<td>${helpcenter.updatedAt}</td>

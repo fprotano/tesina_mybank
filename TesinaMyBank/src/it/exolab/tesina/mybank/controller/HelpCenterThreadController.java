@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -117,27 +118,27 @@ public class HelpCenterThreadController {
 	}
 
 	// inizio lato spring e jsp x staff
-	@RequestMapping(value = "helpcenterThreadList", method = RequestMethod.GET)
-	public ModelAndView helpcenterThreadList(Model model, HttpSession session) {
+	@RequestMapping(value = "helpcenterThreadList/{helpcenterId}", method = RequestMethod.GET)
+	public ModelAndView helpcenterThreadList(@PathVariable String helpcenterId, Model model, HttpSession session) {
 		ModelAndView ret = new ModelAndView("admin/helpcenterThreadList");
 		// da creare
 		// session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
-			List<HelpCenterThread> helpCenterThreadList = helpCenterThreadService.findAll();
+			List<HelpCenterThread> helpCenterThreadList = helpCenterThreadService.findByHelpCenterId(Integer.valueOf(helpcenterId));
 			ret.addObject("helpCenterThreadList", helpCenterThreadList);
 		}
 		return ret;
 	}
 
-	@RequestMapping(value = "helpcenterThreadHistory", method = RequestMethod.GET)
-	public ModelAndView helpcenterThreadHistory(Model model, HttpSession session) {
+	@RequestMapping(value = "helpcenterThreadHistory/{helpcenterId}", method = RequestMethod.GET)
+	public ModelAndView helpcenterThreadHistory(@PathVariable String helpcenterId, Model model, HttpSession session) {
 		ModelAndView ret = new ModelAndView("admin/helpcenterThreadHistory");
 		// da creare
 		// session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
-			List<HelpCenterThread> helpCenterThreadList = helpCenterThreadService.findAll();
+			List<HelpCenterThread> helpCenterThreadList = helpCenterThreadService.findByHelpCenterId(Integer.valueOf(helpcenterId));
 			ret.addObject("helpCenterThreadList", helpCenterThreadList);
 		}
 		return ret;

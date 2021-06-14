@@ -42,4 +42,8 @@ public class HelpCenterThreadService {
 	public List<HelpCenterThread> findByStaffIdAndAccountId(int staffId, int accountId){
 		return (List<HelpCenterThread>) helpCenterThreadRepository.findByStaffIdAndAccountId(staffId,accountId);
 	}
+	
+	public List<HelpCenterThread> findByHelpCenterId(int helpcenterId){
+		return (List<HelpCenterThread>) helpCenterThreadRepository.findByHelpCenterId(helpcenterId);
+	}
 }

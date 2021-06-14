@@ -12,38 +12,29 @@
 	<jsp:include page="header.jsp"/> 
 <br/>
 	
-	<legend>Elenco dei thread aperti:</legend>
+	<legend>Elenco dei thread sull'argomento:</legend>
 	<hr/>
 	<table>
 		<tr>
 			<th><label style="width: 28px;">ID</label></th>
-			<th colspan="2"></th>
+			<th colspan="1"></th>
 			<th><label>Creato</label></th>
-			<th><label>Aggiornato</label></th>
-			<th><label>Chiuso</label></th>
-			<th><label>ID</label></th>
+			<th><label>Domanda</label></th>
+			<th><label>Risposta</label></th>
 		</tr>
-	<c:forEach items="${helpcenterList}" var="helpcenter" varStatus="loop">
+	<c:forEach items="${helpCenterThreadList}" var="helpcenterThread" varStatus="loop">
 		<tr>
-			<td>${helpcenter.id}</td>
-			
+			<td>${helpcenterThread.id}</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Apri</button></a>
+				<a href="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadUpdateAnswer/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Rispondi</button></a>
 			</td>
-			<td>
-				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-danger" type="button">Archivia</button></a>
-			</td>
-			
-			<td>${helpcenter.createdAt}</td>
-			<td>${helpcenter.updatedAt}</td>
-			<td>${helpcenter.closedAt}</td>
-			<td>${helpcenter.fromAccountId}</td>
-			
+			<td>${helpcenterThread.createdAt}</td>
+			<td>${helpcenterThread.question}</td>
+			<td>${helpcenterThread.answer}</td>
 		</tr>
 	</c:forEach>
 	</table>
 	<hr/>
-	
 	
 </body>
 </html>
