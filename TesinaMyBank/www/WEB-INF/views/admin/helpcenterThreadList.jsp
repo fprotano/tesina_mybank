@@ -27,7 +27,7 @@
 			<td>${helpcenterThread.id}</td>
 			<td>
 				<c:if test="${!(helpcenterThread.answer!=null)}">
-					<a href="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadUpdateAnswer/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Rispondi</button></a>
+					<a href="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadUpdateAnswer/${helpcenterThread.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Rispondi</button></a>
 				</c:if>
 			</td>
 			<td>${helpcenterThread.createdAt}</td>

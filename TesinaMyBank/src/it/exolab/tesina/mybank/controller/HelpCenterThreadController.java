@@ -1,7 +1,9 @@
 package it.exolab.tesina.mybank.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
 import it.exolab.tesina.mybank.model.Staff;
@@ -142,6 +145,32 @@ public class HelpCenterThreadController {
 			ret.addObject("helpCenterThreadList", helpCenterThreadList);
 		}
 		return ret;
+	}
+	
+	@RequestMapping(value = "helpCenterThreadUpdateAnswer/{helpcenterThreadId}", method = RequestMethod.GET)
+	public ModelAndView updateFaq(@PathVariable String helpcenterThreadId, HttpSession session, Model model,
+		HttpServletResponse response) throws IOException {
+		HelpCenterThread threadToUpdate = helpCenterThreadService.find(Integer.valueOf(helpcenterThreadId));
+		// ritorno un ModelAndView composto da: stringa view, ossia indirizzo della pagina
+		// secondo parametro nome del modello, terzo parametro il modello
+		return new ModelAndView("admin/helpcenterThreadAddAnswer","threadToUpdate",threadToUpdate);
+	}
+	
+	@RequestMapping(value = "helpCenterThreadUpdateAnswer", method = RequestMethod.POST)
+	public ModelAndView updateFaq(HelpCenterThread threadToUpdate, HttpSession session) {
+		ModelAndView ret = new ModelAndView("redirect:/helpCenter/helpcenterList");
+		if (threadToUpdate != null) {
+			HelpCenterThread threadUpdated=helpCenterThreadService.find(threadToUpdate.getId());
+			threadUpdated.setAnswer(threadToUpdate.getAnswer());
+			helpCenterThreadService.update(threadUpdated);
+			session.setAttribute("threadUpdated", 0);
+		//	ret.addObject("faqAdded", 0);
+			return ret;
+		} else {
+			session.setAttribute("threadUpdated", 1);
+		//	ret.addObject("faqAdded", 1);
+			return ret;
+		}
 	}
 
 }
