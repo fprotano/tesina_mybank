@@ -20,6 +20,7 @@ import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.InternalTransaction;
 import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
+import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.InternalTransactionService;
 import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
@@ -28,7 +29,7 @@ import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 @RequestMapping(value = "internalTransaction")
 
 public class InternalTransactionController {
-	
+	private AccountService accountService;
 	private StaffService staffService;
 	private InternalTransactionService internalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
@@ -38,6 +39,11 @@ public class InternalTransactionController {
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
+	}
+	
+	@Autowired(required = true)
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
 	}
 	
 	@Autowired(required = true)
@@ -52,10 +58,11 @@ public class InternalTransactionController {
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
-		
+		Account accountPayed = accountService.findByEmail(payment.getEmail());
 		InternalTransaction internalTransaction = new InternalTransaction();
 		Account account = (Account) session.getAttribute("account");
 			internalTransaction = itf.fillInternalTransaction(internalTransaction, payment, account);
+			internalTransaction.setToAccountId(accountPayed.getId());
 			if(internalTransaction.getCustomCode()!=null) {
 				internalTransactionService.insert(internalTransaction);
 				return response = new HTTPResponse(internalTransaction);

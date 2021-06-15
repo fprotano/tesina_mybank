@@ -21,7 +21,7 @@ public class InternalTransactionFactory {
 		internalTransaction.setTransactionId(payment.getTransactionId());
 		internalTransaction.setAmount(payment.getAmount());
 		internalTransaction.setFromAccountId(account.getId());
-		internalTransaction.setToAccountId(2);
+		
 		}
 		return internalTransaction;
 		
