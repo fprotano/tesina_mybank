@@ -120,11 +120,10 @@ public class HelpCenterController {
 
 	@RequestMapping(value = "fAid/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public HTTPResponse findAccountId( @PathVariable int id) {
-             return new  HTTPResponse( this.helpCenterService.findByFromAccountId(id));
+	public HTTPResponse findAccountId(@PathVariable int id) {
+		return new HTTPResponse(this.helpCenterService.findByFromAccountId(id));
 	}
 
-	
 	@RequestMapping(value = "delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse delete(@RequestBody Integer id) {
@@ -143,12 +142,12 @@ public class HelpCenterController {
 		}
 	}
 
-	//inizio lato spring e jsp x staff
+	// inizio lato spring e jsp x staff
 	@RequestMapping(value = "helpcenterList", method = RequestMethod.GET)
 	public ModelAndView helpcenterList(Model model, HttpSession session) {
 		ModelAndView ret = new ModelAndView("admin/helpcenterList");
 		// da creare
-//		session=util.sessionCleanerFromTransactions(session);
+		// session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
 			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsOpen(staff.getId());
@@ -156,15 +155,31 @@ public class HelpCenterController {
 		}
 		return ret;
 	}
-	
+
 	@RequestMapping(value = "helpcenterHistory", method = RequestMethod.GET)
 	public ModelAndView helpcenterHistory(Model model, HttpSession session) {
-		ModelAndView ret = new ModelAndView("admin/helpcenterList");
+		ModelAndView ret = new ModelAndView("admin/helpcenterHistory");
 		// da creare
-//		session=util.sessionCleanerFromTransactions(session);
+		// session=util.sessionCleanerFromTransactions(session);
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staff != null) {
 			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsClosed(staff.getId());
+			ret.addObject("helpCenterList", helpCenterList);
+		}
+		return ret;
+	}
+
+	@RequestMapping(value = "helpCenterThreadArchiveThread/{hcid}", method = RequestMethod.GET)
+	public ModelAndView helpcenterList(@PathVariable String hcid, Model model, HttpSession session) {
+		ModelAndView ret = new ModelAndView("admin/helpcenterList");
+		// da creare
+		// session=util.sessionCleanerFromTransactions(session);
+		Staff staff = (Staff) session.getAttribute("staff");
+		if (staff != null) {
+			HelpCenter helpCenter = helpCenterService.find(Integer.valueOf(hcid));
+			helpCenter.setClosedAt(Timestamp.valueOf(LocalDateTime.now()));
+			helpCenterService.update(helpCenter);
+			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsOpen(staff.getId());
 			ret.addObject("helpCenterList", helpCenterList);
 		}
 		return ret;

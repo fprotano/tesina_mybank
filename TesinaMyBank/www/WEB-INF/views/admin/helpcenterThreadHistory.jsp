@@ -17,19 +17,13 @@
 	<table>
 		<tr>
 			<th><label style="width: 28px;">ID</label></th>
-			<th colspan="1"></th>
-			<th><label>Creato</label></th>
+			<th><label>Data</label></th>
 			<th><label>Domanda</label></th>
 			<th><label>Risposta</label></th>
 		</tr>
 	<c:forEach items="${helpCenterThreadList}" var="helpcenterThread" varStatus="loop">
 		<tr>
 			<td>${helpcenterThread.id}</td>
-			<td>
-				<c:if test="${!(helpcenterThread.answer!=null)}">
-					<a href="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadUpdateAnswer/${staff.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Rispondi</button></a>
-				</c:if>
-			</td>
 			<td>${helpcenterThread.createdAt}</td>
 			<td>${helpcenterThread.question}</td>
 			<td>${helpcenterThread.answer}</td>

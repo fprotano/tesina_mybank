@@ -17,7 +17,7 @@
 	<table>
 		<tr>
 			<th><label style="width: 28px;">ID</label></th>
-			<th colspan="2"></th>
+			<th colspan="1"></th>
 			<th><label>Creato</label></th>
 			<th><label>Aggiornato</label></th>
 			<th><label style="width: 28px;">ID</label></th>
