@@ -77,12 +77,13 @@ public class Payment {
 	public void setUrlNotify(String urlNotify) {
 		this.urlNotify = urlNotify;
 	}
-	public Payment(Double amount, String email, String customCode, String urlUnDo, String urlSuccess,
+	public Payment(Double amount, String email, String customCode, String transactionId, String urlUnDo, String urlSuccess,
 			String urlNotify) {
 		super();
 		this.amount = amount;
 		this.email = email;
 		this.customCode = customCode;
+		this.transactionId = transactionId;
 		this.urlUnDo = urlUnDo;
 		this.urlSuccess = urlSuccess;
 		this.urlNotify = urlNotify;

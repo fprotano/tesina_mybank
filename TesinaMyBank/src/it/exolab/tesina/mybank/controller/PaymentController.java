@@ -65,7 +65,6 @@ public class PaymentController {
 		payment.setUrlSuccess(request.getParameter("urlSuccess"));
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
-		session.setAttribute("payment", payment);
 		paymentService.insert(payment);
 		return "redirect: http://localhost:4201/";
 		
@@ -74,9 +73,10 @@ public class PaymentController {
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse fillPayment(@RequestBody Account account, HttpSession session) throws EntityNotFoundError {
+	public HTTPResponse fillPayment(@RequestBody Payment payment, HttpSession session) throws EntityNotFoundError {
 		
-			Payment payment = (Payment) session.getAttribute("payment");
+			
+			System.out.println(payment);
 			if(payment!=null) {
 			return new HTTPResponse(payment);
 		}	
