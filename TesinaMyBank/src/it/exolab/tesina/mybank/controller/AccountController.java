@@ -3,6 +3,9 @@ package it.exolab.tesina.mybank.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,7 @@ public class AccountController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse login(@RequestBody Account account, HTTPResponse response) throws EntityNotFoundError {
+	public HTTPResponse login(@RequestBody Account account, HTTPResponse response, HttpSession session) throws EntityNotFoundError {
 		try {
 			account = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
@@ -47,6 +50,7 @@ public class AccountController {
 			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
 			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
 			this.accountService.update(account);
+			session.setAttribute("account", account);
 			return new HTTPResponse(account);
 		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | UniqueFieldError e) {
 			return new HTTPResponse(e.getDescription(e), String.valueOf(GenericError.getCode(e)));
@@ -63,10 +67,11 @@ public class AccountController {
 
 	@RequestMapping(value = "registrazione", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody Account account, HTTPResponse response) {
+	public HTTPResponse register(@RequestBody Account account, HTTPResponse response, HttpSession session) {
 		try {
 			OtpCodeFactory.CreateAccountOrStaff(account);
 			this.accountService.insert(account);
+			session.setAttribute("account", account);
 			return new HTTPResponse(account);
 			
 		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword

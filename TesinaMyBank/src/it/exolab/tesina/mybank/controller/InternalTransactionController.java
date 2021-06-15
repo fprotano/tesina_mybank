@@ -2,6 +2,8 @@ package it.exolab.tesina.mybank.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -11,22 +13,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.factory.InternalTransactionFactory;
 import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
+import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.InternalTransaction;
+import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.InternalTransactionService;
+import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 @CrossOrigin
 @Controller
 @RequestMapping(value = "internalTransaction")
 
 public class InternalTransactionController {
-
+	
+	private StaffService staffService;
 	private InternalTransactionService internalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
 	private TransactionUniqueIdFactory transactionUniqueIdFactory;
-
+	private InternalTransactionFactory itf = new InternalTransactionFactory();
+	
+	@Autowired(required = true)
+	public void setStaffService(StaffService staffService) {
+		this.staffService = staffService;
+	}
+	
 	@Autowired(required = true)
 	public void setExternalTransactionService(InternalTransactionService internalTransactionService) {
 		this.internalTransactionService = internalTransactionService;
@@ -38,23 +51,19 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody InternalTransaction internalTransaction) {
-		HTTPResponse response = new HTTPResponse();
-		if (internalTransaction != null) {
-			TransactionUniqueId transactionUniqueId = new TransactionUniqueId();
-			transactionUniqueId.setTransactionId(transactionUniqueIdFactory.CreateTransactionUniqueId());
-			transactionUniqueIdService.insert(transactionUniqueId);
-			internalTransaction.setTransactionId(transactionUniqueId.getTransactionId());
-			this.internalTransactionService.insert(internalTransaction);
-			response.setData(internalTransaction);
-			response.setSuccess(true);
-			return response;
-		} else {
-			response.setSuccess(false);
-			response.setErr("Errore");
-			response.setErr_code("01");
-			return response;
-		}
+	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session) {
+		
+		InternalTransaction internalTransaction = new InternalTransaction();
+		Account account = (Account) session.getAttribute("account");
+		if (account != null) {
+			internalTransaction = itf.fillInternalTransaction(internalTransaction, payment, account);
+			if(internalTransaction.getCustomCode()!=null) {
+				internalTransactionService.insert(internalTransaction);
+				HTTPResponse response = new HTTPResponse(internalTransaction);
+			} else {
+				
+			}
+			
 	}
 
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

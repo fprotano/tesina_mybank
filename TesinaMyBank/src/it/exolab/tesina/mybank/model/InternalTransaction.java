@@ -1,6 +1,7 @@
 package it.exolab.tesina.mybank.model;
+ 
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
