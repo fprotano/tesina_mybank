@@ -37,10 +37,10 @@ public class HelpCenterThreadController {
 		this.helpCenterThreadService = helpCenterThreadService;
 	}
 	
-//	@Autowired(required = true )
-//	public void setAccountService(AccountService accountService) {
-//		this.accountService = accountService;
-//	}
+	@Autowired(required = true )
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
 	
 	@Autowired(required = true )
 	public void setStaffService(StaffService staffService) {

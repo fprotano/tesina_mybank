@@ -170,7 +170,13 @@ public class StaffController {
 				|| staffToUpdate.getName() != null || staffToUpdate.getSurname() != null
 				|| staffToUpdate.getRoleId() != 0) {
 			staffToUpdate.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now()));
-			staffService.update(staffToUpdate);
+			Staff staffUpdated=staffService.findById(staffToUpdate.getId());
+			staffUpdated.setName(staffToUpdate.getName());
+			staffUpdated.setSurname(staffToUpdate.getSurname());
+			staffUpdated.setEmail(staffToUpdate.getEmail());
+			staffUpdated.setRoleId(staffToUpdate.getRoleId());
+			staffUpdated.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			staffService.update(staffUpdated);
 			session.setAttribute("staffUpdated", 0);
 //			ret.addObject("staffUpdated", "Membro dello staff inserito.");
 			return ret;

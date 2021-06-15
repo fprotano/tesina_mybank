@@ -6,20 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Help Center</title>
+<title>Help Center - Archivio</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"/> 
 <br/>
 	
-	<legend>Storico dei thread:</legend>
+	<legend>Elenco dei thread archiviati</legend>
 	<hr/>
 	<table>
 		<tr>
 			<th><label style="width: 28px;">ID</label></th>
+			<th colspan="2"></th>
 			<th><label>Creato</label></th>
 			<th><label>Aggiornato</label></th>
-			<th><label>Chiuso</label></th>
 			<th><label style="width: 28px;">ID</label></th>
 			<th><label>Nome</label></th>
 			<th><label>Cognome</label></th>
@@ -28,9 +28,11 @@
 	<c:forEach items="${helpCenterList}" var="helpcenter" varStatus="loop">
 		<tr>
 			<td>${helpcenter.id}</td>
+			<td>
+				<a href="${pageContext.request.contextPath}/helpCenterThread/helpcenterThreadHistory/${helpcenter.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Apri</button></a>
+			</td>
 			<td>${helpcenter.createdAt}</td>
 			<td>${helpcenter.updatedAt}</td>
-			<td>${helpcenter.closedAt}</td>
 			<td>${helpcenter.fromAccountId}</td>
 			<td>${helpcenter.account.name}</td>
 			<td>${helpcenter.account.surname}</td>

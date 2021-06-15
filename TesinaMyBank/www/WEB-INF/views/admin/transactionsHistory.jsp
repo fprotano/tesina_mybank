@@ -42,7 +42,7 @@
 		</tr>
 	<c:forEach items="${transactions}" var="transaction" varStatus="loop">
 		<tr>
-			<td>${transaction.id}</td>
+			<td><label>${transaction.id}</label></td>
 			<!-- setLocale non fa niente perché la springservlet in questo caso ha la priorità e gestisce il locale -->
 			<fmt:setLocale value="it_IT" /> 
 			<td><label style="width: 204px;"><fmt:formatDate type="both" value="${transaction.createdAt}" pattern="E, dd/MM/yyyy, HH:mm:ss" /></label></td>
@@ -55,21 +55,19 @@
 			
 			<td>${transaction.transactionStatus.title}</td>
 			
-			<c:set var="tErrorReason" value="${transaction.transactionErrorReason}"></c:set>
+			<c:set var="transactionErrorReason" value="${transaction.transactionErrorReason}"></c:set>
 	 		<td><label class="longReason">${transaction.transactionErrorReason}</label><label class="shortReason"> ${fn:substring(transactionErrorReason, 0, 22)}<c:if test="${fn:length(transaction.transactionErrorReason) gt 22}">...</c:if></label></td>
 			
-			<%-- <td>${transaction.transactionStatus.transactionErrorReason}</td>
-			 --%>
-			<td><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></td>
-			<td>${transaction.customerName}</td>
-			<td>${transaction.customerSurname}</td>
-			<td>${transaction.customerCreditCardNo}</td>
-			<td>${transaction.customerCreditCardCin}</td>
-			<td>${transaction.customerCreditCardExpiresAt}</td>
-			<td>${transaction.toAccountId}</td>
-			<td>${transaction.account.name}</td>
-			<td>${transaction.account.surname}</td>
-			<td>${transaction.account.email}</td>
+			<td><label><fmt:formatNumber value="${transaction.amount}" maxFractionDigits="2"/></label></td>
+			<td><label>${transaction.customerName}</label></td>
+			<td><label>${transaction.customerSurname}</label></td>
+			<td><label>${transaction.customerCreditCardNo}</label></td>
+			<td><label>${transaction.customerCreditCardCin}</label></td>
+			<td><label>${transaction.customerCreditCardExpiresAt}</label></td>
+			<td><label>${transaction.toAccountId}</label></td>
+			<td><label>${transaction.account.name}</label></td>
+			<td><label>${transaction.account.surname}</label></td>
+			<td><label>${transaction.account.email}</label></td>
 		</tr>
 	</c:forEach>
 	</table>

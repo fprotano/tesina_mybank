@@ -26,6 +26,9 @@
 			<th><label>Cognome</label></th>
 			<th><label>Email</label></th>
 			<th><label>Ruolo</label></th>
+			<th><label>Creato</label></th>
+			<th><label>Aggiornato</label></th>
+			
 		</tr>
 	<c:forEach items="${staffList}" var="staff" varStatus="loop">
 		<tr>
@@ -39,6 +42,8 @@
 			<td>${staff.surname}</td>
 			<td>${staff.email}</td>
 			<td>${staff.role.title}</td>
+			<td><fmt:formatDate type="both" value="${staff.createdAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></td>
+			<td><fmt:formatDate type="both" value="${staff.updatedAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></td>
 		</tr>
 	</c:forEach>
 	</table>
