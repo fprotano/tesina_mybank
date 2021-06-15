@@ -51,17 +51,16 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session) {
+	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
 		
 		InternalTransaction internalTransaction = new InternalTransaction();
 		Account account = (Account) session.getAttribute("account");
-		if (account != null) {
 			internalTransaction = itf.fillInternalTransaction(internalTransaction, payment, account);
 			if(internalTransaction.getCustomCode()!=null) {
 				internalTransactionService.insert(internalTransaction);
-				HTTPResponse response = new HTTPResponse(internalTransaction);
+				return response = new HTTPResponse(internalTransaction);
 			} else {
-				
+				return response = new HTTPResponse("Errore creazione transazione interna", "Errore 01");
 			}
 			
 	}
