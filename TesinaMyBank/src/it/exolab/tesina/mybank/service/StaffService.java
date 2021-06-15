@@ -40,9 +40,6 @@ public class StaffService {
 	public Staff findById(Integer id) {
 		return this.staffRepository.findOne(id);
 	}
-	public List<Integer> findbyStaffMinimum(){
-		return this.staffRepository.findbyStaffMinimum();
-	}
 	 public Staff findByEmailAndPassword(String email , String password) {
 		 return this.staffRepository.findByEmailAndPassword(email, password);
 	 }
