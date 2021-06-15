@@ -10,5 +10,22 @@
 </head>
 <body>
 	random id: ${idValidator}
+	
+	<div class="relativo">
+  <input type="password" id="passwd" name="passwd">
+  <i class="fa fa-eye showpwd" onClick="showPwd('passwd', this)"> </i>
+</div>
+<script>
+function showPwd(id, el) {
+  let x = document.getElementById(id);
+  if (x.type === "password") {
+    x.type = "testo";
+    el.className = 'fa fa-eye-slash showpwd';
+  } else {
+    x.type = "password";
+    el.className = 'fa fa-eye showpwd';
+  }
+}
+</script>
 </body>
 </html>

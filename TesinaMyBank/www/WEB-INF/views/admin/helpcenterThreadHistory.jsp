@@ -11,6 +11,8 @@
 <body>
 	<jsp:include page="header.jsp"/> 
 <br/>
+
+	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
 	
 	<legend>Elenco dei thread sull'argomento:</legend>
 	<hr/>
@@ -25,8 +27,13 @@
 		<tr>
 			<td>${helpcenterThread.id}</td>
 			<td>${helpcenterThread.createdAt}</td>
-			<td>${helpcenterThread.question}</td>
-			<td>${helpcenterThread.answer}</td>
+			
+			<c:set var="question" value="${helpcenterThread.question}"></c:set>
+	 		<td><label class="longQ">${helpcenterThread.question}</label><label class="shortQ"> ${fn:substring(question, 0, 42)}<c:if test="${fn:length(helpcenterThread.question) gt 42}">...</c:if></label></td>
+			
+			<c:set var="answer" value="${helpcenterThread.answer}"></c:set>
+	 		<td><label class="longA">${helpcenterThread.answer}</label><label class="shortA"> ${fn:substring(answer, 0, 42)}<c:if test="${fn:length(helpcenterThread.answer) gt 42}">...</c:if></label></td>
+			
 		</tr>
 	</c:forEach>
 	</table>
