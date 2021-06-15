@@ -53,7 +53,6 @@ public class PaymentController {
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
 		paymentService.insert(payment);
-		session.setAttribute("payment", payment);
 		return "redirect: http://localhost:4201/";
 		
 
