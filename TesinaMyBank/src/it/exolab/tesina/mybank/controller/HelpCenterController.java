@@ -118,7 +118,7 @@ public class HelpCenterController {
 
 	}
 
-	@RequestMapping(value = "findAccountId/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "fAid/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public HTTPResponse findAccountId( @PathVariable int id) {
              return new  HTTPResponse( this.helpCenterService.findByFromAccountId(id));
