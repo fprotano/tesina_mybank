@@ -71,14 +71,14 @@ public class FaqController {
 		}
 	}
 	
-	@RequestMapping(value="findAll", method=RequestMethod.GET,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="findAll", method=RequestMethod.GET)
 	@ResponseBody
 	public HTTPResponse findAll() {
-			HTTPResponse response = new HTTPResponse();
-			List<Faq> faqs = this.faqService.findAll();
-			response.setData(faqs);
-			response.setSuccess(true);
-			return response;
+//		for(Faq a:this.faqService.findAll()) {
+//			System.out.println(a.toString());
+//		}
+			return new HTTPResponse(this.faqService.findAll());
+			
 		
 	}
 	
