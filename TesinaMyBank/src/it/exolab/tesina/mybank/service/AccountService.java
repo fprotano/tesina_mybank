@@ -52,6 +52,10 @@ public class AccountService {
 	public Account find(int id) {
 		return this.accountRepository.findOne(id);
 	}
+	
+	public Account findByEmail(String email) {
+		return this.accountRepository.findByEmail(email);
+	}
 
 	public Account findByEmailAndPassword(String email, String password) {
 		return this.accountRepository.findByEmailAndPassword(email, password);
