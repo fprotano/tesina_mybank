@@ -24,11 +24,14 @@ import it.exolab.tesina.mybank.exception.MaxLengthError;
 import it.exolab.tesina.mybank.exception.MinLengthError;
 import it.exolab.tesina.mybank.exception.RequiredFieldError;
 import it.exolab.tesina.mybank.exception.UniqueFieldError;
+import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.Account;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Payment;
+import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.PaymentService;
+import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 
 @CrossOrigin
 @Controller
@@ -36,12 +39,18 @@ import it.exolab.tesina.mybank.service.PaymentService;
 public class PaymentController {
 	
 	PaymentService paymentService;
+	TransactionUniqueIdService transactionUniqueIdService;
+	TransactionUniqueIdFactory factory = new TransactionUniqueIdFactory();
 	
 	@Autowired
 	public void setPaymentService(PaymentService paymentService) {
 		this.paymentService = paymentService;
 	}
 
+	@Autowired
+	public void setTransactionUniqueIdService(TransactionUniqueIdService transactionUniqueIdService) {
+		this.transactionUniqueIdService = transactionUniqueIdService;
+	}
 	
 	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
@@ -49,6 +58,10 @@ public class PaymentController {
 		payment.setEmail(request.getParameter("email"));
 		payment.setAmount(Double.valueOf(request.getParameter("amount")));
 		payment.setCustomCode(request.getParameter("customCode"));
+		payment.setTransactionId(factory.CreateTransactionUniqueId());
+		TransactionUniqueId tui = new TransactionUniqueId();
+		tui.setTransactionId(payment.getTransactionId());
+		transactionUniqueIdService.insert(tui);
 		payment.setUrlSuccess(request.getParameter("urlSuccess"));
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
