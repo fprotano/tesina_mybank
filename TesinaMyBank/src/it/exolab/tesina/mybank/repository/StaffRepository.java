@@ -18,9 +18,17 @@ public interface StaffRepository extends CrudRepository<Staff, Integer> {
 	 
 	 public Staff findByEmailAndPasswordAndOtpCode(String email, String password, String OTP);
 	
+	 //da deprecare
 	 @Modifying
 	 @Query("SELECT s.id FROM Staff AS s WHERE s.roleId = 3 ")
 	 public List<Integer> findbyStaffMinimum();
 	
-	
+	 @Modifying
+	 @Query("SELECT s.id FROM Staff AS s WHERE s.roleId = 2 ")
+	 public List<Integer> findByStaffValidators();
+	 
+	 @Modifying
+	 @Query("SELECT s.id FROM Staff AS s WHERE s.roleId = 3 ")
+	 public List<Integer> findByStaffHelpdesk();
+	 
 }

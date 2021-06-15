@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
 import it.exolab.tesina.mybank.factory.OtpEmailFactory;
+import it.exolab.tesina.mybank.factory.StaffAssignFactory;
 import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
@@ -50,6 +51,16 @@ public class StaffController {
 			model.addAttribute("staff", (Staff) session.getAttribute("staff"));
 		}
 		return "admin/login";
+	}
+	
+	@RequestMapping(value = "test", method = RequestMethod.GET)
+	public String test(Model model, HttpSession session) {
+		if (session.getAttribute("staff") != null) {
+			StaffAssignFactory saf = new StaffAssignFactory();
+			Integer idValidator = saf.assignToValidator(staffService);
+			session.setAttribute("idValidator",idValidator);
+		}
+		return "admin/test";
 	}
 
 	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)

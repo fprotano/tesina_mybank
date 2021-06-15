@@ -49,6 +49,12 @@ public class StaffService {
 	 public Staff findByEmailAndPasswordAndOtpCode(String email , String password, String OTP) {
 		 return this.staffRepository.findByEmailAndPasswordAndOtpCode(email, password, OTP);
 	 }
+	 public List<Integer> findByStaffValidators() {
+		 return (List<Integer>) staffRepository.findByStaffValidators();
+	 }
+	 public List<Integer> findByStaffHelpdesk() {
+		 return (List<Integer>) staffRepository.findByStaffHelpdesk();
+	 }
 	 private void validateInsertOrUpdate(Staff model) throws RequiredFieldError, MaxLengthError, InvalidEmail, InvalidPassword {
 		 
 			Validator.required("data creazione", model.getCreatedAt());
@@ -67,22 +73,5 @@ public class StaffService {
 			Validator.validateEmail("email", model.getEmail());
 			Validator.validatePassword("password",  model.getPassword());
 		 }
-	
-		 
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
