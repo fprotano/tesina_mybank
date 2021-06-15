@@ -8,5 +8,5 @@ import it.exolab.tesina.mybank.model.Payment;
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
 
 	
-	public Payment findByEmail(String email);
+	public Payment findById(Integer id);
 }

@@ -18,8 +18,8 @@ public class PaymentService {
 		paymentRepository.save(Payment);
 	}
 	
-	public Payment findByEmail(String email) {
-		return paymentRepository.findByEmail(email);
+	public Payment findById(Integer id) {
+		return paymentRepository.findById(id);
 	}
 
 }

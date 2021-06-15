@@ -66,18 +66,19 @@ public class PaymentController {
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
 		paymentService.insert(payment);
-		return "redirect: http://localhost:4201/";
+		return "redirect: http://localhost:4201/init-payment/"+payment.getId();
 		
 
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse fillPayment(@RequestBody Payment payment, HttpSession session) throws EntityNotFoundError {
+	public HTTPResponse fillPayment(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
 		
 			
-			System.out.println(payment);
+			
 			if(payment!=null) {
+			payment = paymentService.findById(payment.getId());
 			return new HTTPResponse(payment);
 		}	
 			return new HTTPResponse("Nessun Pagamento trovato", "Errore 01");
