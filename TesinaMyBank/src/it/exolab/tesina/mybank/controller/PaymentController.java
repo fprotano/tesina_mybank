@@ -101,6 +101,7 @@ public class PaymentController {
 		data.concat("PV[4]=customCode&PV[4]=" + model.getCustomCode());
 		
 		pushservice.notifyTransaction(model.getUrlNotify(), data);
+		
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
