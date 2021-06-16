@@ -1,9 +1,17 @@
 package it.exolab.tesina.mybank.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+
 
 import it.exolab.tesina.mybank.exception.EntityNotFoundError;
 import it.exolab.tesina.mybank.exception.GenericError;
@@ -31,13 +42,14 @@ import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.PaymentService;
+import it.exolab.tesina.mybank.service.PushService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 
 @CrossOrigin
 @Controller
 @RequestMapping(value = "payment")
 public class PaymentController {
-	
+	PushService pushservice;
 	PaymentService paymentService;
 	TransactionUniqueIdService transactionUniqueIdService;
 	TransactionUniqueIdFactory factory = new TransactionUniqueIdFactory();
@@ -45,6 +57,10 @@ public class PaymentController {
 	@Autowired
 	public void setPaymentService(PaymentService paymentService) {
 		this.paymentService = paymentService;
+	}
+	@Autowired
+	public void setPushService(PushService pushservice) {
+		this.pushservice = pushservice;
 	}
 
 	@Autowired
@@ -69,6 +85,22 @@ public class PaymentController {
 		return "redirect: http://localhost:4201/init-payment/"+payment.getId();
 		
 
+	}
+	
+
+	
+
+	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
+	@ResponseBody
+	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+		String data = "";
+		data.concat("PN[0]=transactionId&PV[0]=" + model.getTransactionId() + "&");
+		data.concat("PN[1]=amount&PV[1]=" + model.getAmount() + "&");
+		data.concat("PN[2]=sellerEmail&PV[2]=" + model.getEmail() + "&");
+		data.concat("PN[3]=buyerEmail&PV[3]=" + model.getAccount().getEmail() + "&");
+		data.concat("PV[4]=customCode&PV[4]=" + model.getCustomCode());
+		
+		pushservice.notifyTransaction(model.getUrlSuccess(), data);
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
