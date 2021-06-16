@@ -96,7 +96,7 @@ public class PaymentController {
 
 	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
 	@ResponseBody
-	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse) throws IOException {
+	public HTTPResponse doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
 		
 		System.out.println("nel doAuctionOrderPayment, Payment > " + model);
 		String projectUrl = model.getUrlSuccess();
@@ -130,6 +130,7 @@ public class PaymentController {
 		connection.connect();
 
 		System.out.println("prima del ret > " + connection);
+		return new HTTPResponse(model);
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
