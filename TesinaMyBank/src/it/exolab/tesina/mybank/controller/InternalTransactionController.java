@@ -57,7 +57,7 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
+	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
 		Account accountPayed = accountService.findByEmail(payment.getEmail());
 		InternalTransaction internalTransaction = new InternalTransaction();
 		Account account = accountService.findByEmail(payment.getAccount().getEmail());
@@ -65,9 +65,9 @@ public class InternalTransactionController {
 			internalTransaction.setToAccountId(accountPayed.getId());
 			if(internalTransaction.getCustomCode()!=null) {
 				internalTransactionService.insert(internalTransaction);
-				return payment.getUrlSuccess().toString();
+				return new HTTPResponse(payment);
 			} else {
-				return payment.getUrlUnDo().toString();
+				return new HTTPResponse("Errore, pagamento non effettuato.", "01");
 			}
 			
 	}
