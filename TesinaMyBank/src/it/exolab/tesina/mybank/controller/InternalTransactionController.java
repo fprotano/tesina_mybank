@@ -57,17 +57,17 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
+	public String insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
 		Account accountPayed = accountService.findByEmail(payment.getEmail());
 		InternalTransaction internalTransaction = new InternalTransaction();
-		Account account = (Account) session.getAttribute("account");
+		Account account = accountService.findByEmail(payment.getAccount().getEmail());
 			internalTransaction = itf.fillInternalTransaction(internalTransaction, payment, account);
 			internalTransaction.setToAccountId(accountPayed.getId());
 			if(internalTransaction.getCustomCode()!=null) {
 				internalTransactionService.insert(internalTransaction);
-				return response = new HTTPResponse(internalTransaction);
+				return payment.getUrlSuccess().toString();
 			} else {
-				return response = new HTTPResponse("Errore creazione transazione interna", "Errore 01");
+				return payment.getUrlUnDo().toString();
 			}
 			
 	}
