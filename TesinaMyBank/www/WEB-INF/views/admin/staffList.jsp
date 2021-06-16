@@ -16,38 +16,40 @@
 <jsp:include page="header.jsp"/> 
 <br/>
 	
-	<legend>Elenco del personale dello staff</legend>
+	<div class="divCenterized">
+	
+	<legend style="text-align:left;">Elenco del personale dello staff</legend>
 	<hr/>
 	<table>
 		<tr>
-			<th><label style="width: 28px;">ID</label></th>
+			<th><label class="noNewLine">ID</label></th>
 			<th></th>
-			<th><label>Nome</label></th>
-			<th><label>Cognome</label></th>
-			<th><label>Email</label></th>
-			<th><label>Ruolo</label></th>
-			<th><label>Creato</label></th>
-			<th><label>Aggiornato</label></th>
+			<th><label class="noNewLine">Nome</label></th>
+			<th><label class="noNewLine">Cognome</label></th>
+			<th><label class="noNewLine">Email</label></th>
+			<th><label class="noNewLine">Ruolo</label></th>
+			<th><label class="noNewLine">Creato</label></th>
+			<th><label class="noNewLine">Aggiornato</label></th>
 			
 		</tr>
 	<c:forEach items="${staffList}" var="staff" varStatus="loop">
 		<tr>
-			<td>${staff.id}</td>
+			<td><label class="noNewLine">${staff.id}</label></td>
 			
 			<td>
 				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-warning" type="button">Modifica</button></a>
 			</td>
 			
-			<td>${staff.name}</td>
-			<td>${staff.surname}</td>
-			<td>${staff.email}</td>
-			<td>${staff.role.title}</td>
-			<td><fmt:formatDate type="both" value="${staff.createdAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></td>
-			<td><fmt:formatDate type="both" value="${staff.updatedAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></td>
+			<td><label class="noNewLine">${staff.name}</label></td>
+			<td><label class="noNewLine">${staff.surname}</label></td>
+			<td><label class="noNewLine">${staff.email}</label></td>
+			<td><label class="noNewLine">${staff.role.title}</label></td>
+			<td><label class="noNewLine"><fmt:formatDate type="both" value="${staff.createdAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></label></td>
+			<td><label class="noNewLine"><fmt:formatDate type="both" value="${staff.updatedAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></label></td>
 		</tr>
 	</c:forEach>
 	</table>
+	</div>
 	<hr/>
-	
 </body>
 </html>

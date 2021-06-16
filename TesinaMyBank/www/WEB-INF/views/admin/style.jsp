@@ -10,7 +10,7 @@
 
 
 <style>
-body{
+/* body{
 	background-size: 100%;
 	background-repeat: repeat-y;
 	background-image: url('img/sfondo.jpg');
@@ -19,95 +19,32 @@ body{
 	font-size:16px;
 	padding-top:2px;
 	padding:2px;	
-}
-.alert{
-	font-family: Georgia;
-	font-weight: bolder;
-	color:#D00909;
-	font-size:32px;
-	padding:8px;
-	margin:8px;	
-}
-.advice{
-	font-family: Georgia;
-	font-weight: bolder;
-	color:#5F2F2F;
-	font-size:28px;
-	padding:8px;
-	margin:8px;	
-}
-.divA{
-	padding:8px;
-	margin:8px;
-}
-.divAlert{
-	margin-top:2px;
-}
-.divB{
-	font-family: Georgia;
-	font-weight: bold;
-	font-size:24px;
-	padding:8px;
-	margin:8px;	
-}
-.divBigButton{
-	padding:2px;
-	margin:2px;
-}
-.divC{
-	font-family: Georgia;
-	font-size:16px;
-	padding:2px;
-	margin:8px;
-}
-.formA{
-	background-color:rgba(233,233,233,0.2);
-	margin-top:2px;
-	margin:8px;
-	font-family: Georgia;
-	font-size:16px;
-	font-weight: normal;
-}
-.formFailure{
-	color:darkred;
-	font-family: Georgia;
-	font-weight: bold;
-	font-size:16px;
-	padding:2px;
-	margin:8px;
-}
-.formSuccess{
-	color:darkgreen;
-	font-family: Georgia;
-	font-weight: bold;
-	font-size:16px;
-	padding:2px;
-	margin:8px;
-}
+} */
 .homeadmin{
 	margin-top:2px;
+	margin-left:8px;
 	margin:8px;
 	font-family: Georgia;
-	font-size:16px;
+	font-size:18px;
 }
-.homeuser{
-	margin-top:2px;
-	margin:8px;
-	font-family: Georgia;
-	font-size:16px;
+.divCenterized{
+	margin:4px;
+	text-align: center;
 }
-.labelA{
-	width:148px;
-}
-.labelG{
+.noNewLine{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	margin:2px;
-	font-family:Georgia;
-	font-size:16px;
 }
-.labelL{
-	width:180px;
-}
-.labelLong{
-	width:380px;
+.navbar{
+	min-width:100%;
+    position:static !important;
+    top:0;
+    background: conic-gradient(from 0deg at 0% 65%, rgba(175,211,211,1.2), rgba(255,255,255,0.0), rgba(255,255,255,0.0) 179deg);
+/*     background-image: linear-gradient(to right, rgba(227,227,227,0.6) , rgba(255,255,255,0.0)); */
+    /* background-color: rgba(233,233,233,0.5); */
+    /* border:groove; /*
+    /* border-height:1px; */
 }
 </style>

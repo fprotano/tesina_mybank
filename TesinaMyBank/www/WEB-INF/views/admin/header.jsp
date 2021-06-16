@@ -13,7 +13,7 @@
 <jsp:include page="style.jsp"></jsp:include>
 
 <!--  -default dopo navbar, -custom per la custom, niente per niente -->
-<nav class="navbar navbar-light" style="background-color: rgba(233,233,233,0.5);">
+<nav class="navbar navbar-light">
   <div class="container-fluid">
     <div class="navbar-header" style="margin:8px;">
         

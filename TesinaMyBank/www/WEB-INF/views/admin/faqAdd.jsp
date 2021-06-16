@@ -19,7 +19,7 @@
 <form:form method="post" modelAttribute="newFaq" action="${pageContext.request.contextPath}/faq/addFaq">
 
 <h4>Aggiungi una nuova FAQ:</h4>
-<div style="margin: auto;width: 100%;">
+<div style="margin:auto; margin-left:8px; width: 100%;">
 	<label>Domanda:</label>
 	<br/>
 	<form:textarea style="width:50%; height:120px;" path="question" />
