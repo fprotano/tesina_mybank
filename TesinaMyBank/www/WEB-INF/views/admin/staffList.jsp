@@ -15,7 +15,7 @@
 
 <jsp:include page="header.jsp"/> 
 <br/>
-	
+	 
 	<div class="divCenterized">
 	
 	<legend style="text-align:left;">Elenco del personale dello staff</legend>
@@ -40,8 +40,7 @@
 				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-warning" type="button">Modifica</button></a>
 			</td>
 			
-			<td><label class="noNewLine">${staff.name}</label></td>
-			<td><label class="noNewLine">${staff.surname}</label></td>
+ 			<td><label class="noNewLine">${staff.surname}</label></td>
 			<td><label class="noNewLine">${staff.email}</label></td>
 			<td><label class="noNewLine">${staff.role.title}</label></td>
 			<td><label class="noNewLine"><fmt:formatDate type="both" value="${staff.createdAt}" pattern="dd/MM/yyyy, HH:mm:ss" /></label></td>
