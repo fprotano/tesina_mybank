@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+
 import it.exolab.tesina.mybank.exception.EntityNotFoundError;
 import it.exolab.tesina.mybank.exception.GenericError;
 import it.exolab.tesina.mybank.exception.InvalidEmail;
@@ -40,13 +42,14 @@ import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.PaymentService;
+import it.exolab.tesina.mybank.service.PushService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 
 @CrossOrigin
 @Controller
 @RequestMapping(value = "payment")
 public class PaymentController {
-	
+	PushService pushservice;
 	PaymentService paymentService;
 	TransactionUniqueIdService transactionUniqueIdService;
 	TransactionUniqueIdFactory factory = new TransactionUniqueIdFactory();
@@ -54,6 +57,10 @@ public class PaymentController {
 	@Autowired
 	public void setPaymentService(PaymentService paymentService) {
 		this.paymentService = paymentService;
+	}
+	@Autowired
+	public void setPushService(PushService pushservice) {
+		this.pushservice = pushservice;
 	}
 
 	@Autowired
@@ -80,57 +87,20 @@ public class PaymentController {
 
 	}
 	
-//	@RequestMapping(value = "paymentNotify", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
-//	@ResponseBody
-//	public void doPaymentNotify(@ModelAttribute OotlBank ootlBank) {
-//		
-//		AuctionOrderTransactionLog aotl = new AuctionOrderTransactionLog();
-//		Field[] fields = aotl.getClass().getDeclaredFields();
-//		System.out.println(fields);
-//		for(int i=0; i<ootlBank.getPn().length; i++) {
-//			//if() comparazione nome con parameter
-//			
-//		}
-//	}
+
 	
 
 	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
 	@ResponseBody
-	public HTTPResponse doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+		String data = "";
+		data.concat("transactionId=" + model.getTransactionId() + "&");
+		data.concat("amount=" + model.getAmount() + "&");
+		data.concat("sellerEmail=" + model.getEmail() + "&");
+		data.concat("buyerEmail=" + model.getAccount().getEmail() + "&");
+		data.concat("customCode=" + model.getCustomCode() + "&");
 		
-		System.out.println("nel doAuctionOrderPayment, Payment > " + model);
-		String projectUrl = model.getUrlSuccess();
-
-		Gson gson = new Gson();
-		String json = gson.toJson(model);
-	
-		System.out.println(json);
-		URL url = new URL(projectUrl);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-		connection.setRequestMethod("POST");
-		connection.setDoOutput(true);
-
-		
-		connection.setRequestProperty("Accept-Charset", "UTF-8");
-		connection.setRequestProperty("Accept", "application/json" );
-		connection.setRequestProperty("Content-Type", "application/json" + "UTF-8");
-
-	    OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-
-	    writer.write(json);
-	    writer.flush();
-	    String line;
-
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-	    while ((line = reader.readLine()) != null) {
-	      System.out.println(line);
-	    }
-	    writer.close();
-	    reader.close();
-		connection.connect();
-
-		System.out.println("prima del ret > " + connection);
-		return new HTTPResponse(model);
+		pushservice.notifyTransaction(model.getUrlSuccess(), data);
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
