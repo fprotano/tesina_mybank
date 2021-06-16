@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="payment")
@@ -28,7 +29,17 @@ public class Payment {
 	private String urlSuccess;
 	@Column(name="url_notify")
 	private String urlNotify;
+	@Transient
+	private Account account;
 	
+	
+	
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 	public int getId() {
 		return id;
 	}
@@ -77,9 +88,11 @@ public class Payment {
 	public void setUrlNotify(String urlNotify) {
 		this.urlNotify = urlNotify;
 	}
-	public Payment(Double amount, String email, String customCode, String transactionId, String urlUnDo, String urlSuccess,
-			String urlNotify) {
+	
+	public Payment(int id, Double amount, String email, String customCode, String transactionId, String urlUnDo,
+			String urlSuccess, String urlNotify, Account account) {
 		super();
+		this.id = id;
 		this.amount = amount;
 		this.email = email;
 		this.customCode = customCode;
@@ -87,6 +100,7 @@ public class Payment {
 		this.urlUnDo = urlUnDo;
 		this.urlSuccess = urlSuccess;
 		this.urlNotify = urlNotify;
+		this.account = account;
 	}
 	@Override
 	public String toString() {

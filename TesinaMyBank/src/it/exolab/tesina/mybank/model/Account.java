@@ -183,6 +183,28 @@ public class Account {
 	public Account() {
 		super();
 	}
+	public Account(Integer id, Timestamp createdAt, Timestamp updatedAt, String iban, Double balance, String email,
+			String password, String name, String surname, Timestamp nextOtpCodeAfterDate, String otpCode,
+			Timestamp otpCodeExpiresAt, String creditCardNo, String creditCardCin, String creditCardExpiresAt,
+			Payment payment) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.iban = iban;
+		this.balance = balance;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.nextOtpCodeAfterDate = nextOtpCodeAfterDate;
+		this.otpCode = otpCode;
+		this.otpCodeExpiresAt = otpCodeExpiresAt;
+		this.creditCardNo = creditCardNo;
+		this.creditCardCin = creditCardCin;
+		this.creditCardExpiresAt = creditCardExpiresAt;
+		this.payment = payment;
+	}
 	
 	
 }
