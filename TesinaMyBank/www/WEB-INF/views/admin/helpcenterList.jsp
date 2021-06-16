@@ -23,7 +23,7 @@
 			<th colspan="2"><label class="noNewLine"></label></th>
 			<th><label class="noNewLine">Creato</label></th>
 			<th><label class="noNewLine">Aggiornato</label></th>
-			<th><label class="noNewLine" style="width: 28px;">ID</label></th>
+			<th><label class="noNewLine">ID</label></th>
 			<th><label class="noNewLine">Nome</label></th>
 			<th><label class="noNewLine">Cognome</label></th>
 			<th><label class="noNewLine">Domanda</label></th>

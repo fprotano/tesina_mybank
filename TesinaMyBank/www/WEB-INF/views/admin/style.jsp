@@ -31,7 +31,7 @@
 	margin:4px;
 	text-align: center;
 }
-.noNewLine{
+.noNewLine, .longReason, .shortReason, .longA, .shortA, .longQ, .shortQ, .longCode, .shortCode, .longId, .shortId{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

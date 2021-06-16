@@ -40,6 +40,7 @@
 				<a href="${pageContext.request.contextPath}/staff/staffUpdate/${staff.id}"><button class="btn btn-sm btn-outline-warning" type="button">Modifica</button></a>
 			</td>
 			
+			<td><label class="noNewLine">${staff.name}</label></td>
  			<td><label class="noNewLine">${staff.surname}</label></td>
 			<td><label class="noNewLine">${staff.email}</label></td>
 			<td><label class="noNewLine">${staff.role.title}</label></td>
