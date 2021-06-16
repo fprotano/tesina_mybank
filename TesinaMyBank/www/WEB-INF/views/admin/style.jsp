@@ -41,7 +41,7 @@
 	min-width:100%;
     position:static !important;
     top:0;
-    background: conic-gradient(from 0deg at 0% 65%, rgba(175,211,211,1.2), rgba(255,255,255,0.0), rgba(255,255,255,0.0) 179deg);
+    background: conic-gradient(from 0deg at 0% 74%, rgba(179,211,211,1.2), rgba(255,255,255,0.0), rgba(255,255,255,0.0) 182deg);
 /*     background-image: linear-gradient(to right, rgba(227,227,227,0.6) , rgba(255,255,255,0.0)); */
     /* background-color: rgba(233,233,233,0.5); */
     /* border:groove; /*
