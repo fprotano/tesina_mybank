@@ -1,4 +1,3 @@
-
 <a href="${pageContext.request.contextPath}/staff/home"><button class="btn btn-sm btn-outline-secondary" type="button">Home</button></a>
 
 <a href="${pageContext.request.contextPath}/staff/registrazione"><button class="btn btn-sm btn-outline-secondary" type="button">Registra nuovo membro nello Staff</button></a>
@@ -15,4 +14,5 @@
 
 <a href="${pageContext.request.contextPath}/staff/staffList"><button class="btn btn-sm btn-outline-secondary" type="button">Elenco Staff</button></a>
 
-<a href="${pageContext.request.contextPath}/staff/test"><button class="btn btn-sm btn-outline-secondary" type="button">Test</button></a>
+<%-- <a href="${pageContext.request.contextPath}/staff/test"><button class="btn btn-sm btn-outline-secondary" type="button">Test</button></a>
+ --%>

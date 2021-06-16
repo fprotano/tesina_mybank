@@ -14,9 +14,9 @@
 <body>
 
 <jsp:include page="header.jsp"/>
+<br/>
 
-	<div style="margin:6px;">
-	<button class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
+	<button style="margin-left:8px;" class="btn btn-sm btn-outline-secondary" type="button" onclick="showAndHideLongParameters()" id="preview">Mostra/Nascondi Campi</button>
 	
 	<a href="${pageContext.request.contextPath}/faq/addFaq"><button class="btn btn-sm btn-outline-primary" type="button">Aggiungi FAQ</button></a>
 	<br/>
@@ -59,20 +59,22 @@
 	</c:choose>
 	<br/>
 	</c:if>
-	<legend>Elenco FAQs</legend>
+	
+	<div class="divCenterized">
+	
+	<legend style="text-align:left;">Elenco FAQs</legend>
 	<hr/>
 	<table>
 		<tr>
-			<th>ID</th>
-			<th></th>
-			<th></th>
-			<th>Domanda</th>
-			<th>Risposta</th>
+			<th><label class="noNewLine">ID</label></th>
+			<th colspan="2"><label class="noNewLine">Gestisci FAQ</label></th>
+			<th><label class="noNewLine" style="text-align:left;">Domanda</label></th>
+			<th><label class="noNewLine" style="text-align:left;">Risposta</label></th>
 			
 		</tr>
 	<c:forEach items="${faqs}" var="faq" varStatus="loop">
 		<tr>
-			<td>${faq.id}</td>
+			<td><label class="noNewLine">${faq.id}</label></td>
 			<td>
 				<a href="${pageContext.request.contextPath}/faq/updateFaq/${faq.id}"><button class="btn btn-sm btn-outline-secondary" type="button">Modifica</button></a>
 			</td>
