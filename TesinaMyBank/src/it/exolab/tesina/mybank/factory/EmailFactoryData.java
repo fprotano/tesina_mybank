@@ -18,12 +18,15 @@ public class EmailFactoryData {
 	final String passfrom = "tesina999!!";
 
 	// oggetto e corpo dell'email
-	String subject = "Test - Richiesta nuovo codice otp";
-	String placeholderMessage = "Di recente hai tentato di accedere al tuo account della MyBank."
+	String subjectForOtp = "Test - Richiesta nuovo codice otp";
+	String placeholderMessageForOtp = "Di recente hai tentato di accedere al tuo account della MyBank."
 			+ "\nCome misura di sicurezza, richiediamo una conferma aggiuntiva prima di consentire l'accesso al tuo account."
 			+ "\nSe riconosci questa attività, confermala con il codice di attivazione.\nCodice otp di attivazione:"
 			+ "\n\n <h1>[otpPlaceHolder]</h1> \n\n"
 			+ "Se non riconosci questa attività, contatta immediatamente il nostro Help Center.\n\nMyBank."
 			+ " Questo messaggio è generato automaticamente, ogni email inviata a questo indirizzo non riceverà risposta.";
-
+	
+	String subjectForAttachment = "Test - invio pdf";
+	String placeholderMessageForAttachment = "test di invio.";
+	
 }

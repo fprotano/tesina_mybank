@@ -62,7 +62,7 @@ public class OtpEmailFactory extends EmailFactoryData {
             //	Set To: header field of the header.//??
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailto));
             //	setto l'oggetto della mail
-            message.setSubject(subject);
+            message.setSubject(subjectForOtp);
             //	setto il testo del messaggio
 //            String otpCode = OtpCodeFactory.doGenerateNewOtpCode();
             String textMessage=doCreateTextMessage(OTP);
@@ -86,7 +86,7 @@ public class OtpEmailFactory extends EmailFactoryData {
     }
     
     public String doCreateTextMessage(String otpCode) {
-    	String ret=placeholderMessage.replace("[otpPlaceHolder]", otpCode);
+    	String ret=placeholderMessageForOtp.replace("[otpPlaceHolder]", otpCode);
     	return ret;
     }
     
