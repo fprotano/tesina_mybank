@@ -6,6 +6,7 @@ import com.itextpdf.text.DocumentException;
 
 public class EmailFactoryData {
 	
+	
 	// settings
 	final String hostSettings = "mail.smtp.host";
 	final String portSettings = "mail.smtp.socketFactory.port";
