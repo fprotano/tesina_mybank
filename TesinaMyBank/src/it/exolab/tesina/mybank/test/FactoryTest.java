@@ -14,6 +14,7 @@ public class FactoryTest extends FactoryConvertDTOtoModelOrViceVersa<Transaction
 		System.out.println(this.dto.toString());
 	}
 	
+	
 	public void stampaAttributoModel() {
 		System.out.println(this.model.toString());
 	}
