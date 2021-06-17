@@ -95,11 +95,11 @@ public class PaymentController {
 	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
 		System.out.println(model);
 		String data = "";
-		data = data.concat("pn[0]=transactionId&pn[0]=" + model.getTransactionId() + "&");
-		data = data.concat("pn[1]=amount&pn[1]=" + model.getAmount() + "&");
-		data = data.concat("pn[2]=sellerEmail&pn[2]=" + model.getEmail() + "&");
-		data = data.concat("pn[3]=buyerEmail&pn[3]=" + model.getAccount().getEmail() + "&");
-		data = data.concat("pn[4]=customCode&pn[4]=" + model.getCustomCode());
+		data = data.concat("pn[0]=transactionId&pv[0]=" + model.getTransactionId() + "&");
+		data = data.concat("pn[1]=amount&pv[1]=" + model.getAmount() + "&");
+		data = data.concat("pn[2]=sellerEmail&pv[2]=" + model.getEmail() + "&");
+		data = data.concat("pn[3]=buyerEmail&pv[3]=" + model.getAccount().getEmail() + "&");
+		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
 		System.out.println(data);
 		pushservice.notifyTransaction(model.getUrlNotify(), data);
 		
