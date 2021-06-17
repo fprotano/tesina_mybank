@@ -6,16 +6,17 @@ import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-
+import javax.mail.internet.MimeMultipart;
 import javax.sql.DataSource;
 
 
@@ -132,16 +133,18 @@ public class OtpEmailFactory extends EmailFactoryData {
             //	Set To: header field of the header.//??
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailto));
             //	setto l'oggetto della mail
-            message.setSubject(subject);
+            message.setSubject("ciao bello");
             //	setto il testo del messaggio
 //            String otpCode = OtpCodeFactory.doGenerateNewOtpCode();
+            BodyPart messageBodyPart1 = new MimeBodyPart();     
+            messageBodyPart1.setText("This is message body");
             MimeBodyPart messageBodyPart2 = new MimeBodyPart();      
             String filename = createAndSendPdf.write();    
             DataSource source = (DataSource) new FileDataSource(filename);    
             messageBodyPart2.setDataHandler(new DataHandler((javax.activation.DataSource) source));    
             messageBodyPart2.setFileName(filename);             
-            
-           
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart2); 
            
             
             // .setText per mandare testo non formattato
@@ -149,7 +152,7 @@ public class OtpEmailFactory extends EmailFactoryData {
             
            
 
-            							
+            message.setContent(multipart);							
             // Invio effettivo dell'email
             Transport.send(message);
             System.out.println("Messaggio inviato correttamente");		// da cancellare
