@@ -92,7 +92,7 @@ public class PaymentController {
 
 	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
 	@ResponseBody
-	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+	public String doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
 		System.out.println(model);
 		String data = "";
 		data = data.concat("pn[0]=transactionId&pv[0]=" + model.getTransactionId() + "&");
@@ -102,7 +102,7 @@ public class PaymentController {
 		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
 		System.out.println(data);
 		pushservice.notifyTransaction(model.getUrlNotify(), data);
-		
+		return "redirect: http://localhost:4201/";
 		
 		
 		
