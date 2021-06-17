@@ -102,7 +102,7 @@ public class PaymentController {
 		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
 		System.out.println(data);
 		pushservice.notifyTransaction(model.getUrlNotify(), data);
-		return "redirect: http://localhost:4201/";
+		return "redirect: http://localhost:4201/pagamento-eseguito";
 		
 		
 		
