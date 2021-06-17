@@ -23,7 +23,7 @@ public class createAndSendPdf {
 	
 		Document document = new Document();
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream("ciaoBello.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("C:\\sviluppo\\pdf\\ciaoBello.pdf"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

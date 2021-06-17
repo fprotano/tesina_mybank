@@ -55,7 +55,6 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 
 			MimeBodyPart textPart = new MimeBodyPart();
 
-			
 			try {
 
 				File allegato = new File(filePath);
