@@ -92,7 +92,7 @@ public class PaymentController {
 
 	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
 	@ResponseBody
-	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+	public HTTPResponse doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
 		System.out.println(model);
 		String data = "";
 		data = data.concat("pn[0]=transactionId&pv[0]=" + model.getTransactionId() + "&");
@@ -101,19 +101,15 @@ public class PaymentController {
 		data = data.concat("pn[3]=buyerEmail&pv[3]=" + model.getAccount().getEmail() + "&");
 		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
 		System.out.println(data);
-		pushservice.notifyTransaction(model.getUrlNotify(), data);
+		if(model.getEmail()!=null) {
+			pushservice.notifyTransaction(model.getUrlNotify(), data);
+			return new HTTPResponse(model);
+		} else {
+			return new HTTPResponse("Errore, pagamento non effettuato", "01");
+		}
 		
 	}
 	
-	@RequestMapping(value = "sendDataRedirect", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
-	@ResponseBody
-	public String doAuctionOrderPayment() throws IOException {
-		
-		return "redirect: http://localhost:4201/pagamento-eseguito";
-		
-		
-		
-	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
