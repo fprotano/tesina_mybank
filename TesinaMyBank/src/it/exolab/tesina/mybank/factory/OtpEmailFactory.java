@@ -92,7 +92,7 @@ public class OtpEmailFactory extends EmailFactoryData {
     
     
     public  void doCreateTextMessage1() throws IOException, DocumentException {
-     createAndSendPdf.write();
+     CreateAndSendPdf.write();
 	
    
 	
@@ -141,7 +141,7 @@ public class OtpEmailFactory extends EmailFactoryData {
             BodyPart messageBodyPart1 = new MimeBodyPart();     
             messageBodyPart1.setText("This is message body");
             MimeBodyPart messageBodyPart2 = new MimeBodyPart();      
-            String filename = createAndSendPdf.write();    
+            String filename = CreateAndSendPdf.write();    
             DataSource source = (DataSource) new FileDataSource(filename);    
             messageBodyPart2.setDataHandler(new DataHandler((javax.activation.DataSource) source));    
             messageBodyPart2.setFileName(filename);             

@@ -15,7 +15,7 @@ public class EmailFactoryData {
 	final String port = "465";
 	final String ssl = "true";
 	final String auth = "true";
-	final String filePath = "C:\\sviluppo\\pdf\\ciaoBello.pdf";
+	static final String filePath = "C:\\Users\\Matteo\\Desktop\\ciaoBello.pdf";
 	
 	
 	
