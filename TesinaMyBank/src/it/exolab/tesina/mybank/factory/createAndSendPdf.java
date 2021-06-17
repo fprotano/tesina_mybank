@@ -1,6 +1,7 @@
 package it.exolab.tesina.mybank.factory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,16 +19,30 @@ public class createAndSendPdf {
 
 
 
-	public  static String write() throws IOException, DocumentException {	
+	public  static String write()  {	
 	
 		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream("nicoBruttod.pdf"));
+		try {
+			PdfWriter.getInstance(document, new FileOutputStream("ciaoBello.pdf"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		document.open();
 		Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 		Chunk chunk = new Chunk("CIAObELLI", font);
     
-		document.add(chunk);
+		try {
+			document.add(chunk);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		document.close();
 	     String a = "" + document;
 	     return a;		
