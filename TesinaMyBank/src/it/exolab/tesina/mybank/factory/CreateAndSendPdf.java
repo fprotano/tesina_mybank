@@ -15,21 +15,22 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class createAndSendPdf {
+public class CreateAndSendPdf extends EmailFactoryData{
 
 
 
 	public  static String write()  {	
-	
+		String ret="";
 		Document document = new Document();
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream("ciaoBello.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(filePath));
+			ret="File temporaneo creato con successo.";
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			ret="Errore di I/O";
 			e.printStackTrace();
 			 
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
+			ret="Errore documentoException";
 			e.printStackTrace();
 		}
 
@@ -45,8 +46,17 @@ public class createAndSendPdf {
 		}
 		document.close();
 	     String a = "" + document;
-	     return a;		
+	     return ret;		
 		
 	}
-      
+
+	public int delete() {
+		int ret=0;
+		File f= new File(filePath);  
+		if (f.delete()) {
+			ret=1;
+		}
+		return ret;
 	}
+	
+}

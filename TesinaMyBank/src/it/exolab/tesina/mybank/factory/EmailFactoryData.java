@@ -6,7 +6,6 @@ import com.itextpdf.text.DocumentException;
 
 public class EmailFactoryData {
 	
-	
 	// settings
 	final String hostSettings = "mail.smtp.host";
 	final String portSettings = "mail.smtp.socketFactory.port";
@@ -16,7 +15,7 @@ public class EmailFactoryData {
 	final String port = "465";
 	final String ssl = "true";
 	final String auth = "true";
-	final String filePath = createAndSendPdf.write();
+	static final String filePath = "C:\\Users\\Matteo\\Desktop\\ciaoBello.pdf";
 	
 	
 	
