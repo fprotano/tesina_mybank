@@ -103,8 +103,6 @@ public class PaymentController {
 		System.out.println(data);
 		pushservice.notifyTransaction(model.getUrlNotify(), data);
 		
-		
-		
 	}
 	
 	@RequestMapping(value = "sendDataRedirect", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
