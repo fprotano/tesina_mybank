@@ -19,8 +19,8 @@
 
 <form:form method="post" modelAttribute="staffRegistrato" action="${pageContext.request.contextPath}/staff/registrazione">
 
-<h4>Registra un nuovo membro dello Staff</h4>
 <div style="margin:8px;";>
+<h4>Registra un nuovo membro dello Staff</h4>
 	<label>Nome</label>
 	<br/>
 	<form:input path="name" />

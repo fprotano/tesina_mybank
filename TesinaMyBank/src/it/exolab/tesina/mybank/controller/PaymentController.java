@@ -93,14 +93,19 @@ public class PaymentController {
 	@RequestMapping(value = "sendData", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
 	@ResponseBody
 	public void doAuctionOrderPayment(@RequestBody Payment model, HttpServletResponse httpServletResponse, HTTPResponse response) throws IOException {
+		System.out.println(model);
 		String data = "";
-		data.concat("transactionId=" + model.getTransactionId() + "&");
-		data.concat("amount=" + model.getAmount() + "&");
-		data.concat("sellerEmail=" + model.getEmail() + "&");
-		data.concat("buyerEmail=" + model.getAccount().getEmail() + "&");
-		data.concat("customCode=" + model.getCustomCode() + "&");
+		data = data.concat("pn[0]=transactionId&pv[0]=" + model.getTransactionId() + "&");
+		data = data.concat("pn[1]=amount&pv[1]=" + model.getAmount() + "&");
+		data = data.concat("pn[2]=sellerEmail&pv[2]=" + model.getEmail() + "&");
+		data = data.concat("pn[3]=buyerEmail&pv[3]=" + model.getAccount().getEmail() + "&");
+		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
+		System.out.println(data);
+		pushservice.notifyTransaction(model.getUrlNotify(), data);
 		
-		pushservice.notifyTransaction(model.getUrlSuccess(), data);
+		
+		
+		
 	}
 	
 	@RequestMapping(value = "fillPayment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
