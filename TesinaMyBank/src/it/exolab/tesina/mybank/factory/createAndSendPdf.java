@@ -5,44 +5,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class createAndSendPdf {
 
-	static OutputStream file;
 
-	public  static void write() throws IOException {	
-		
-		 try {
-		       	//Create Document instance.
-			Document document = new Document();
-		 
-			//Create OutputStream instance.
-			OutputStream outputStream = 
-				new FileOutputStream(new File("C:\\sviluppo\\PestFile.pdf"));
-		 
-			//Create PDFWriter instance.
-		        PdfWriter.getInstance(document, outputStream);
-		 
-		        //Open the document.
-		        document.open();
-		 
-		        //Add content to the document.
-		        document.add(new Paragraph("Hello world, " +
-		       	"this is a test pdf file."));
-		 
-		        //Close document and outputStream.
-		        document.close();
-		        outputStream.close();
-		 
-		        System.out.println("Pdf created successfully.");
-		    } catch (Exception e) {
-			e.printStackTrace();
-		    }
-		  }
+
+	public  static String write() throws IOException, DocumentException {	
 	
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream("nicoBruttod.pdf"));
 
-
+		document.open();
+		Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+		Chunk chunk = new Chunk("CIAObELLI", font);
+    
+		document.add(chunk);
+		document.close();
+	     String a = "" + document;
+	     return a;		
+		
+	}
+      
 	}
