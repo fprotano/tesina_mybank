@@ -88,6 +88,22 @@ public class HelpCenterController {
 		}
 	}
 
+	@RequestMapping(value = "findHC/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse findHelpCenter(@RequestBody HelpCenter helpCenter, @PathVariable Integer id) {
+		HTTPResponse response = new HTTPResponse();
+		helpCenter = this.helpCenterService.findByFromAccountIdAndIsOpen(id);
+		if (helpCenter != null) {
+			response.setData(helpCenter);
+			response.setSuccess(true);
+			return response;
+		} else {
+			response.setSuccess(false);
+			response.setData(id);
+			return response;
+		}
+	}
+
 	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public HTTPResponse findAll() {

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.exolab.tesina.mybank.factory.HelpCenterThreadFactory;
 import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.HelpCenterThread;
@@ -34,6 +35,7 @@ public class HelpCenterThreadController {
 	private AccountService accountService;
 	private HelpCenterThreadService helpCenterThreadService;
 	private StaffService staffService;
+	private HelpCenterThreadFactory helpCenterThreadFactory = new HelpCenterThreadFactory();
 	
 	@Autowired(required = true)
 	public void setHelpCenterThreadService(HelpCenterThreadService helpCenterThreadService) {
@@ -50,11 +52,12 @@ public class HelpCenterThreadController {
 		this.staffService = staffService;
 	}
 
-	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "insert/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse register(@RequestBody HelpCenterThread helpCenterThread) {
+	public HTTPResponse register(@RequestBody HelpCenterThread helpCenterThread, @PathVariable int id) {
 		HTTPResponse response = new HTTPResponse();
 		if (helpCenterThread != null) {
+			helpCenterThreadFactory.fillHelpCenterThread(helpCenterThread, id);
 			this.helpCenterThreadService.insert(helpCenterThread);
 			response.setData(helpCenterThread);
 			response.setSuccess(true);
@@ -65,6 +68,14 @@ public class HelpCenterThreadController {
 			response.setErr_code("01");
 			return response;
 		}
+	}
+	
+	@RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public HTTPResponse findById(@PathVariable int id) {
+		System.out.println(id);
+		System.out.println(this.helpCenterThreadService.findByHelpCenterId(id).toString());
+		return new HTTPResponse(this.helpCenterThreadService.findByHelpCenterId(id));
 	}
 
 	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

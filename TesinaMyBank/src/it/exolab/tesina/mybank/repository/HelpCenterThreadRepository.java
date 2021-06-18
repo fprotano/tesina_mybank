@@ -22,5 +22,5 @@ public interface HelpCenterThreadRepository extends CrudRepository<HelpCenterThr
 	@Query("SELECT hct FROM HelpCenterThread hct JOIN FETCH hct.helpCenter AS hc WHERE hc.assignedToId=?1 AND hc.fromAccountId=?2")
 	public List<HelpCenterThread> findByStaffIdAndAccountId(int staffId, int accountId);
 	
-	public List<HelpCenterThread> findByHelpCenterId(int helpcenterId);
+	public List<HelpCenterThread> findByHelpCenterId(int id);
 }

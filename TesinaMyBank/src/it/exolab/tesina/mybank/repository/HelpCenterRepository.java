@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.exolab.tesina.mybank.model.HelpCenter;
 
@@ -14,11 +15,16 @@ public interface HelpCenterRepository extends CrudRepository<HelpCenter, Integer
 
 	public List<HelpCenter> findByAssignedToId(int id);
 
-	@Modifying
+	@Transactional
 	@Query("SELECT hc FROM HelpCenter hc WHERE assignedToId = ?1 AND closedAt IS NULL ")
 	public List<HelpCenter> findByAssignedToIdAndIsOpen(int id);
 
-	@Modifying
+	@Transactional
 	@Query("SELECT hc FROM HelpCenter hc WHERE assignedToId = ?1 AND closedAt IS NOT NULL ")
 	public List<HelpCenter> findByAssignedToIdAndIsClosed(int id);
+
+    @Transactional
+	@Query("SELECT hc FROM HelpCenter hc WHERE fromAccountId = ?1 AND closedAt IS NULL ")
+	public HelpCenter findByFromAccountIdAndIsOpen(Integer id);
+
 }

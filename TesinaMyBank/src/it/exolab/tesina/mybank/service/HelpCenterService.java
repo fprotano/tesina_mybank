@@ -54,4 +54,8 @@ public class HelpCenterService {
 	public List<HelpCenter> findByAssignedToIdAndIsClosed(int id){
 		return this.helpCenterRepository.findByAssignedToIdAndIsClosed(id);
 	}
+	
+	public HelpCenter findByFromAccountIdAndIsOpen(Integer id){
+		return this.helpCenterRepository.findByFromAccountIdAndIsOpen(id);
+	}
 }

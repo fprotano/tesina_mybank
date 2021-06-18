@@ -43,7 +43,7 @@ public class HelpCenterThreadService {
 		return (List<HelpCenterThread>) helpCenterThreadRepository.findByStaffIdAndAccountId(staffId,accountId);
 	}
 	
-	public List<HelpCenterThread> findByHelpCenterId(int helpcenterId){
-		return (List<HelpCenterThread>) helpCenterThreadRepository.findByHelpCenterId(helpcenterId);
+	public List<HelpCenterThread> findByHelpCenterId(int id){
+		return (List<HelpCenterThread>) helpCenterThreadRepository.findByHelpCenterId(id);
 	}
 }
