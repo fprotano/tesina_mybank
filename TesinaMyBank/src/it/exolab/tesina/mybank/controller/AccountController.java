@@ -124,8 +124,25 @@ public class AccountController {
 
 		}
 	}
+	
+	@RequestMapping(value = "findByEmail", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse findByEmail(@RequestBody String email, HTTPResponse response) {
+		if (email != null) {
+			this.accountService.findByEmail(email);
+			response.setData(email);
+			response.setSuccess(true);
+			return response;
+		} else {
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;
+		}
 
-	// cofermaotp Angular
+	}
+
+	// confermaotp Angular
 	@RequestMapping(value = "confermaOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 
