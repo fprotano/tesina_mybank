@@ -27,7 +27,7 @@ import com.itextpdf.text.DocumentException;
 
 public class OtpEmailFactory extends EmailFactoryData {
     
-    public void doSendOtpCodeViaEmail(String mailto, String OTP) {
+    public static void doSendOtpCodeViaEmail(String mailto, String OTP) {
     	
     	Properties properties = System.getProperties();
 
@@ -85,7 +85,7 @@ public class OtpEmailFactory extends EmailFactoryData {
 
     }
     
-    public String doCreateTextMessage(String otpCode) {
+    public static String doCreateTextMessage(String otpCode) {
     	String ret=placeholderMessageForOtp.replace("[otpPlaceHolder]", otpCode);
     	return ret;
     }

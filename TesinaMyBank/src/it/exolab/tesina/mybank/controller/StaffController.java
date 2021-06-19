@@ -69,7 +69,15 @@ public class StaffController {
 			throws IOException {
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staffService.findByEmailAndPasswordAndOtpCode(staff.getEmail(), staff.getPassword(), OTP) != null) {
-			response.getWriter().append("1");
+			Staff staffToUpdate=staffService.findByEmailAndPasswordAndOtpCode(staff.getEmail(), staff.getPassword(), OTP);
+			if(staffToUpdate.getNextOtpCodeAfterDate().after(Timestamp.valueOf(LocalDateTime.now()))) {
+				OtpCodeFactory.UpdateOtpExpirationForAccountOrStaff(staffToUpdate);
+				staffToUpdate.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+				staffService.update(staffToUpdate);
+				response.getWriter().append("1");
+			} else {
+				response.getWriter().append("2");
+			}
 		} else {
 			response.getWriter().append("0");
 		}
@@ -80,7 +88,20 @@ public class StaffController {
 		ModelAndView ret = new ModelAndView("redirect:/staff/index");
 
 		staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
-		if (staff != null) {
+		
+		if (staff != null ) {
+			if(staff.getNextOtpCodeAfterDate().before(Timestamp.valueOf(LocalDateTime.now()))) {
+				OtpCodeFactory.UpdateOtpTimerForAccountOrStaff(staff);
+				OtpCodeFactory.UpdateOtpExpirationForAccountOrStaff(staff);
+				staff.setOtpCode(OtpCodeFactory.doGenerateNewOtpCode());
+				staff.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)));
+	//			disabilitata per non spammare email
+	//			OtpEmailFactory.doSendOtpCodeViaEmail(staff.getEmail(),staff.getOtpCode());
+				System.out.println("OTP CODE PER LO STAFF ID: "+staff.getId()+" :::"+staff.getOtpCode());			// da cancellare
+				
+				staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+				staffService.update(staff);
+			}
 			session.setAttribute("staff", staff);
 			return ret;
 		} else {

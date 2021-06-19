@@ -1,38 +1,32 @@
 package it.exolab.tesina.mybank.factory;
 
-import java.io.IOException;
-
-import com.itextpdf.text.DocumentException;
-
 public class EmailFactoryData {
-	
+
 	// settings
-	final String hostSettings = "mail.smtp.host";
-	final String portSettings = "mail.smtp.socketFactory.port";
-	final String sslSettings = "mail.smtp.ssl.enable";
-	final String authenticationSettings = "mail.smtp.auth";
-	final String host = "smtp.gmail.com";
-	final String port = "465";
-	final String ssl = "true";
-	final String auth = "true";
+	final static String hostSettings = "mail.smtp.host";
+	final static String portSettings = "mail.smtp.socketFactory.port";
+	final static String sslSettings = "mail.smtp.ssl.enable";
+	final static String authenticationSettings = "mail.smtp.auth";
+	final static String host = "smtp.gmail.com";
+	final static String port = "465";
+	final static String ssl = "true";
+	final static String auth = "true";
 	static final String filePath = "C:\\Users\\Matteo\\Desktop\\ciaoBello.pdf";
-	
-	
-	
+
 	// dati mail che invia
-	final String mailfrom = "testtesinamybank@gmail.com";
-	final String passfrom = "tesina999!!";
+	final static String mailfrom = "testtesinamybank@gmail.com";
+	final static String passfrom = "tesina999!!";
 
 	// oggetto e corpo dell'email
-	String subjectForOtp = "Test - Richiesta nuovo codice otp";
-	String placeholderMessageForOtp = "Di recente hai tentato di accedere al tuo account della MyBank."
+	static String subjectForOtp = "Test - Richiesta nuovo codice otp";
+	static String placeholderMessageForOtp = "Di recente hai tentato di accedere al tuo account della MyBank."
 			+ "\nCome misura di sicurezza, richiediamo una conferma aggiuntiva prima di consentire l'accesso al tuo account."
 			+ "\nSe riconosci questa attività, confermala con il codice di attivazione.\nCodice otp di attivazione:"
 			+ "\n\n <h1>[otpPlaceHolder]</h1> \n\n"
 			+ "Se non riconosci questa attività, contatta immediatamente il nostro Help Center.\n\nMyBank."
 			+ " Questo messaggio è generato automaticamente, ogni email inviata a questo indirizzo non riceverà risposta.";
-	
-	String subjectForAttachment = "Test - invio pdf";
-	String placeholderMessageForAttachment = "test di invio.";
-	
+
+	static String subjectForAttachment = "Test - invio pdf";
+	static String placeholderMessageForAttachment = "test di invio.";
+
 }

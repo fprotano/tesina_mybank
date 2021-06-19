@@ -29,7 +29,7 @@ String cp = request.getContextPath();
 </div>
 <script>
 var OTP = prompt("Inserisci otp");
-if(OTP.length==10){
+if(true){	// true è placeholder
 $.ajax({
 	  type: "POST",
 	  url: "http://localhost:8080/TesinaMyBank/staff/confermaOTP/"+OTP,
@@ -37,6 +37,10 @@ $.ajax({
 		  console.log(response);
 		  if(response==1) {
 			  window.location.href="http://localhost:8080/TesinaMyBank/staff/home";  
+		  } else if(response==2){
+			  alert("Il Codice OTP è scaduto. Riprova.");
+		  } else if(response==0){
+			  alert("IL Codice OTP è errato. Riprova.")
 		  }
 	  }
 	})};

@@ -46,10 +46,20 @@ public class AccountController {
 		try {
 			account = this.accountService.findByEmailAndPassword(account.getEmail(), account.getPassword());
 			account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-			Long duration = Long.valueOf(((14 * 60) + 59) * 200);
-			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
-			this.accountService.update(account);
+			
+			// da deprecare
+//			Long duration = Long.valueOf(((14 * 60) + 59) * 200);
+//			Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+//			account.setOtpCodeExpiresAt(new Timestamp(time.getTime() + duration));
+			if (session.getAttribute("payment")==null) {
+				OtpCodeFactory.UpdateOtpTimerForAccountOrStaff(account);
+				OtpCodeFactory.UpdateOtpExpirationForAccountOrStaff(account);
+				account.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)));
+				account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+				accountService.update(account);
+			}
+		
+			
 			session.setAttribute("account", account);
 			return new HTTPResponse(account);
 		} catch (RequiredFieldError | MaxLengthError | MinLengthError | InvalidEmail | InvalidPassword | UniqueFieldError e) {
@@ -150,7 +160,7 @@ public class AccountController {
 
 		if (accountService.findByEmailAndPasswordAndOtp(account.getEmail(), account.getPassword(),
 				account.getOtpCode()) != null
-				&& !Timestamp.valueOf(LocalDateTime.now()).after(account.getOtpCodeExpiresAt())) {
+				&& !Timestamp.valueOf(LocalDateTime.now()).after(account.getNextOtpCodeAfterDate())) {
 
 			response.setData(account);
 			response.setSuccess(true);
