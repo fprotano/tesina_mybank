@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -62,7 +63,7 @@ public class StaffController {
 		}
 		return "admin/test";
 	}
-
+	
 	@RequestMapping(value = "confermaOTP/{OTP}", method = RequestMethod.POST)
 	@ResponseBody
 	public void confermaOTP(@PathVariable String OTP, HttpSession session, Model model, HttpServletResponse response)
@@ -82,6 +83,15 @@ public class StaffController {
 			response.getWriter().append("0");
 		}
 	}
+	
+	// x login diretto senza OTPCode - ancora non funzione
+//	@RequestMapping(value="/confermaOTPbyStraightLogin", method = RequestMethod.GET)
+//	public ModelAndView confermaOTPbyStraightLogin(@ModelAttribute Staff staff, HttpServletRequest request) {
+////	    request.setAttribute("param1", "one");
+////		Staff staff = (Staff) request.getAttribute("staff");
+//		System.out.println("STAFF in STRAIGHT LOGIN:::"+staff);
+//	    return new ModelAndView("forward:/staff/confermaOTP/"+staff.getOtpCode());
+//	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ModelAndView login(Staff staff, HttpSession session, Model model) {
@@ -90,14 +100,19 @@ public class StaffController {
 		staff = staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword());
 		
 		if (staff != null ) {
+			// login diretto senza otpcode - ancora da implementare - non funziona
+//			if(Timestamp.valueOf(LocalDateTime.now()).before(staff.getNextOtpCodeAfterDate())) {
+//				// non funziona, va nel get
+//				ret= new ModelAndView("redirect:/staff/confermaOTPbyStraightLogin");
+//				return ret;
+//			} else
 			if(staff.getNextOtpCodeAfterDate().before(Timestamp.valueOf(LocalDateTime.now()))) {
 				OtpCodeFactory.UpdateOtpTimerForAccountOrStaff(staff);
 				OtpCodeFactory.UpdateOtpExpirationForAccountOrStaff(staff);
 				staff.setOtpCode(OtpCodeFactory.doGenerateNewOtpCode());
-				staff.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)));
-	//			disabilitata per non spammare email
-	//			OtpEmailFactory.doSendOtpCodeViaEmail(staff.getEmail(),staff.getOtpCode());
-				System.out.println("OTP CODE PER LO STAFF ID: "+staff.getId()+" :::"+staff.getOtpCode());			// da cancellare
+				staff.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)));	
+	//			OtpEmailFactory.doSendOtpCodeViaEmail(staff.getEmail(),staff.getOtpCode());						// disabilitata per non inviare troppe mail
+				System.out.println("OTP CODE PER LO STAFF ID: "+staff.getId()+" :::"+staff.getOtpCode());		// da cancellare
 				
 				staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 				staffService.update(staff);
@@ -105,8 +120,8 @@ public class StaffController {
 			session.setAttribute("staff", staff);
 			return ret;
 		} else {
-			ModelAndView ret2 = new ModelAndView("login");
-			ret2.addObject("messaggio", "Credenziali errate");
+			ModelAndView ret2 = new ModelAndView("admin/login");
+			ret2.addObject("login", 1);
 			return ret2;
 		}
 	}
