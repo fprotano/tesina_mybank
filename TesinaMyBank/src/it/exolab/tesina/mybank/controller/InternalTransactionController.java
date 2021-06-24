@@ -63,7 +63,9 @@ public class InternalTransactionController {
 		Account account = accountService.findByEmail(payment.getAccount().getEmail());
 			internalTransaction = itf.fillInternalTransaction(internalTransaction, payment, account);
 			internalTransaction.setToAccountId(accountPayed.getId());
-			if(internalTransaction.getCustomCode()!=null) {
+			if(account.getBalance() - payment.getAmount() > 0) {
+				accountPayed.setBalance(accountPayed.getBalance() + payment.getAmount());
+				account.setBalance(account.getBalance() - payment.getAmount());
 				internalTransactionService.insert(internalTransaction);
 				return new HTTPResponse(payment);
 			} else {
