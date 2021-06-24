@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.exolab.tesina.mybank.exception.InvalidEmail;
+import it.exolab.tesina.mybank.exception.InvalidPassword;
+import it.exolab.tesina.mybank.exception.MaxLengthError;
+import it.exolab.tesina.mybank.exception.MinLengthError;
+import it.exolab.tesina.mybank.exception.RequiredFieldError;
+import it.exolab.tesina.mybank.exception.UniqueFieldError;
 import it.exolab.tesina.mybank.factory.InternalTransactionFactory;
 import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.Account;
@@ -57,7 +63,7 @@ public class InternalTransactionController {
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) {
+	public HTTPResponse insert(@RequestBody Payment payment, HttpSession session, HTTPResponse response) throws RequiredFieldError, MaxLengthError, MinLengthError, InvalidEmail, InvalidPassword, UniqueFieldError {
 		Account accountPayed = accountService.findByEmail(payment.getEmail());
 		InternalTransaction internalTransaction = new InternalTransaction();
 		Account account = accountService.findByEmail(payment.getAccount().getEmail());
@@ -65,7 +71,9 @@ public class InternalTransactionController {
 			internalTransaction.setToAccountId(accountPayed.getId());
 			if(account.getBalance() - payment.getAmount() > 0) {
 				accountPayed.setBalance(accountPayed.getBalance() + payment.getAmount());
+				accountService.update(accountPayed);
 				account.setBalance(account.getBalance() - payment.getAmount());
+				accountService.update(account);
 				internalTransactionService.insert(internalTransaction);
 				return new HTTPResponse(payment);
 			} else {
