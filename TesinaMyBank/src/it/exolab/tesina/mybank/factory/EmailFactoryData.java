@@ -11,7 +11,7 @@ public class EmailFactoryData {
 	final static String port = "465";
 	final static String ssl = "true";
 	final static String auth = "true";
-	static final String filePath = "C:\\Users\\Matteo\\Desktop\\ciaoBello.pdf";
+	static final String filePath = "C:\\Users\\afren\\OneDrive\\Desktop\\ciaoBello.pdf";
 
 	// dati mail che invia
 	final static String mailfrom = "testtesinamybank@gmail.com";
