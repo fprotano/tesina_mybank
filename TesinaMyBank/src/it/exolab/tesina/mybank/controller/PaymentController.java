@@ -66,7 +66,7 @@ public class PaymentController {
 	@Autowired
 	public void setTransactionUniqueIdService(TransactionUniqueIdService transactionUniqueIdService) {
 		this.transactionUniqueIdService = transactionUniqueIdService;
-	}
+	} 
 	
 	
 	@RequestMapping(value = "inserisci", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
