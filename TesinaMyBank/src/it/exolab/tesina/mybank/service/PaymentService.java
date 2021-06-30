@@ -22,4 +22,7 @@ public class PaymentService {
 		return paymentRepository.findById(id);
 	}
 
+	public void deleteByTransactionId(String transactionId) {
+		paymentRepository.deleteByTransactionId(transactionId);
+	}
 }

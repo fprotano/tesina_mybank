@@ -28,6 +28,7 @@ import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.InternalTransactionService;
+import it.exolab.tesina.mybank.service.PaymentService;
 import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 @CrossOrigin
@@ -37,6 +38,7 @@ import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 public class InternalTransactionController {
 	private AccountService accountService;
 	private StaffService staffService;
+	private PaymentService paymentservice;
 	private InternalTransactionService internalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
 	private TransactionUniqueIdFactory transactionUniqueIdFactory;
@@ -45,6 +47,11 @@ public class InternalTransactionController {
 	@Autowired(required = true)
 	public void setStaffService(StaffService staffService) {
 		this.staffService = staffService;
+	}
+	
+	@Autowired(required = true)
+	public void setPaymentService(PaymentService paymentservice) {
+		this.paymentservice = paymentservice;
 	}
 	
 	@Autowired(required = true)
@@ -75,6 +82,7 @@ public class InternalTransactionController {
 				account.setBalance(account.getBalance() - payment.getAmount());
 				accountService.update(account);
 				internalTransactionService.insert(internalTransaction);
+				paymentservice.deleteByTransactionId(payment.getTransactionId());
 				return new HTTPResponse(payment);
 			} else {
 				return new HTTPResponse("Errore, pagamento non effettuato.", "01");
