@@ -104,7 +104,7 @@ public class PaymentController {
 		if(model.getEmail()!=null) {
 			pushservice.notifyTransaction(model.getUrlNotify(), data);
 //			paymentService.deleteByTransactionId(model.getTransactionId());
-			paymentService.deleteById(model.getId());
+//			paymentService.deleteById(model.getId());
 			System.out.println("QUESTO E' IL PAYMENT" + model);
 			return new HTTPResponse(model);
 		} else {

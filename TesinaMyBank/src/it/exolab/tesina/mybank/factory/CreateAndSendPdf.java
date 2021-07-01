@@ -76,8 +76,8 @@ public class CreateAndSendPdf extends EmailFactoryData{
 		  String ret="";
 		  Document document = new Document( PageSize.A4, 80, 80, 80, 80 );
 	        try {
-	        	 file = File.createTempFile("temp", ".pdf");
-				PdfWriter.getInstance(document, new FileOutputStream(file.getAbsolutePath()));
+	        	 file = File.createTempFile("fattura  ", ".pdf");
+				PdfWriter.getInstance(document, new FileOutputStream("qualcosa"));
 				ret="File temporaneo creato con successo.";
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

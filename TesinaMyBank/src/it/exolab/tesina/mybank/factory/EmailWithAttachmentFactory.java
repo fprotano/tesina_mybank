@@ -70,7 +70,8 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 
 				e.printStackTrace();
 			}
-			message.setContent(multipart, "text/html");
+			message.setContent(multipart);
+			
 
 			System.out.println("Invio in corso...");
 			// Invio del messaggio
