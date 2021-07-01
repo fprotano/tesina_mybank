@@ -12,7 +12,18 @@
 <body>
 	<jsp:include page="header.jsp"/> 
 <br/>
-	
+<c:if test="${threadArchived!=null}">
+	<c:choose>
+		<c:when test="${threadArchived==0}">
+			<c:out value="Thread archiviato con successo."/>
+			<br/>
+		</c:when>
+		<c:when test="${threadArchived==1}">
+			<c:out value="Errore nell'inserimento del thread."/>
+			<br/>
+		</c:when>
+	</c:choose>
+</c:if>
 	<div class="divCenterized">
 	
 	<legend style="text-align:left;">Elenco dei thread aperti:</legend>

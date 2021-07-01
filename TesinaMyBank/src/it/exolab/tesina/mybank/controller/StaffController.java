@@ -111,7 +111,7 @@ public class StaffController {
 				OtpCodeFactory.UpdateOtpExpirationForAccountOrStaff(staff);
 				staff.setOtpCode(OtpCodeFactory.doGenerateNewOtpCode());
 				staff.setNextOtpCodeAfterDate(Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)));	
-	//			OtpEmailFactory.doSendOtpCodeViaEmail(staff.getEmail(),staff.getOtpCode());						// disabilitata per non inviare troppe mail
+//				OtpEmailFactory.doSendOtpCodeViaEmail(staff.getEmail(),staff.getOtpCode());						// disabilitata per non inviare troppe mail
 				System.out.println("OTP CODE PER LO STAFF ID: "+staff.getId()+" :::"+staff.getOtpCode());		// da cancellare
 				
 				staff.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
@@ -168,11 +168,11 @@ public class StaffController {
 
 	@RequestMapping(value = "updatePassword/{newPass}", method = RequestMethod.POST)
 	@ResponseBody
-	public void updatePassword(@PathVariable String newPass, HttpSession session, Model model,
+	public void updatePassword(@PathVariable(value="newPass") String updatePass, HttpSession session, Model model,
 			HttpServletResponse response) throws IOException {
 		Staff staff = (Staff) session.getAttribute("staff");
 		if (staffService.findByEmailAndPassword(staff.getEmail(), staff.getPassword()) != null) {
-			staff.setPassword(newPass);
+			staff.setPassword(updatePass);
 			staffService.update(staff);
 			response.getWriter().append("1");
 			session.setAttribute("staff", staff);

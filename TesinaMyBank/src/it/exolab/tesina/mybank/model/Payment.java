@@ -9,86 +9,101 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="payment")
+@Table(name = "payment")
 public class Payment {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="amount")
+	@Column(name = "amount")
 	private Double amount;
-	@Column(name="email")
+	@Column(name = "email")
 	private String email;
-	@Column(name="custom_code")
+	@Column(name = "custom_code")
 	private String customCode;
-	@Column(name="transaction_id")
+	@Column(name = "transaction_id")
 	private String transactionId;
-	@Column(name="url_undo")
+	@Column(name = "url_undo")
 	private String urlUnDo;
-	@Column(name="url_success")
+	@Column(name = "url_success")
 	private String urlSuccess;
-	@Column(name="url_notify")
+	@Column(name = "url_notify")
 	private String urlNotify;
 	@Transient
 	private Account account;
-	
-	
-	
+
 	public Account getAccount() {
 		return account;
 	}
+
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public Double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getCustomCode() {
 		return customCode;
 	}
+
 	public void setCustomCode(String customCode) {
 		this.customCode = customCode;
 	}
+
 	public String getTransactionId() {
 		return transactionId;
 	}
+
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
+
 	public String getUrlUnDo() {
 		return urlUnDo;
 	}
+
 	public void setUrlUnDo(String urlUnDo) {
 		this.urlUnDo = urlUnDo;
 	}
+
 	public String getUrlSuccess() {
 		return urlSuccess;
 	}
+
 	public void setUrlSuccess(String urlSuccess) {
 		this.urlSuccess = urlSuccess;
 	}
+
 	public String getUrlNotify() {
 		return urlNotify;
 	}
+
 	public void setUrlNotify(String urlNotify) {
 		this.urlNotify = urlNotify;
 	}
-	
+
 	public Payment(int id, Double amount, String email, String customCode, String transactionId, String urlUnDo,
 			String urlSuccess, String urlNotify, Account account) {
 		super();
@@ -102,20 +117,16 @@ public class Payment {
 		this.urlNotify = urlNotify;
 		this.account = account;
 	}
+
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", amount=" + amount + ", email=" + email + ", customCode=" + customCode
 				+ ", transactionId=" + transactionId + ", urlUnDo=" + urlUnDo + ", urlSuccess=" + urlSuccess
-				+ ", urlNotify=" + urlNotify + "]";
+				+ ", urlNotify=" + urlNotify + ", account=" + account + "]";
 	}
+
 	public Payment() {
 		super();
 	}
-	
-	
-	
-	
-	
-	
 
 }

@@ -20,16 +20,19 @@
 	padding-top:2px;
 	padding:2px;	
 } */
-.homeadmin{
+.homeAdmin{
 	margin-top:2px;
 	margin-left:8px;
 	margin:8px;
 	font-family: Georgia;
-	font-size:18px;
+	font-size:16px;
 }
 .divCenterized{
 	margin:4px;
 	text-align: center;
+}
+.divMargin{
+	margin:4px;
 }
 .noNewLine, .longReason, .shortReason, .longA, .shortA, .longQ, .shortQ, .longCode, .shortCode, .longId, .shortId{
 	overflow: hidden;

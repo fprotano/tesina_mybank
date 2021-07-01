@@ -1,6 +1,8 @@
 package it.exolab.tesina.mybank.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.exolab.tesina.mybank.factory.StaffAssignFactory;
 import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
+import it.exolab.tesina.mybank.model.ExternalPayment;
 import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
+import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
+import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 import it.exolab.tesina.mybank.util.Util;
 
@@ -32,11 +38,22 @@ import it.exolab.tesina.mybank.util.Util;
 @RequestMapping(value="externalTransaction")
 public class ExternalTransactionController {
 	
+	private AccountService accountService;
+	private StaffService staffService;
 	private ExternalTransactionService externalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
-	private TransactionUniqueIdFactory transactionUniqueIdFactory;
+	private TransactionUniqueIdFactory transactionUniqueIdFactory = new TransactionUniqueIdFactory();
 	private Util util = new Util();
+	private StaffAssignFactory staffAssignFactory = new StaffAssignFactory();
 	
+	@Autowired(required = true)
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
+	@Autowired(required = true)
+	public void setStaffService(StaffService staffService) {
+		this.staffService = staffService;
+	}
 	@Autowired(required=true)
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
@@ -163,6 +180,59 @@ public class ExternalTransactionController {
 		} else {
 			session.setAttribute("transactionRefused", 1);
 			response.getWriter().append("1");
+		}
+	}
+	
+	@RequestMapping(value="testExternalPayment", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse testExternalPayment(@RequestBody ExternalPayment externalPayment) {
+		HTTPResponse response = new HTTPResponse();
+		
+		System.out.println("springservlet stampa externalPayment!! :::"+externalPayment+"\nFINE STAMPA!!!::::");
+		
+		if(externalPayment!=null) {
+			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro externalPayment
+			System.out.println(externalPayment.getPayment().getEmail());
+			System.out.println(accountService.findByEmail(externalPayment.getPayment().getEmail()));
+			
+			
+			
+			
+			externalPayment.getPayment().setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
+			
+			TransactionUniqueId transactionUniqueId = new TransactionUniqueId();
+			ExternalTransaction externalTransaction = new ExternalTransaction();
+			transactionUniqueId.setTransactionId(transactionUniqueIdFactory.CreateTransactionUniqueId());
+			transactionUniqueIdService.insert(transactionUniqueId);
+			externalPayment.getPayment().setTransactionId(transactionUniqueId.getTransactionId());
+			
+			
+			externalTransaction.setTransactionId(transactionUniqueId.getTransactionId());
+			externalTransaction.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+			externalTransaction.setCustomCode(externalPayment.getPayment().getCustomCode());
+			externalTransaction.setTransactionStatusId(1);
+			externalTransaction.setVerifyAssignedTo(staffAssignFactory.assignToValidator(staffService));
+			externalTransaction.setToAccountId(externalPayment.getPayment().getAccount().getId());
+			externalTransaction.setAmount(externalPayment.getPayment().getAmount());
+			
+			externalTransaction.setCustomerName(externalPayment.getCustomerName());
+			externalTransaction.setCustomerSurname(externalPayment.getCustomerSurname());
+			externalTransaction.setCustomerCreditCardNo(externalPayment.getCustomerCreditCardNo());
+			externalTransaction.setCustomerCreditCardCin(externalPayment.getCustomerCreditCardCin());
+			externalTransaction.setCustomerCreditCardExpiresAt(externalPayment.getCustomerCreditCardExpiresAt());
+			
+			System.out.println("crud:prima insert externalPayment"+externalPayment);
+			System.out.println("crud:prima insert externalTransaction:::"+externalTransaction);
+			externalTransactionService.insert(externalTransaction);
+			
+			response.setData(externalPayment);
+			response.setSuccess(true);
+			return response;
+		} else {
+			response.setSuccess(false);
+			response.setErr("Errore");
+			response.setErr_code("01");
+			return response;
 		}
 	}
 	

@@ -197,6 +197,7 @@ public class HelpCenterController {
 			helpCenterService.update(helpCenter);
 			List<HelpCenter> helpCenterList = helpCenterService.findByAssignedToIdAndIsOpen(staff.getId());
 			ret.addObject("helpCenterList", helpCenterList);
+			ret.addObject("threadArchived", 0);
 		}
 		return ret;
 	}

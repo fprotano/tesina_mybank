@@ -31,7 +31,8 @@
 	</c:choose>
 	</c:if>
 	<br/>
-<fieldset class="homeAdmin">
+
+<div class="homeAdmin">
 	<b>Nome: ${staff.name}</b>
 	<br>
 	<b>Cognome: ${staff.surname}</b>
@@ -53,8 +54,7 @@
 	</c:if>
 	<br>
 	<b>Ruolo: ${staff.role.title}</b>
-</fieldset>
-
+</div>
 
 
 <script>

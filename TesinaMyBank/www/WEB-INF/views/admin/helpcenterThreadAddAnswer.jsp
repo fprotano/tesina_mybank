@@ -18,20 +18,21 @@
 
 <form:form method="post" modelAttribute="threadToUpdate" action="${pageContext.request.contextPath}/helpCenterThread/helpCenterThreadUpdateAnswer">
 
-<h4>Stai rispondendo al thread con ID: ${threadToUpdate.id}</h4>
-<div style="margin: auto;width: 100%;">
-	<form:input hidden="hidden" path="id"/>
-	<label>Domanda:</label>
-	<br/>
-	<p>${threadToUpdate.question}</p>
-	<br/>
-	<label>Risposta:</label>
-	<br/>
-	<form:textarea style="width:50%; height:200px;" path="answer"/>
-	<hr/>
-	<input type="submit" value="Rispondi">
-	</form:form>
+<div class="divMargin">
+	<h4>Stai rispondendo al thread con ID: ${threadToUpdate.id}</h4>
+	<div style="margin: auto;width: 100%;">
+		<form:input hidden="hidden" path="id"/>
+		<label>Domanda:</label>
+		<br/>
+		<p>${threadToUpdate.question}</p>
+		<br/>
+		<label>Risposta:</label>
+		<br/>
+		<form:textarea style="width:50%; height:200px;" path="answer"/>
+		<hr/>
+		<input type="submit" value="Rispondi">
+		</form:form>
+	</div>
 </div>
-
 </body>
 </html>
