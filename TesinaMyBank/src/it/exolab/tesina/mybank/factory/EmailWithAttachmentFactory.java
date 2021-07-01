@@ -19,7 +19,7 @@ import it.exolab.tesina.mybank.model.Payment;
 
 public class EmailWithAttachmentFactory extends EmailFactoryData {
 
-	public void sendMail(Payment payment, String mailTo, String oggetto) {
+	public void sendMail(Payment payment, String mailTo) {
 
 		Properties properties = System.getProperties();
 
@@ -49,7 +49,7 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
 
 			// Set Subject: oggetto
-			oggetto = doReplaceTransactionId(payment.getTransactionId());
+			String oggetto = doReplaceTransactionId(payment.getTransactionId());
 			message.setSubject(oggetto);
 
 			Multipart multipart = new MimeMultipart();

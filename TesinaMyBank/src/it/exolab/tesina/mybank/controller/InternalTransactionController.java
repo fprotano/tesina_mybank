@@ -19,6 +19,7 @@ import it.exolab.tesina.mybank.exception.MaxLengthError;
 import it.exolab.tesina.mybank.exception.MinLengthError;
 import it.exolab.tesina.mybank.exception.RequiredFieldError;
 import it.exolab.tesina.mybank.exception.UniqueFieldError;
+import it.exolab.tesina.mybank.factory.EmailWithAttachmentFactory;
 import it.exolab.tesina.mybank.factory.InternalTransactionFactory;
 import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.Account;
@@ -82,6 +83,8 @@ public class InternalTransactionController {
 				account.setBalance(account.getBalance() - payment.getAmount());
 				accountService.update(account);
 				internalTransactionService.insert(internalTransaction);
+				EmailWithAttachmentFactory factoryemail = new EmailWithAttachmentFactory();
+				factoryemail.sendMail(payment, account.getEmail());
 				return new HTTPResponse(payment);
 			} else {
 				return new HTTPResponse("Errore, pagamento non effettuato.", "01");
