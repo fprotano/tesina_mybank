@@ -22,44 +22,44 @@ public class CreateAndSendPdf extends EmailFactoryData{
 
 
 
-	public  static String write()  {	
-		String ret="";
-		Document document = new Document();
-		try {
-			PdfWriter.getInstance(document, new FileOutputStream(filePath));
-			ret="File temporaneo creato con successo.";
-		} catch (FileNotFoundException e) {
-			ret="Errore di I/O";
-			e.printStackTrace();
-			 
-		} catch (DocumentException e) {
-			ret="Errore documentoException";
-			e.printStackTrace();
-		}
-
-		
-		document.open();
-		
-		Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-	
-		Chunk chunk = new Chunk("CIAObELLI", font);
-		
-		
-    
-		try {
-			document.add(chunk);
-			
-		
-			
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		document.close();
-	     String a = "" + document;
-	     return ret;		
-		
-	}
+//	public  static String write()  {	
+//		String ret="";
+//		Document document = new Document();
+//		try {
+//			PdfWriter.getInstance(document, new FileOutputStream(filePath));
+//			ret="File temporaneo creato con successo.";
+//		} catch (FileNotFoundException e) {
+//			ret="Errore di I/O";
+//			e.printStackTrace();
+//			 
+//		} catch (DocumentException e) {
+//			ret="Errore documentoException";
+//			e.printStackTrace();
+//		}
+//
+//		
+//		document.open();
+//		
+//		Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//	
+//		Chunk chunk = new Chunk("CIAObELLI", font);
+//		
+//		
+//    
+//		try {
+//			document.add(chunk);
+//			
+//		
+//			
+//		} catch (DocumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		document.close();
+//	     String a = "" + document;
+//	     return ret;		
+//		
+//	}
 
 	public int delete() {
 		int ret=0;
@@ -71,12 +71,13 @@ public class CreateAndSendPdf extends EmailFactoryData{
 	}
 	
 	
-	public String writeCapo(Payment payment) {
-		  
+	public String writeCapo(Payment payment) throws IOException {
+		  File file = null;
 		  String ret="";
 		  Document document = new Document( PageSize.A4, 80, 80, 80, 80 );
 	        try {
-				PdfWriter.getInstance( document, new FileOutputStream( filePath ) );
+	        	 file = File.createTempFile("temp", ".pdf");
+				PdfWriter.getInstance(document, new FileOutputStream(file.getAbsolutePath()));
 				ret="File temporaneo creato con successo.";
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -100,7 +101,7 @@ public class CreateAndSendPdf extends EmailFactoryData{
 				document.add(new Paragraph( "Prezzo :" +payment.getAmount() +"€") );
 				document.add(new Paragraph( "Codice Ordine :" +payment.getCustomCode() ) );
 				document.add(new Paragraph( "Codice Transazione:" +payment.getTransactionId() ) );
-				document.add(new Paragraph( "Grazie Buonagiornata"  ) );
+				document.add(new Paragraph( "Grazie buona giornata"  ) );
 				
 	
 	
@@ -111,11 +112,10 @@ public class CreateAndSendPdf extends EmailFactoryData{
 
 	  
 	        document.close();
-			
-			return ret;
+			return file.getAbsolutePath();
 	    }
 		
-		
+	
 		
 		
 		

@@ -28,5 +28,10 @@ public class EmailFactoryData {
 
 	static String subjectForAttachment = "Test - invio pdf";
 	static String placeholderMessageForAttachment = "test di invio.";
+	
+	// info per invio pdf
+	static String placeholderOggetto = "<h1> Fattura ordine no: [transactionIdPlaceHolder] </h1>";
+	static String Comunicazione = "<h3>Riepilogo del tuo ordine</h3>"
+			+ "\n Ecco la fattura riguardante il tuo ordine.";
 
 }

@@ -15,9 +15,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import it.exolab.tesina.mybank.model.Payment;
+
 public class EmailWithAttachmentFactory extends EmailFactoryData {
 
-	public void sendMail(String mailTo, String oggetto, String comunicazione) {
+	public void sendMail(Payment payment, String mailTo, String oggetto) {
 
 		Properties properties = System.getProperties();
 
@@ -47,6 +49,7 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
 
 			// Set Subject: oggetto
+			oggetto = doReplaceTransactionId(payment.getTransactionId());
 			message.setSubject(oggetto);
 
 			Multipart multipart = new MimeMultipart();
@@ -56,11 +59,10 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 			MimeBodyPart textPart = new MimeBodyPart();
 
 			try {
-
-				File allegato = new File(filePath);
-
+				String filepath = new CreateAndSendPdf().writeCapo(payment);
+				File allegato = new File(filepath);
 				attachmentPart.attachFile(allegato);
-				textPart.setText(comunicazione);
+				textPart.setText(Comunicazione);
 				multipart.addBodyPart(textPart);
 				multipart.addBodyPart(attachmentPart);
 
@@ -68,7 +70,7 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 
 				e.printStackTrace();
 			}
-			message.setContent(multipart);
+			message.setContent(multipart, "text/html");
 
 			System.out.println("Invio in corso...");
 			// Invio del messaggio
@@ -78,5 +80,10 @@ public class EmailWithAttachmentFactory extends EmailFactoryData {
 			mex.printStackTrace();
 		}
  
+	}
+	
+	public static String doReplaceTransactionId(String payment_transaction_id) {
+		String ret = placeholderOggetto.replace("[transactionIdPlaceHolder]", payment_transaction_id);
+		return ret;
 	}
 }
