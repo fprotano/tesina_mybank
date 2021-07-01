@@ -13,16 +13,20 @@ public class PaymentService {
 	public void setPaymentRepository(PaymentRepository paymentRepository) {
 		this.paymentRepository = paymentRepository;
 	}
+	
+	public void update(Payment payment) {
+		paymentRepository.save(payment);
+	}
 
-	public void insert(Payment Payment) {
-		paymentRepository.save(Payment);
+	public void insert(Payment payment) {
+		paymentRepository.save(payment);
 	}
 	
 	public Payment findById(Integer id) {
 		return paymentRepository.findById(id);
 	}
 
-	public void deleteByTransactionId(String transactionId) {
-		paymentRepository.deleteByTransactionId(transactionId);
+	public void deleteById(int id) {
+		paymentRepository.deleteById(id);
 	}
 }

@@ -9,5 +9,5 @@ public interface PaymentRepository extends CrudRepository<Payment, Integer> {
 
 	
 	public Payment findById(Integer id);
-	public void deleteByTransactionId(String transactionId);
+	public void deleteById(Integer id);
 }

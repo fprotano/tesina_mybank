@@ -82,7 +82,6 @@ public class InternalTransactionController {
 				account.setBalance(account.getBalance() - payment.getAmount());
 				accountService.update(account);
 				internalTransactionService.insert(internalTransaction);
-				paymentservice.deleteByTransactionId(payment.getTransactionId());
 				return new HTTPResponse(payment);
 			} else {
 				return new HTTPResponse("Errore, pagamento non effettuato.", "01");

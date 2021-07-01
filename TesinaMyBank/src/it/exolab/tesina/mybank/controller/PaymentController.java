@@ -74,10 +74,10 @@ public class PaymentController {
 		payment.setEmail(request.getParameter("email"));
 		payment.setAmount(Double.valueOf(request.getParameter("amount")));
 		payment.setCustomCode(request.getParameter("customCode"));
-		payment.setTransactionId(factory.CreateTransactionUniqueId());
-		TransactionUniqueId tui = new TransactionUniqueId();
-		tui.setTransactionId(payment.getTransactionId());
-		transactionUniqueIdService.insert(tui);
+//		payment.setTransactionId(factory.CreateTransactionUniqueId());
+//		TransactionUniqueId tui = new TransactionUniqueId();
+//		tui.setTransactionId(payment.getTransactionId());
+//		transactionUniqueIdService.insert(tui);
 		payment.setUrlSuccess(request.getParameter("urlSuccess"));
 		payment.setUrlUnDo(request.getParameter("urlUnDo"));
 		payment.setUrlNotify(request.getParameter("urlNotify"));
@@ -103,6 +103,9 @@ public class PaymentController {
 		System.out.println(data);
 		if(model.getEmail()!=null) {
 			pushservice.notifyTransaction(model.getUrlNotify(), data);
+//			paymentService.deleteByTransactionId(model.getTransactionId());
+			paymentService.deleteById(model.getId());
+			System.out.println("QUESTO E' IL PAYMENT" + model);
 			return new HTTPResponse(model);
 		} else {
 			return new HTTPResponse("Errore, pagamento non effettuato", "01");
@@ -119,6 +122,23 @@ public class PaymentController {
 			
 			if(payment!=null) {
 			payment = paymentService.findById(payment.getId());
+			return new HTTPResponse(payment);
+		}	
+			return new HTTPResponse("Nessun Pagamento trovato", "Errore 01");
+	}
+	
+	@RequestMapping(value = "fillPaymentWithTransactionId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public HTTPResponse fillPaymentWithTransactionId(@RequestBody Payment payment, HTTPResponse response) {
+		
+			
+			
+			if(payment!=null) {
+				payment.setTransactionId(factory.CreateTransactionUniqueId());
+				paymentService.update(payment);
+				TransactionUniqueId tui = new TransactionUniqueId();
+				tui.setTransactionId(payment.getTransactionId());
+				transactionUniqueIdService.insert(tui);
 			return new HTTPResponse(payment);
 		}	
 			return new HTTPResponse("Nessun Pagamento trovato", "Errore 01");
