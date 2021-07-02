@@ -73,17 +73,13 @@ public class CreateAndSendPdf extends EmailFactoryData{
 	
 	public String writeCapo(Payment payment) throws IOException {
 		  File file = null;
-		  String ret="";
 		  Document document = new Document( PageSize.A4, 80, 80, 80, 80 );
 	        try {
 	        	 file = File.createTempFile("fattura  ", ".pdf");
-				PdfWriter.getInstance(document, new FileOutputStream(file.getAbsolutePath()));
-				ret="File temporaneo creato con successo.";
+				 PdfWriter.getInstance(document, new FileOutputStream(file.getAbsolutePath()));
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -93,8 +89,6 @@ public class CreateAndSendPdf extends EmailFactoryData{
 	        	
 	        	Font font = FontFactory.getFont(FontFactory.COURIER, 26, BaseColor.BLACK);
 	        	Chunk chunk = new Chunk("Salve", font);
-
-
 	        	document.add( chunk );
 				document.add( new Paragraph( "Pagamento avvenuto con successo" ) );
 				document.add( new Paragraph( "Email :" +payment.getEmail() ) );
@@ -102,15 +96,10 @@ public class CreateAndSendPdf extends EmailFactoryData{
 				document.add(new Paragraph( "Codice Ordine :" +payment.getCustomCode() ) );
 				document.add(new Paragraph( "Codice Transazione:" +payment.getTransactionId() ) );
 				document.add(new Paragraph( "Grazie buona giornata"  ) );
-				
-	
-	
+			
 			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-	  
 	        document.close();
 			return file.getAbsolutePath();
 	    }
