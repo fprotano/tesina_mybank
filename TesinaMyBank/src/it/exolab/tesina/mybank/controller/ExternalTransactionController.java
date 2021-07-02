@@ -158,6 +158,7 @@ public class ExternalTransactionController {
 		ExternalTransaction transaction=externalTransactionService.find(Integer.valueOf(transactionId));
 		if (transaction != null) {
 			transaction.setTransactionStatusId(3);
+			// chiamata sendData a auction. if - se success allora update transaction, else no
 			externalTransactionService.update(transaction);
 			session.setAttribute("transactionAccepted", 0);
 		} else {
@@ -174,6 +175,7 @@ public class ExternalTransactionController {
 		if (transaction != null) {
 			transaction.setTransactionStatusId(2);
 			transaction.setTransactionErrorReason(refuseDescription);
+			// chiamata sendData a auction. if - se success allora update transaction, else no
 			externalTransactionService.update(transaction);
 			session.setAttribute("transactionRefused", 0);
 			response.getWriter().append("0");
@@ -183,9 +185,9 @@ public class ExternalTransactionController {
 		}
 	}
 	
-	@RequestMapping(value="testExternalPayment", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="doExternalPayment", method=RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public HTTPResponse testExternalPayment(@RequestBody ExternalPayment externalPayment) {
+	public HTTPResponse doExternalPayment(@RequestBody ExternalPayment externalPayment) {
 		HTTPResponse response = new HTTPResponse();
 		
 		System.out.println("springservlet stampa externalPayment!! :::"+externalPayment+"\nFINE STAMPA!!!::::");
@@ -194,9 +196,6 @@ public class ExternalTransactionController {
 			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro externalPayment
 			System.out.println(externalPayment.getPayment().getEmail());
 			System.out.println(accountService.findByEmail(externalPayment.getPayment().getEmail()));
-			
-			
-			
 			
 			externalPayment.getPayment().setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
 			
@@ -221,8 +220,8 @@ public class ExternalTransactionController {
 			externalTransaction.setCustomerCreditCardCin(externalPayment.getCustomerCreditCardCin());
 			externalTransaction.setCustomerCreditCardExpiresAt(externalPayment.getCustomerCreditCardExpiresAt());
 			
-			System.out.println("crud:prima insert externalPayment"+externalPayment);
-			System.out.println("crud:prima insert externalTransaction:::"+externalTransaction);
+			System.out.println("crud:prima insert externalPayment"+externalPayment);			// da cancellare
+			System.out.println("crud:prima insert externalTransaction:::"+externalTransaction); // da cancellare
 			externalTransactionService.insert(externalTransaction);
 			
 			response.setData(externalPayment);

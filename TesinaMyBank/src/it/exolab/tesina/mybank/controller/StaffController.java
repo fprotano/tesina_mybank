@@ -54,6 +54,7 @@ public class StaffController {
 		return "admin/login";
 	}
 	
+	// da deprecare
 	@RequestMapping(value = "test", method = RequestMethod.GET)
 	public String test(Model model, HttpSession session) {
 		if (session.getAttribute("staff") != null) {
@@ -233,108 +234,5 @@ public class StaffController {
 			return ret;
 		}
 	}
-	
-	// qui sotto dialogo con angular - deprecato
-//	@RequestMapping(value = "findOne", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse findOne(@RequestBody Integer id) {
-//
-//		if (id != null) {
-//			this.staffService.findById(id);
-//			response = new HTTPResponse(id);
-//			return response;
-//		} else {
-//			response = new HTTPResponse("errore", "01");
-//			return response;
-//		}
-//	}
-
-//	 @RequestMapping(value = "login", method = RequestMethod.POST, consumes =
-//	 MediaType.APPLICATION_JSON_VALUE)
-//	 @ResponseBody
-//	 public HTTPResponse login(@RequestBody Staff staff) {
-//		 if (staff.getEmail()!=null || staff.getPassword()!=null) {
-//		 staff = staffService.findByEmailAndPassword(staff.getEmail(),
-//			 staff.getPassword());
-//	 		otpfactory.setNewOtpUpdate(staff);
-//	 		staffService.update(staff);
-//	 		otpemailfactory.doSendOtpCodeViaEmail(staff.getEmail(), staff.getOtpCode());
-//	 		response = new HTTPResponse(staff);
-//	 		return response;
-//	 	}
-//	 	response = new HTTPResponse("err", "errore");
-//	 	return response;
-//	
-//	 }
-
-	// controlloOtp che comunica solo con angular - discontinuato
-//	 @RequestMapping(value = "controlloOtp", method = RequestMethod.POST, consumes
-//	 	= MediaType.APPLICATION_JSON_VALUE)
-//	 @ResponseBody
-//	 public HTTPResponse controlloOtp(@RequestBody Staff staffOTP) {
-//	
-//	 if (staffService.findByEmailAndPasswordAndOtpCode(staffOTP.getEmail(),
-//	 	staffOTP.getPassword(),
-//	 	staffOTP.getOtpCode()) != null
-//	 	&&
-//	 	!Timestamp.valueOf(LocalDateTime.now()).after(staffOTP.getOtpCodeExpiresAt()))
-//	 	{
-//	 		boolean data = true;
-//	 		HTTPResponse risposta = new HTTPResponse(data);
-//	 		return risposta;
-//	 	} else {
-//	 		HTTPResponse risposta = new HTTPResponse("Errore OTP errato/scaduto", "00");
-//	 		return risposta;
-//	 	}
-//	
-//	 }
-	
-//	@RequestMapping(value = "findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse findAll() {
-//		List<Staff> staff = this.staffService.findAll();
-//		response = new HTTPResponse(staff);
-//		return response;
-//	}
-//
-//	@RequestMapping(value = "delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public HTTPResponse delete(@RequestBody Integer id) {
-//		HTTPResponse response = new HTTPResponse();
-//		if (id != null) {
-//			this.staffService.delete(id);
-//			response.setData(id);
-//			response.setSuccess(true);
-//			return response;
-//		} else {
-//			response.setSuccess(false);
-//			response.setErr("Errore");
-//			response.setErr_code("01");
-//			return response;
-//		}
-//	}
-
-	// @RequestMapping(value="update", method=RequestMethod.POST,consumes =
-	// MediaType.APPLICATION_JSON_VALUE)
-	// @ResponseBody
-	// public HTTPResponse update(@RequestBody Integer id) {
-	// HTTPResponse response = new HTTPResponse();
-	// LocalDateTime dataNow = LocalDateTime.now();
-	// Staff staff= new Staff ();
-	// if(id!=null) {
-	// this.staffService.update(id);
-	//
-	// response.setData(id);
-	// response.setSuccess(true);
-	// staff.setUpdatedAt(Timestamp.valueOf(dataNow));
-	// return response;
-	// } else {
-	// response.setSuccess(false);
-	// response.setErr("Errore");
-	// response.setErr_code("01");
-	// return response;
-	//
-	// }
-	// }
 
 }
