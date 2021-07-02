@@ -5,31 +5,24 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.exolab.tesina.mybank.factory.OtpCodeFactory;
-import it.exolab.tesina.mybank.factory.OtpEmailFactory;
 import it.exolab.tesina.mybank.factory.StaffAssignFactory;
-import it.exolab.tesina.mybank.model.Faq;
 import it.exolab.tesina.mybank.model.HTTPResponse;
 import it.exolab.tesina.mybank.model.Staff;
-import it.exolab.tesina.mybank.service.ExternalTransactionService;
-import it.exolab.tesina.mybank.service.FaqService;
 import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.util.Util;
 
