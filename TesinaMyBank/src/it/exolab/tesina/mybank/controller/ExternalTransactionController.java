@@ -201,13 +201,20 @@ public class ExternalTransactionController {
 		System.out.println("springservlet stampa externalPayment!! :::" + externalPayment + "\nFINE STAMPA!!!::::");
 
 		if (externalPayment != null) {
-			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro
-			// externalPayment
+			
+			// controllo che il customCode non sia presente. Se esiste
+			// lo modifico (VOIDED+data) e faccio l'update
+			if (externalTransactionService.findByCustomCode(externalPayment.getPayment().getCustomCode())!=null) {
+			
+				
+				
+			}				
+				
+			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro externalPayment
 			System.out.println(externalPayment.getPayment().getEmail());
 			System.out.println(accountService.findByEmail(externalPayment.getPayment().getEmail()));
 
-			externalPayment.getPayment()
-					.setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
+			externalPayment.getPayment().setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
 
 			TransactionUniqueId transactionUniqueId = new TransactionUniqueId();
 			ExternalTransaction externalTransaction = new ExternalTransaction();

@@ -40,10 +40,9 @@ private ExternalTransactionRepository externalTransactionRepository;
 		return externalTransactionRepository.findOne(id);
 	}
 	
-	//da deprecare 
-//	public List<ExternalTransaction> findAllByStaffId(Integer id){
-//		return (List<ExternalTransaction>) externalTransactionRepository.findByVerifyAssignedTo(id);
-//	}
+	public ExternalTransaction findByCustomCode(String customCode) {
+		return externalTransactionRepository.findByCustomCode(customCode);
+	}
 	
 	public List<ExternalTransaction> findByStatePendingAssignedToId(Integer id){
 		return (List<ExternalTransaction>) externalTransactionRepository.findByStatePendingAssignedToId(id);
