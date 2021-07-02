@@ -98,7 +98,11 @@ public class PaymentController {
 		data = data.concat("pn[0]=transactionId&pv[0]=" + model.getTransactionId() + "&");
 		data = data.concat("pn[1]=amount&pv[1]=" + model.getAmount() + "&");
 		data = data.concat("pn[2]=sellerEmail&pv[2]=" + model.getEmail() + "&");
-		data = data.concat("pn[3]=buyerEmail&pv[3]=" + model.getAccount().getEmail() + "&");
+		if(model.getAccount()!=null) {
+			data = data.concat("pn[3]=buyerEmail&pv[3]=" + model.getAccount().getEmail() + "&");
+		} else {
+			data = data.concat("pn[3]=buyerEmail&pv[3]=null&");
+		}
 		data = data.concat("pn[4]=customCode&pv[4]=" + model.getCustomCode());
 		System.out.println(data);
 		if(model.getEmail()!=null) {
