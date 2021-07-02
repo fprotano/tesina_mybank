@@ -12,8 +12,9 @@ public static void main(String[]args) {
 	} catch (Exception e) {
 	   System.out.println(e);
 	}
-		conn = (java.sql.Connection) java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/tesina_mybank?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", "root", "gigingongo"); // modificare con vostro indirizzo
+		conn = (java.sql.Connection) java.sql.DriverManager.getConnection(args[0], args[1], args[2]); // modificare con vostro indirizzo
 		System.out.println("Connessione effettuata:");
+		System.out.println(args[0] + " " + args[1] + " " + args[2]);
 		stmt = (java.sql.Statement) conn.createStatement();
 		String query1 = "UPDATE external_transaction AS et \r\n" + 
 				"SET et.transaction_status_id=2 , et.transaction_error_reason='transazione annullata per scadenza termini'  \r\n" + 
