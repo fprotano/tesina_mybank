@@ -31,7 +31,9 @@ public class Payment {
 	private String urlNotify;
 	@Transient
 	private Account account;
+	@Column(name = "transaction_status")
 	private String transactionStatus;
+	@Column(name = "transaction_days")
 	private String transactionDays;
 
 	
