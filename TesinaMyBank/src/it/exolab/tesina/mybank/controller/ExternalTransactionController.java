@@ -40,7 +40,7 @@ import it.exolab.tesina.mybank.util.Util;
 @Controller
 @RequestMapping(value = "externalTransaction")
 public class ExternalTransactionController {
-	
+
 	private AccountService accountService;
 	private StaffService staffService;
 	private ExternalTransactionService externalTransactionService;
@@ -65,17 +65,17 @@ public class ExternalTransactionController {
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
 	}
-	
+
 	@Autowired
 	public void setPaymentService(PaymentService paymentService) {
 		this.paymentService = paymentService;
 	}
-	
+
 	@Autowired
 	public void setPushService(PushService pushService) {
 		this.pushService = pushService;
 	}
-	
+
 	@Autowired(required = true)
 	public void setTransactionUniqueIdService(TransactionUniqueIdService transactionUniqueIdService) {
 		this.transactionUniqueIdService = transactionUniqueIdService;
@@ -179,7 +179,7 @@ public class ExternalTransactionController {
 		if (transaction != null) {
 			transaction.setTransactionStatusId(3);
 			// chiamata sendData a auction. if - se ok allora update transaction, else no
-			boolean push=doSendToAuction(transaction);
+			boolean push = doSendToAuction(transaction);
 			if (push) {
 				externalTransactionService.update(transaction);
 				session.setAttribute("transactionAccepted", 0);
@@ -200,7 +200,7 @@ public class ExternalTransactionController {
 			transaction.setTransactionStatusId(2);
 			transaction.setTransactionErrorReason(refuseDescription);
 			// chiamata sendData a auction. if - se ok allora update transaction, else no
-			boolean push=doSendToAuction(transaction);
+			boolean push = doSendToAuction(transaction);
 			if (push) {
 				externalTransactionService.update(transaction);
 				session.setAttribute("transactionRefused", 0);
@@ -220,20 +220,20 @@ public class ExternalTransactionController {
 		System.out.println("springservlet stampa externalPayment!! :::" + externalPayment + "\nFINE STAMPA!!!::::");
 
 		if (externalPayment != null) {
-			
+
 			// controllo che il customCode non sia presente. Se esiste
 			// lo modifico (VOIDED+data) e faccio l'update
-			if (externalTransactionService.findByCustomCode(externalPayment.getPayment().getCustomCode())!=null) {
-			
-				
-				
-			}				
-				
-			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro externalPayment
+			if (externalTransactionService.findByCustomCode(externalPayment.getPayment().getCustomCode()) != null) {
+
+			}
+
+			// per prima cosa valorizzo l'Account vuoto dentro il payment dentro
+			// externalPayment
 			System.out.println(externalPayment.getPayment().getEmail());
 			System.out.println(accountService.findByEmail(externalPayment.getPayment().getEmail()));
 
-			externalPayment.getPayment().setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
+			externalPayment.getPayment()
+					.setAccount(accountService.findByEmail(externalPayment.getPayment().getEmail()));
 
 			TransactionUniqueId transactionUniqueId = new TransactionUniqueId();
 			ExternalTransaction externalTransaction = new ExternalTransaction();
@@ -269,53 +269,35 @@ public class ExternalTransactionController {
 			return response;
 		}
 	}
-	
-	// metodo chiamato da accept e refuse externalTransaction per mandare i dati ad auction
+
+	// metodo chiamato da accept e refuse externalTransaction per mandare i dati ad
+	// auction
 	private boolean doSendToAuction(ExternalTransaction externalTransaction) {
-		boolean ret=false;
+		boolean ret = false;
 		Payment payment = paymentService.findByTransactionId(externalTransaction.getTransactionId());
 		String data = "";
 		data = data.concat("pn[0]=transactionId&pv[0]=" + externalTransaction.getTransactionId() + "&");
 		data = data.concat("pn[1]=amount&pv[1]=" + externalTransaction.getAmount() + "&");
-		data = data.concat("pn[2]=sellerEmail&pv[2]=null&");  // non avrò mai una email
-		if(externalTransaction.getAccount()!=null) {
+		// non avrò mai una email nel caso dell'externalTransaction
+		data = data.concat("pn[2]=sellerEmail&pv[2]=null&");
+		if (externalTransaction.getAccount() != null) {
 			data = data.concat("pn[3]=buyerEmail&pv[3]=" + externalTransaction.getAccount().getEmail() + "&");
 		} else {
 			data = data.concat("pn[3]=buyerEmail&pv[3]=null&");
 		}
 		data = data.concat("pn[4]=customCode&pv[4]=" + externalTransaction.getCustomCode() + "&");
-		data = data.concat("pn[5]=transactionStatus&pv[5]="+externalTransaction.getTransactionStatusId() + "&");
+		data = data.concat("pn[5]=transactionStatus&pv[5]=" + externalTransaction.getTransactionStatusId() + "&");
 		data = data.concat("pn[6]=transactionDays&pv[6]=null");
-		System.out.println("STAMPO DATA:::"+data+"\nSTAMPO PAYMENT:::"+payment);
-		if (payment!=null) {
+		System.out.println("STAMPO DATA:::" + data + "\nSTAMPO PAYMENT:::" + payment);
+		if (payment != null) {
 			pushService.notifyTransaction(payment.getUrlNotify(), data);
 			paymentService.deleteByTransactionId(payment.getTransactionId());
 			System.out.println("Chiamata effettuata.");
-			ret=true;
+			ret = true;
 		} else {
 			System.out.println("Non sono riuscito a mandare il messaggio.");
 		}
 		return ret;
 	}
 
-	// da deprecare
-	// @RequestMapping(value="findAllByStaffId", method=RequestMethod.POST,consumes
-	// = MediaType.APPLICATION_JSON_VALUE)
-	// @ResponseBody
-	// public HTTPResponse findAll(@RequestBody Integer id) {
-	// HTTPResponse response = new HTTPResponse();
-	// List<ExternalTransaction> transazioni =
-	// this.externalTransactionService.findAllByStaffId(id);
-	// if(transazioni.size()>0) {
-	// response.setData(transazioni);
-	// response.setSuccess(true);
-	// return response;
-	// } else {
-	// response.setSuccess(false);
-	// response.setErr("Errore");
-	// response.setErr_code("01");
-	// return response;
-	// }
-	// }
-	
 }
