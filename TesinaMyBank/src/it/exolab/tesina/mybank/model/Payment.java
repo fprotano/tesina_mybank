@@ -31,6 +31,26 @@ public class Payment {
 	private String urlNotify;
 	@Transient
 	private Account account;
+	private String transactionStatus;
+	private String transactionDays;
+
+	
+	
+	public String getTransactionStatus() {
+		return transactionStatus;
+	}
+
+	public void setTransactionStatus(String transactionStatus) {
+		this.transactionStatus = transactionStatus;
+	}
+
+	public String getTransactionDays() {
+		return transactionDays;
+	}
+
+	public void setTransactionDays(String transactionDays) {
+		this.transactionDays = transactionDays;
+	}
 
 	public Account getAccount() {
 		return account;
@@ -104,8 +124,10 @@ public class Payment {
 		this.urlNotify = urlNotify;
 	}
 
+	
+
 	public Payment(int id, Double amount, String email, String customCode, String transactionId, String urlUnDo,
-			String urlSuccess, String urlNotify, Account account) {
+			String urlSuccess, String urlNotify, Account account, String transactionStatus, String transactionDays) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -116,13 +138,16 @@ public class Payment {
 		this.urlSuccess = urlSuccess;
 		this.urlNotify = urlNotify;
 		this.account = account;
+		this.transactionStatus = transactionStatus;
+		this.transactionDays = transactionDays;
 	}
 
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", amount=" + amount + ", email=" + email + ", customCode=" + customCode
 				+ ", transactionId=" + transactionId + ", urlUnDo=" + urlUnDo + ", urlSuccess=" + urlSuccess
-				+ ", urlNotify=" + urlNotify + ", account=" + account + "]";
+				+ ", urlNotify=" + urlNotify + ", account=" + account + ", transactionStatus=" + transactionStatus
+				+ ", transactionDays=" + transactionDays + "]";
 	}
 
 	public Payment() {
