@@ -25,10 +25,13 @@ import it.exolab.tesina.mybank.factory.TransactionUniqueIdFactory;
 import it.exolab.tesina.mybank.model.ExternalPayment;
 import it.exolab.tesina.mybank.model.ExternalTransaction;
 import it.exolab.tesina.mybank.model.HTTPResponse;
+import it.exolab.tesina.mybank.model.Payment;
 import it.exolab.tesina.mybank.model.Staff;
 import it.exolab.tesina.mybank.model.TransactionUniqueId;
 import it.exolab.tesina.mybank.service.AccountService;
 import it.exolab.tesina.mybank.service.ExternalTransactionService;
+import it.exolab.tesina.mybank.service.PaymentService;
+import it.exolab.tesina.mybank.service.PushService;
 import it.exolab.tesina.mybank.service.StaffService;
 import it.exolab.tesina.mybank.service.TransactionUniqueIdService;
 import it.exolab.tesina.mybank.util.Util;
@@ -37,11 +40,13 @@ import it.exolab.tesina.mybank.util.Util;
 @Controller
 @RequestMapping(value = "externalTransaction")
 public class ExternalTransactionController {
-
+	
 	private AccountService accountService;
 	private StaffService staffService;
 	private ExternalTransactionService externalTransactionService;
 	private TransactionUniqueIdService transactionUniqueIdService;
+	private PaymentService paymentService;
+	private PushService pushService;
 	private TransactionUniqueIdFactory transactionUniqueIdFactory = new TransactionUniqueIdFactory();
 	private Util util = new Util();
 	private StaffAssignFactory staffAssignFactory = new StaffAssignFactory();
@@ -60,7 +65,17 @@ public class ExternalTransactionController {
 	public void setExternalTransactionService(ExternalTransactionService externalTransactionService) {
 		this.externalTransactionService = externalTransactionService;
 	}
-
+	
+	@Autowired
+	public void setPaymentService(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
+	
+	@Autowired
+	public void setPushService(PushService pushService) {
+		this.pushService = pushService;
+	}
+	
 	@Autowired(required = true)
 	public void setTransactionUniqueIdService(TransactionUniqueIdService transactionUniqueIdService) {
 		this.transactionUniqueIdService = transactionUniqueIdService;
@@ -163,10 +178,12 @@ public class ExternalTransactionController {
 		ExternalTransaction transaction = externalTransactionService.find(Integer.valueOf(transactionId));
 		if (transaction != null) {
 			transaction.setTransactionStatusId(3);
-			// chiamata sendData a auction. if - se success allora update transaction, else
-			// no
-			externalTransactionService.update(transaction);
-			session.setAttribute("transactionAccepted", 0);
+			// chiamata sendData a auction. if - se ok allora update transaction, else no
+			boolean push=doSendToAuction(transaction);
+			if (push) {
+				externalTransactionService.update(transaction);
+				session.setAttribute("transactionAccepted", 0);
+			}
 		} else {
 			session.setAttribute("transactionAccepted", 1);
 		}
@@ -182,11 +199,13 @@ public class ExternalTransactionController {
 		if (transaction != null) {
 			transaction.setTransactionStatusId(2);
 			transaction.setTransactionErrorReason(refuseDescription);
-			// chiamata sendData a auction. if - se success allora update transaction, else
-			// no
-			externalTransactionService.update(transaction);
-			session.setAttribute("transactionRefused", 0);
-			response.getWriter().append("0");
+			// chiamata sendData a auction. if - se ok allora update transaction, else no
+			boolean push=doSendToAuction(transaction);
+			if (push) {
+				externalTransactionService.update(transaction);
+				session.setAttribute("transactionRefused", 0);
+				response.getWriter().append("0");
+			}
 		} else {
 			session.setAttribute("transactionRefused", 1);
 			response.getWriter().append("1");
@@ -250,6 +269,34 @@ public class ExternalTransactionController {
 			return response;
 		}
 	}
+	
+	// metodo chiamato da accept e refuse externalTransaction per mandare i dati ad auction
+	private boolean doSendToAuction(ExternalTransaction externalTransaction) {
+		boolean ret=false;
+		Payment payment = paymentService.findByTransactionId(externalTransaction.getTransactionId());
+		String data = "";
+		data = data.concat("pn[0]=transactionId&pv[0]=" + externalTransaction.getTransactionId() + "&");
+		data = data.concat("pn[1]=amount&pv[1]=" + externalTransaction.getAmount() + "&");
+		data = data.concat("pn[2]=sellerEmail&pv[2]=null&");  // non avrò mai una email
+		if(externalTransaction.getAccount()!=null) {
+			data = data.concat("pn[3]=buyerEmail&pv[3]=" + externalTransaction.getAccount().getEmail() + "&");
+		} else {
+			data = data.concat("pn[3]=buyerEmail&pv[3]=null&");
+		}
+		data = data.concat("pn[4]=customCode&pv[4]=" + externalTransaction.getCustomCode() + "&");
+		data = data.concat("pn[5]=transactionStatus&pv[5]="+externalTransaction.getTransactionStatusId() + "&");
+		data = data.concat("pn[6]=transactionDays&pv[6]=null");
+		System.out.println("STAMPO DATA:::"+data+"\nSTAMPO PAYMENT:::"+payment);
+		if (payment!=null) {
+			pushService.notifyTransaction(payment.getUrlNotify(), data);
+			paymentService.deleteByTransactionId(payment.getTransactionId());
+			System.out.println("Chiamata effettuata.");
+			ret=true;
+		} else {
+			System.out.println("Non sono riuscito a mandare il messaggio.");
+		}
+		return ret;
+	}
 
 	// da deprecare
 	// @RequestMapping(value="findAllByStaffId", method=RequestMethod.POST,consumes
@@ -270,5 +317,5 @@ public class ExternalTransactionController {
 	// return response;
 	// }
 	// }
-
+	
 }
